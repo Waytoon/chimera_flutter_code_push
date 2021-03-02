@@ -42,9 +42,16 @@ Once Download our compiler from here which will be the main contributor/part for
 # It is a Zip file includes tool and config file
 # More information will be shared in next section
 Download link: 
+https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 
 ```
 
+> For user in China, you can refer to below link to speed up download GitHub files.
+>
+> https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
+>
+> 
+>
 > Compiler currently does not support below environmnets:
 >
 > 1. Windows
