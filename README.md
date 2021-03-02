@@ -1,6 +1,6 @@
 # Chimera_Flutter_Code_Push
 
-<center><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Build-Passing-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Info-Here-green" alt="group.png" style="zoom:100%;" /></center>
+<p align="center"><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Build-Passing-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Info-Here-green" alt="group.png" style="zoom:100%;" /></p>
 
 ## What is Chimera Flutter Code Push？
 
