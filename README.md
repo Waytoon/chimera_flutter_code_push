@@ -1,6 +1,6 @@
 # Chimera_Flutter_Code_Push
 
-
+<center><img src="https://img.shields.io/badge/Pub-release--v1.0-brightgreen" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Build-Passing-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Instrution-Here-yellow" alt="group.png" style="zoom:100%;" /></center>
 
 ## What is Chimera Flutter Code Push？
 
