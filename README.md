@@ -46,11 +46,9 @@ https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 
 ```
 
-> For user in China, you can refer to below link to speed up download GitHub files.
+> For user in China, you can refer to below instruction link to speed up download GitHub files.
 >
-> https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
->
-> 
+> [Speedy access github](http://t.cn/A6t9IR2H)
 >
 > Compiler currently does not support below environmnets:
 >
