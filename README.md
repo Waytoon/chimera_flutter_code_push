@@ -6,7 +6,9 @@
   <a href="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="license"></a>
   <a href="https://github.com/wuba/fair/actions"><img src="https://img.shields.io/badge/Build-Passing-green" alt="build"></a>
   <a href="#"><img src="https://img.shields.io/badge/Info-Here-green" alt="Gitter"></a>
+  <a href="mailto:flupush@gmail.com"><img src="https://img.shields.io/badge/Mail-Click-blue" alt="Gitter"></a>
 </p>
+
 
 ## What is Chimera Flutter Code Push？
 
