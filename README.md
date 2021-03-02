@@ -1,6 +1,12 @@
 # Chimera_Flutter_Code_Push
 
-<p align="center"><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Build-Passing-green" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="group.png" style="zoom:100%;" /><img src="https://img.shields.io/badge/Info-Here-green" alt="group.png" style="zoom:100%;" /></p>
+<p align="center">
+  <a href="https://pub.dev/packages/fair"><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="pub"></a>
+  <a href="https://github.com/Waytoon/chimera_flutter_code_push"><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="github"></a>
+  <a href="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="license"></a>
+  <a href="https://github.com/wuba/fair/actions"><img src="https://img.shields.io/badge/Build-Passing-green" alt="build"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Info-Here-green" alt="Gitter"></a>
+</p>
 
 ## What is Chimera Flutter Code Push？
 
