@@ -1,0 +1,9 @@
+environment:
+  # Project path
+  projectPath: /Volumes/data/example_project/hello
+  # Flutter SDK
+  flutterSdkPath: /Volumes/data/flutter_sdk
+  # Compile cache path
+  buildCachePath: /Volumes/data/dart_compile_cache
+  # FTP
+  ftpConfig: 192.168.80.141|root|123456
