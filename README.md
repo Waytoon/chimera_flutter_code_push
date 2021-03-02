@@ -316,4 +316,4 @@ Submit issues through Issue catogary, if you want to contribute code, please sen
 
 Any friend who are interested in Chimera code push can join our WeChat group by scanning the QR code as below:
 
-<img src="/Users/ryanliu/Library/Application Support/typora-user-images/image-20210302113206034.png" alt="image-20210302113206034" style="zoom:50%;" />
+<img src="/Users/ryanliu/chimera_flutter_code_push/Media/group.png" alt="image-20210302113206034" style="zoom:50%;" />
