@@ -1,5 +1,6 @@
 # Chimera_Flutter_Code_Push
 
+
 <p align="center">
   <a href="https://pub.dev/packages/flutter_code_push"><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="pub"></a>
   <a href="https://github.com/Waytoon/chimera_flutter_code_push"><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="github"></a>
@@ -8,7 +9,10 @@
   <a href="https://gitter.im/flutter_code_push/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/flutter_code_push/community.svg" alt="Gitter"></a>
   <a href="mailto:flupush@gmail.com"><img src="https://img.shields.io/badge/Mail-Click-blue" alt="Gitter"></a>
 </p>
-
+<p align="center">
+  <a href="https://github.com/Waytoon/chimera_flutter_code_push/stargazers"><img src="https://img.shields.io/github/stars/Waytoon/chimera_flutter_code_push" alt="star"></a>
+  <a href="https://github.com/Waytoon/chimera_flutter_code_push/network"><img src="https://img.shields.io/github/forks/Waytoon/chimera_flutter_code_push" alt="github"></a>
+ <a href="https://github.com/Waytoon/chimera_flutter_code_push/issues"><img src="https://img.shields.io/github/issues/Waytoon/chimera_flutter_code_push" alt="Gitter"></a></p>
 ## What is Chimera Flutter Code Push？
 
 Chimera Flutter CodePush is an SDK that has been developing for more than 2 years for flutter app code push enhancement and accomplishment.
