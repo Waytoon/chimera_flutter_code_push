@@ -1,5 +1,6 @@
 # Chimera_Flutter_Code_Push
 
+#### <font color="#00dd00">**Enjoy it! Chimera support iOS and android app code push!**</font>
 
 
 <a href="https://pub.dev/packages/flutter_code_push"><img src="https://img.shields.io/badge/Pub-1.0.1-green" alt="pub"></a> <a href="https://github.com/Waytoon/chimera_flutter_code_push">  <img src="https://img.shields.io/badge/Lang-Dart-orange" alt="github"></a><a href="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/LICENSE">  <img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="license"></a><a href="https://github.com/wuba/fair/actions">  <img src="https://img.shields.io/badge/Build-Passing-green" alt="build"></a><a href="https://gitter.im/flutter_code_push/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">  <img src="https://badges.gitter.im/flutter_code_push/community.svg" alt="Gitter"></a>
