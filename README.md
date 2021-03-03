@@ -46,12 +46,11 @@ Setup Flutter code environment following [here](https://flutter.dev/docs/get-sta
 
 
 Note: Before you git clone this repo, you'd better to install 'Git Large File Storage'(https://git-lfs.github.com/).
-It could help you to handle and sync large file to avoid any data miss-streaming.
+It could help you handle and sync large file to avoid any data miss-streaming.
 
 Install lsf:
 
 ```
-
 brew install git-lfs
 
 ```
@@ -60,12 +59,9 @@ brew install git-lfs
 
 Once Download our compiler from here which will be the main contributor/part for Chimera CodePush.
 
-
-
+```
 # It is a Zip file includes tool and config file
-
 # More information will be shared in next section
-
 Download link:
 https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 
@@ -91,9 +87,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 1. Create a startup flutter app, now we use 'hello_world' as an example:
 
 ```
-
 flutter create hello
-
 ```
 
 > Remember to add the internet access for the Android app portion.
@@ -103,23 +97,21 @@ flutter create hello
 2. Copy 'wtbase' folder into your app directory, it looks like below:
 
 ```
-
 └── hello
-├── README.md
-├── android
-├── assets
-├── ios
-├── lib
-├── pubspec.lock
-├── pubspec.yaml
-├── test
-└── wtbase
-
+    ├── README.md
+    ├── android
+    ├── assets
+    ├── ios
+    ├── lib
+    ├── pubspec.lock
+    ├── pubspec.yaml
+    ├── test
+    └── wtbase
 ```
 
 3. Create a new dart file named 'MyApp.dart' and add the below code to it.
 
-​```dart
+```dart
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
