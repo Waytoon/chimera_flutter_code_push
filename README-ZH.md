@@ -14,7 +14,7 @@
 
 Chimera Flutter热更新（CodePush）是一个SDK，已经开发了2年以上，用于Flutter应用程序、代码热更新的增强和完善。
 
-如您所知，Google Flutter团队已[**宣布**]（https://github.com/flutter/flutter/issues/14330#issuecomment-485565194），Flutter将不支持其引擎中的代码推送功能。
+如您所知，Google Flutter团队已[**宣布**](https://github.com/flutter/flutter/issues/14330#issuecomment-485565194)，Flutter将不支持其引擎中的代码推送功能。
 
 Google在这里提到：
 
