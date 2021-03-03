@@ -9,12 +9,11 @@
   <a href="mailto:flupush@gmail.com"><img src="https://img.shields.io/badge/Mail-Click-blue" alt="Gitter"></a>
 </p>
 
-
 ## What is Chimera Flutter Code Push？
 
-Chimera Flutter CodePush is an SDK that has been developing for more than 2 years for flutter app code push enhancement and accomplishment. 
+Chimera Flutter CodePush is an SDK that has been developing for more than 2 years for flutter app code push enhancement and accomplishment.
 
-As you know, the google flutter team has [announced](https://github.com/flutter/flutter/issues/14330#issuecomment-485565194) that flutter would not support the code push function in their engine. 
+As you know, the google flutter team has [announced](https://github.com/flutter/flutter/issues/14330#issuecomment-485565194) that flutter would not support the code push function in their engine.
 
 Google mentioned here:
 
@@ -34,10 +33,6 @@ To get started using Chimera CodePush, refer to this documentation, and read the
 
 > All apps written in flutter will be supported by Chimera SDK, don't hesitate to start to use this super code push SDK.
 
-
-
-
-
 ## Dev Setup
 
 Getting Started
@@ -46,14 +41,32 @@ Getting Started
 
 Setup Flutter code environment following [here](https://flutter.dev/docs/get-started/install).
 
->  You might need a good IDE, prefer Android Studio or VSCODE.
+> You might need a good IDE, prefer Android Studio or VSCODE.
+
+
+
+Note: Before you git clone this repo, you'd better to install 'Git Large File Storage'(https://git-lfs.github.com/).
+It could help you to handle and sync large file to avoid any data miss-streaming.
+
+Install lsf:
+
+```
+
+brew install git-lfs
+
+```
+
+
 
 Once Download our compiler from here which will be the main contributor/part for Chimera CodePush.
 
-```
+
+
 # It is a Zip file includes tool and config file
+
 # More information will be shared in next section
-Download link: 
+
+Download link:
 https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 
 ```
@@ -69,20 +82,18 @@ https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
 >
 > Important: compiler need to run with internet connected.
 
-🏁 Please check the runtime environment on your computer. Chimera is based on Flutter latest stable version . And the latest stable flutter version will continue to be supported in the future. 
+🏁 Please check the runtime environment on your computer. Chimera is based on Flutter latest stable version . And the latest stable flutter version will continue to be supported in the future.
 
 > [https://flutter.dev/docs/development/tools/sdk/releases?tab=macos(opens new window)](https://flutter.dev/docs/development/tools/sdk/releases?tab=macos)
-
-
-
-
 
 ### Using CodePush SDK
 
 1. Create a startup flutter app, now we use 'hello_world' as an example:
 
 ```
+
 flutter create hello
+
 ```
 
 > Remember to add the internet access for the Android app portion.
@@ -92,21 +103,23 @@ flutter create hello
 2. Copy 'wtbase' folder into your app directory, it looks like below:
 
 ```
+
 └── hello
-    ├── README.md
-    ├── android
-    ├── assets
-    ├── ios
-    ├── lib
-    ├── pubspec.lock
-    ├── pubspec.yaml
-    ├── test
-    └── wtbase
+├── README.md
+├── android
+├── assets
+├── ios
+├── lib
+├── pubspec.lock
+├── pubspec.yaml
+├── test
+└── wtbase
+
 ```
 
 3. Create a new dart file named 'MyApp.dart' and add the below code to it.
 
-```dart
+​```dart
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -254,8 +267,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ```
 
-
-
 4. Modify "main.dart" to be:
 
 ```
@@ -298,14 +309,12 @@ environment:
 6. Compile your 'hello' app in the 'compile_tool' folder, just run below command:
 
 ```
-./rust_compile 
+./rust_compile
 ```
 
-7. Now you  have a code push function itegrated app. Run it and test it with adding any code you want.
+7. Now you have a code push function itegrated app. Run it and test it with adding any code you want.
 
 #### <font color="#00dd00">**Enjoy it!**</font>
-
-
 
 ## Relevant Instruction Reference
 
@@ -313,8 +322,6 @@ More information you can refer to our GitBook link as below:
 
 - [Chimera Flutter Code Push Instruction](https://app.gitbook.com/@flupush/s/chimera-flutter-codepush/)
 - [![Gitter](https://badges.gitter.im/flutter_code_push/community.svg)](https://gitter.im/flutter_code_push/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-
 
 ### 🛣️ Our 2021 Roadmap
 
@@ -324,19 +331,13 @@ More information you can refer to our GitBook link as below:
   - Github Open https://github.com/Waytoon/chimera_flutter_code_push ✅
 - Next Generation V2 in 2021
   - Patch-Diff Code Push
-  - Full AOT excution  
+  - Full AOT excution
   - AI compiler
-
-
 
 ## ⚠️Unsupported Features
 
 - Current all Dart language is fully supported.
 - Might have some bugs, you can submit the bug you meet during development.
-
-
-
-
 
 ## 🔧Contributing
 
@@ -345,4 +346,3 @@ Submit issues through Issue catogary, if you want to contribute code, please sen
 Any friend who are interested in Chimera code push can join our WeChat group by scanning the QR code as below:
 
 <img src="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/Media/group.png?raw=true" alt="group.png" style="zoom:30%;" />
-
