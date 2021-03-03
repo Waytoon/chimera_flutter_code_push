@@ -312,6 +312,7 @@ environment:
 More information you can refer to our GitBook link as below:
 
 - [Chimera Flutter Code Push Instruction](https://app.gitbook.com/@flupush/s/chimera-flutter-codepush/)
+- [![Gitter](https://badges.gitter.im/flutter_code_push/community.svg)](https://gitter.im/flutter_code_push/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 
