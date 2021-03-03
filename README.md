@@ -9,6 +9,8 @@
 
 
 ## What is Chimera Flutter Code Push？
+#### <font color="#00dd00">**Enjoy it! Chimera support iOS and android app code push!**</font>
+
 
 Chimera Flutter CodePush is an SDK that has been developing for more than 2 years for flutter app code push enhancement and accomplishment.
 
@@ -258,7 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ```
 
-4. Modify "main.dart" to be:
+4. Modify "main.dart" to be, remember to change "yourlocalhost" to be your local http-server. Now only support "192.168.*.*"and "127.0.0.*".
 
 ```
 import 'package:hello/MyApp.dart';
@@ -272,7 +274,7 @@ void main() async {
   if (isNative) {
     initApp();
   } else {
-    String downloadUrl = "http://blog.flu-push.io:809/wp-content/uploads/2020/10/hello.bin";
+    String downloadUrl = "http://yourlocalhost/hello.bin";
     readCode = WTAnalysisReadCode();
     await readCode.loadFile(downloadUrl);
     readCode.executeMethod(
