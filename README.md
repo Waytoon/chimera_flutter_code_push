@@ -5,7 +5,7 @@
   <a href="https://github.com/Waytoon/chimera_flutter_code_push"><img src="https://img.shields.io/badge/Lang-Dart-orange" alt="github"></a>
   <a href="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellowgreen" alt="license"></a>
   <a href="https://github.com/wuba/fair/actions"><img src="https://img.shields.io/badge/Build-Passing-green" alt="build"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Info-Here-green" alt="Gitter"></a>
+  <a href="https://gitter.im/flutter_code_push/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/flutter_code_push/community.svg" alt="Gitter"></a>
   <a href="mailto:flupush@gmail.com"><img src="https://img.shields.io/badge/Mail-Click-blue" alt="Gitter"></a>
 </p>
 
