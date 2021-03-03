@@ -262,6 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
 ```
 
 4. Modify "main.dart" to be, remember to change "yourlocalhost" to be your local http-server. Now only support "192.168.*.*"and "127.0.0.*".
+   How to create a http-server, refer to https://www.npmjs.com/package/http-server. And set your http-server root as 'assets' directory.
 
 ```
 import 'package:hello/MyApp.dart';
