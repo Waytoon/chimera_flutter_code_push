@@ -4,19 +4,16 @@ Copyright (c) 2021 by Waytoon
 
 All Rights Reserved.
 
-ATTRIBUTION ASSURANCE LICENSE (adapted from the original BSD license)Redistribution and use in source and binary forms, with or withoutmodification, are permitted provided that the conditions below are met.These conditions require a modest attribution to <AUTHOR> (the"Author"), who hopes that its promotional value may help justify thethousands of dollars in otherwise billable time invested in writingthis and other freely available, open-source software.
+ ATTRIBUTION ASSURANCE LICENSE (adapted from the original BSD license)Redistribution and use in source and binary forms, with or withoutmodification, are permitted provided that the conditions below are met.These conditions require a modest attribution to <AUTHOR> (the"Author"), who hopes that its promotional value may help justify thethousands of dollars in otherwise billable time invested in writingthis and other freely available, open-source software.
 
 1. Redistributions of source code, in whole or part and with or withoutmodification (the "Code"), must prominently display this GPG-signedtext in verifiable form. 
-
 2. Redistributions of the Code in binary form must be accompanied bythis GPG-signed text in any documentation and, each time the resultingexecutable program or a program dependent thereon is launched, aprominent display (e.g., splash screen or banner text) of the Author'sattribution information, which includes:(a) Name (“Waytoon"),(b) Professional identification (“Chimera Flutter Code Push"), and(c) GitHub URL ("https://github.com/Waytoon/chimera_flutter_code_push").
-
 3. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
 4. Redistributions in binary form must reproduce the above copyright notice,this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-5. Neither the name nor any trademark of the Author may be used toendorse or promote products derived from this software without specificprior written permission.
+4. Neither the name nor any trademark of the Author may be used toendorse or promote products derived from this software without specificprior written permission.
 
-6. Users are entirely responsible, to the exclusion of the Author andany other persons, for compliance with (1) regulations set by owners oradministrators of employed equipment, (2) licensing terms of any othersoftware, and (3) local regulations regarding use, including thoseregarding import, export, and use of encryption software. 
+5. Users are entirely responsible, to the exclusion of the Author andany other persons, for compliance with (1) regulations set by owners oradministrators of employed equipment, (2) licensing terms of any othersoftware, and (3) local regulations regarding use, including thoseregarding import, export, and use of encryption software. 
 
    
 
