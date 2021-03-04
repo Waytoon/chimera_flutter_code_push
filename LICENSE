@@ -1,20 +1,37 @@
-Copyright (c) 2021 by Waytoon
+ Copyright (c) 2021 by Waytoon
+ "Chimera Flutter Code Push SDK"
 
-"The Flutter Code Push SDK" 
+ All rights reserved.
 
-All Rights Reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met. These conditions
+require a modest attribution to <AUTHOR> (the"Author"), who hopes that its promotional value may help justify thethousands of dollars in otherwise billable time 
+invested in writingthis and other freely available, open-source software.
 
- ATTRIBUTION ASSURANCE LICENSE (adapted from the original BSD license)Redistribution and use in source and binary forms, with or withoutmodification, are permitted provided that the conditions below are met.These conditions require a modest attribution to <AUTHOR> (the"Author"), who hopes that its promotional value may help justify thethousands of dollars in otherwise billable time invested in writingthis and other freely available, open-source software.
-
-1. Redistributions of source code, in whole or part and with or withoutmodification (the "Code"), must prominently display this GPG-signedtext in verifiable form. 
-2. Redistributions of the Code in binary form must be accompanied bythis GPG-signed text in any documentation and, each time the resultingexecutable program or a program dependent thereon is launched, aprominent display (e.g., splash screen or banner text) of the Author'sattribution information, which includes:(a) Name (“Waytoon"),(b) Professional identification (“Chimera Flutter Code Push"), and(c) GitHub URL ("https://github.com/Waytoon/chimera_flutter_code_push").
-3. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-4. Redistributions in binary form must reproduce the above copyright notice,this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-4. Neither the name nor any trademark of the Author may be used toendorse or promote products derived from this software without specificprior written permission.
-
-5. Users are entirely responsible, to the exclusion of the Author andany other persons, for compliance with (1) regulations set by owners oradministrators of employed equipment, (2) licensing terms of any othersoftware, and (3) local regulations regarding use, including thoseregarding import, export, and use of encryption software. 
-
-   
-
-THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" ANDANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOTLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY ANDFITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NOEVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FORANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, ORCONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS;PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSEDAND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICTLIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVENIF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+  
+* Redistributions of source code, in whole or part and with or without modification (the "Code"),    
+ must prominently display this GPG-signed text in verifiable form. 
+ 
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+  
+* Redistributions of the Code in binary form must be accompanied bythis GPG-signed text in any  
+ documentation and, each time the resultingexecutable program or a program dependent thereon    is launched, aprominent display (e.g., splash screen or banner text) of the Author'sattribution 
+ information, which includes:(a) Name (“Waytoon"),(b) Professional identification (“Chimera Flutter 
+ Code Push"), and(c) GitHub URL ("https://github.com/Waytoon/chimera_flutter_code_push").
+* Redistributions in binary form must reproduce the above copyright notice,this list of conditions 
+ and the following disclaimer in the documentation and/or other materials provided with the 
+ distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
