@@ -38,6 +38,11 @@ class Environment {
 
     if(isDirect == false) {
       if(store.containsKey(WTVMConstant.superKeyword)) {
+        WTClassPointer thisPointer = store[WTVMConstant.thisKeyword];
+        if(thisPointer?.containsKey(attr) == true) {
+          return thisPointer;
+        }
+
         var superValue = store[WTVMConstant.superKeyword];
         WTClassPointer superPointer;
         Environment superEnv;
@@ -51,10 +56,9 @@ class Environment {
         superEnv = superEnv?._obtainCurrentEnv(attr, isDirect: isDirect);
         if(superEnv != null)
           return superEnv;
-
-        WTClassPointer thisPointer = store[WTVMConstant.thisKeyword];
-        WTClassMemory staticMemory = thisPointer.staticMemory;
-        bool staticContains = staticMemory.staticEnv.store.containsKey(attr);
+        
+        WTClassMemory staticMemory = thisPointer?.staticMemory;
+        bool staticContains = staticMemory?.staticEnv.store.containsKey(attr) == true;
         Environment staticEnv = staticContains ? staticMemory.staticEnv : null;
         if(staticEnv != null)
           return thisPointer.selfEnv;
@@ -88,6 +92,9 @@ class Environment {
 
   dynamic get(String attr, {bool isDirect = false}) {
     if(attr == "yanzhengma")
+      int x=10;
+    
+    if(attr == "Global")
       int x=10;
 
     if(attr == null)
@@ -123,12 +130,19 @@ class Environment {
       WTUnitMemory unitMemory = tempValue;
       return unitMemory.getValue(attr);
     }
+    else if(tempValue is WTClassPointer) {
+      WTClassPointer pointer = tempValue;
+      return pointer.getValue(attr);
+    }
   }
 
   /// whether isDirect stored directly
   void set(String attr, dynamic object, {bool isDirect = false, bool isOverride = true}) {
-    if(attr == "hexColor" && object == null) {
-      int x=1;
+    if(attr == "debugTags" && object != null && object is List) {
+      List list = object;
+      if(list.length == 1 && list[0] is Set) {
+        int x = 1;
+      }
     }
 
     if(attr == null || attr == "")

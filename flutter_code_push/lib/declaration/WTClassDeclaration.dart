@@ -108,17 +108,6 @@ class WTClassDeclaration extends WTBaseDeclaration {
     var outValue = inner(members);
     if(outValue == null) {
       outValue = superDeclaration?.getClassMethod(name, keyword);
-      if(outValue == null) {
-        if(withClassMemoryList != null) {
-          int size = withClassMemoryList.length;
-          for (var i = 0; i < size; ++i) {
-            WTClassMemory tempDeclaration = withClassMemoryList[i];
-            outValue = tempDeclaration.declaration.getClassMethod(name, keyword);
-            if(outValue != null)
-              return outValue;
-          }
-        }
-      }
     }
     return outValue;
   }

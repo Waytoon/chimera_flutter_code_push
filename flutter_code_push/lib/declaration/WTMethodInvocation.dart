@@ -42,10 +42,23 @@ class WTMethodInvocation extends WTBaseDeclaration {
   }
 
   dynamic executeWithTargetValue(dynamic targetValue, Environment env) {
+    var isDebugMethodName = methodName == 'CommonTag';
+    if(isDebugMethodName)
+      int x = 10;
+    // print("MethodInvocation methodName: $methodName");
+
+    var isDebugPrint = methodName == 'print';
+    if(isDebugPrint)
+      int x=1;
+
+    var isDebugPrint2 = methodName == 'yangzhengmaPage';
+    if(isDebugPrint2)
+      int x=1;
+    
     List positionalArguments = [];
     Map<Symbol, dynamic> namedArguments = Map<Symbol, dynamic>();
     var complete = () {
-      if(methodName == 'getData')
+      if(isDebugMethodName)
         int x = 10;
       dynamic outValue = getFunctionValueAndExecute(
           targetValue, methodName, env, positionalArguments, namedArguments, typeArgumentList, operator);
@@ -160,7 +173,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
     return asyncTemplate.execute(env);
   }
 
-  static void _setEnvValueByParameters(Environment env, List parameters,
+  static void setEnvValueByParameters(Environment env, List parameters,
       List positionalArguments, Map<Symbol, dynamic> namedArguments) {
     int size = parameters?.length ?? 0;
     int argumentSize = positionalArguments?.length ?? 0;
@@ -220,7 +233,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTFunctionBodyDeclaration bodyDeclaration = funcValue;
       var parameters = bodyDeclaration.functionExpression.parameters;
-      _setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
       return bodyDeclaration.execute(selfEnv);
     }
@@ -248,7 +261,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTMethodDeclaration methodDeclaration = funcValue;
       var parameters = methodDeclaration.parameters;
-      _setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
       return methodDeclaration.execute(selfEnv);
     }
@@ -256,7 +269,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTFunctionDeclarationStatement functionDeclaration = funcValue;
       var parameters = functionDeclaration.parameters;
-      _setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
       return functionDeclaration.executeBody(selfEnv);
     }

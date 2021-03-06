@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -63,6 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return TestPage();
+      },
+    );
   }
 
   void _getHttp() async {
@@ -71,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         String temp = '$response';
         for (var i = 0; i < 10; ++i) {
-          temp = '$i' + temp;
+          temp = '($i)' + temp;
         }
         _response = temp.substring(0, 100);
       });
@@ -95,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -139,6 +148,23 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class TestPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("Hello World"),
+            Image.network('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fd.lanrentuku.com%2Fdown%2Fpng%2F0904%2FM-v-Player%2FM-v-Player_13.png&refer=http%3A%2F%2Fd.lanrentuku.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1617539410&t=90aa359d70cf9320a4043491e9eafd98')
+          ],
+        ),
+      ),
     );
   }
 }

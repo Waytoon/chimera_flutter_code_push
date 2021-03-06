@@ -15,6 +15,7 @@ import 'package:flutter_code_push/util/RunnerUtils.dart';
 /// 类指针
 class WTClassPointer {
 
+  String className;
   WTClassDeclaration declaration;
   WTClassMemory superClassMemory;
 
@@ -27,9 +28,12 @@ class WTClassPointer {
 
   /// 类静态对象
   WTClassMemory staticMemory;
-
+  
+  List<WTClassPointer> withClassPointerList;
+  
   void initializer(WTClassDeclaration declaration,
       WTClassMemory staticMemory, Environment env) {
+    className = declaration.className;
     this.declaration = declaration;
     this.staticMemory = staticMemory;
 
@@ -83,6 +87,25 @@ class WTClassPointer {
     return constructor?.executeConstructor(selfEnv, isExecuteSuper, positionalArguments: positionalArguments, namedArguments: namedArguments);
   }
 
+  bool containsKey(String attrName) {
+    if(selfEnv.containsKey(attrName)) {
+      return true;
+    }
+    else if(declaration.isGetOrSetMethod(attrName, true)) {
+      return true;
+    }
+    else if(staticMemory.containsKey(attrName)) {
+      return true;
+    }
+    else if(withClassPointerList != null) {
+      for (var t in withClassPointerList) {
+        if(t.containsKey(attrName))
+          return true;
+      }
+    }
+    
+    return false;
+  }
 
   /// 调用get函数
   dynamic getValue(String attrName) {
@@ -128,14 +151,26 @@ class WTClassPointer {
   }
 
   dynamic executeMethod(dynamic methodName, List positionalArguments, [Map<Symbol, dynamic> namedArguments]) {
-    if(methodName == 'MessagePage')
-      int x=10;
-
     dynamic method = methodName;
+    
+    if(methodName == 'yangzhengmaPage')
+      int x=1;
+    
     if(methodName is String) {
       method = getExecuteMethod(methodName);
     }
     if(method == null) {
+      if(withClassPointerList != null) {
+        for (var withClassPointer in withClassPointerList) {
+          var condition = withClassPointer.containsKey(methodName);
+          if(condition == null) {
+            int x=1;
+          }
+          if(condition) {
+            return withClassPointer.executeMethod(methodName, positionalArguments, namedArguments);
+          }
+        }
+      }
       debugError("execute $methodName is null", isIgnored: true);
       return null;
     }

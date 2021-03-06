@@ -5,7 +5,7 @@ import 'package:flutter_code_push/declaration/WTIfElement.dart';
 import 'package:flutter_code_push/declaration/WTSpreadElement.dart';
 import 'package:flutter_code_push/external/WTByteArray.dart';
 
-/// 访问列表字面值
+/// List Literal
 class WTListLiteral extends WTBaseDeclaration {
   /// 元素列表
   List<WTBaseDeclaration> elements;
@@ -22,10 +22,17 @@ class WTListLiteral extends WTBaseDeclaration {
       var isAddList = declaration is WTSpreadElement || declaration is WTForElement;
       var isNotAddNoneValue = declaration is WTIfElement;
 
+      if(isNotAddNoneValue == false && declaration is WTSpreadElement) {
+        WTSpreadElement temp = declaration;
+        isNotAddNoneValue = temp.isNullable;
+      }
+
       dynamic executeValue = declaration.execute(env);
-      if(executeValue is List && isAddList) {
-        for (var v in executeValue) {
-          _addList(value, v);
+      if(isAddList) {
+        if(executeValue != null) {
+          for (var v in executeValue) {
+            _addList(value, v);
+          }
         }
       }else {
         if(executeValue == null && isNotAddNoneValue == true)

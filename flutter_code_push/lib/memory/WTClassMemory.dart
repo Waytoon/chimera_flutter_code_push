@@ -96,7 +96,8 @@ class WTClassMemory {
   }
 
   static void registerStaticEnv(
-      Environment env, WTClassDeclaration declaration, bool isStatic,
+      Environment env, WTClassDeclaration declaration, 
+      bool isStatic,
       [WTClassMemory classMemory, bool isExecuteValue = true]) {
     List<WTBaseDeclaration> members = declaration.members;
     int size = members?.length ?? 0;
@@ -177,7 +178,7 @@ class WTClassMemory {
       [WTConstructorDeclaration constructor,
       WTTypeArgumentList typeArgumentList,
       bool hasNativeTypeInitialized = false]) {
-    if (declaration.className == 'ImageLoader')
+    if (declaration.className == 'CommonTag')
       int x = 10;
 
     WTConstructorDeclaration defaultConstructor = declaration.constructor;
@@ -229,8 +230,22 @@ class WTClassMemory {
     }
     else {
       WTClassPointer pointer = WTClassPointer();
-      _instanceClassPointer(
-          pointer, positionalArguments, namedArguments, constructor, true);
+      _instanceClassPointer(pointer, positionalArguments, namedArguments, constructor, true);
+      var declaration = pointer.declaration;
+
+      var withClassPointerList = pointer.withClassPointerList = [];
+      var withClassMemoryList = declaration.withClassMemoryList;
+      if(withClassMemoryList != null) {
+        for (WTClassMemory classMemory in withClassMemoryList) {
+          var addClassPointer = classMemory.instance(env, positionalArguments,
+              namedArguments,
+              null,
+              typeArgumentList,
+              false);
+          withClassPointerList.add(addClassPointer);
+        }
+      }
+      
       return pointer;
     }
   }

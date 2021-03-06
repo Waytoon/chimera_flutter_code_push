@@ -17,4 +17,8 @@ class WTSpreadElement extends WTBaseDeclaration {
     spreadOperator = byteArray.readString();
     expression = serializedInstance(byteArray);
   }
+  
+  bool get isNullable {
+    return spreadOperator == "...?";
+  }
 }

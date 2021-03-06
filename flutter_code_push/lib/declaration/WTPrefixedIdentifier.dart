@@ -20,7 +20,13 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    if(isDebug) {
+
+
+    var targetValue = prefix.execute(env);
+    if(targetValue == null)
+      debugPrint("targetValue is null!");
+
+    if(isDebug && targetValue == null) {
       var identifierName;
 
       if(prefix is WTSimpleIdentifierImpl) {
@@ -28,13 +34,13 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
         identifierName = s.identifierName;
       }
 
-      if(identifier == 'width' && identifierName == 'Get')
+      if(identifier == 'context' && identifierName == 'Global') {
         int x=10;
+        targetValue = prefix.execute(env);
+      }
+
     }
 
-    var targetValue = prefix.execute(env);
-    if(targetValue == null)
-      debugPrint("targetValue is null!");
     if(targetValue is WTEnumMemory) {
       WTEnumMemory enumMemory = targetValue;
       return enumMemory.getValue(identifier);
