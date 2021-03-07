@@ -433,12 +433,14 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
 
       No surprises, IDE compilation will not cause any problems. The display on the simulator is like this.
 
-      <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144439925.png" alt="image-20210307144439925" style="zoom:50%;" />
+      <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144439925.png" alt="image-20210307144439925" width="300" />
+
+      
 
       
 
       IDE's `debug console log` is as follows:
-
+   
       ```dart
       Launching lib/main.dart on Android SDK built for x86 in debug mode...
       Running Gradle task 'assembleDebug'...
@@ -456,27 +458,27 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
       I/flutter ( 6898): download file!
       I/flutter ( 6898): vmClassName: MyApp className: WTStatelessWidget1
       I/flutter ( 6898): vmClassName: MyHomePage className: WTStatefulWidget1
-      I/flutter ( 6898): vmClassName: _MyHomePageState className: WTState1
+   I/flutter ( 6898): vmClassName: _MyHomePageState className: WTState1
       ```
 
    2. The next thing is to let you do it yourself. For example, let's modify the code in `MyApp.dart` and try it. Try modifying the icon of `floatingActionButton`:
-
+   
       ```dart
       floatingActionButton: FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
               child: Icon(Icons.add),
-            ),
+         ),
       ```
 
       Modify `Icons.add` to `Icons.home`. It looks like this after completion:
-
+   
       ```dart
       floatingActionButton: FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
               child: Icon(Icons.home),
-            ),
+         ),
       ```
 
       Save the changes you made, then go back to the terminal, enter your compiler directory, and run `./rust_compile`:
@@ -489,7 +491,7 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
 
       **Please pay attention here**, we don't need an IDE to do anything at this point, just close the currently running app in the simulator, reopen it, and you will find that it becomes the following:
 
-      <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" style="zoom:50%;" />
+      <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" width="300" />
 
       Once again, we have not used any functions of the IDE in this step of the operation so far. We just compiled the new `hello.bin` file with our own compiler, and then loaded the `bin` file remotely through the simulator. .
 
@@ -504,7 +506,7 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
    ##Notes:
 
    ### First: For android app release:
-
+   
    > For Android App development, it is important to give the App network and storage permissions in advance. Modify `hello/app/src/main/AndroidManifest.xml`
 
  ![image-20210307135636779](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicr9KTvlkUNHjoEc4.png)
