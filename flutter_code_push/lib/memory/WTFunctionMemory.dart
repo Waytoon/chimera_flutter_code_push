@@ -217,8 +217,8 @@ class ClassFunctionMemoryPointer {
 
     Map<Symbol, dynamic> namedArguments;
     Environment selfEnv = Environment.newInstance();
-    WTMethodInvocation.setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
     selfEnv.outer = outerEnv;
+    WTMethodInvocation.setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
     return body.execute(selfEnv);
   }
 }

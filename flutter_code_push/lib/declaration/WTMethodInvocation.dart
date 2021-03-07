@@ -183,7 +183,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       while (true) {
         if (value is WTSimpleFormalParameter) {
           WTSimpleFormalParameter o = value;
-          env.set(o.attrName, assignValue);
+          env.set(o.attrName, assignValue, isDirect: true);
           break;
         }
         else if (value is WTDefaultFormalParameter) {
@@ -233,8 +233,8 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTFunctionBodyDeclaration bodyDeclaration = funcValue;
       var parameters = bodyDeclaration.functionExpression.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return bodyDeclaration.execute(selfEnv);
     }
     else if (funcValue is WTClassMemory) {
@@ -261,16 +261,16 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTMethodDeclaration methodDeclaration = funcValue;
       var parameters = methodDeclaration.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return methodDeclaration.execute(selfEnv);
     }
     else if (funcValue is WTFunctionDeclarationStatement) {
       Environment selfEnv = Environment.newInstance();
       WTFunctionDeclarationStatement functionDeclaration = funcValue;
       var parameters = functionDeclaration.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return functionDeclaration.executeBody(selfEnv);
     }
     else if (funcValue is WTFunctionPointer) {
