@@ -91,7 +91,7 @@ The important thing: The compiler needs to be connected to the Internet while it
 
 ### Use CodePush SDK
 
-1. First run `mkdir test` to create a `test` folder. As shown below:
+i. First run `mkdir test` to create a `test` folder. As shown below:
   
    ![iShot2021-03-07 10.15.19](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicIMiRr57Y1DcNJSk.png)
    
@@ -113,7 +113,7 @@ The important thing: The compiler needs to be connected to the Internet while it
       └── test
    ```
    
-   2.Open the `hello` project with IDE:
+   ii.Open the `hello` project with IDE:
    
    ![iShot2021-03-07 10.26.37](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicoDh4nqjgSPmrpz7.png)
    
