@@ -34,18 +34,18 @@ To get started using Chimera CodePush, refer to this documentation, and read the
 
 > All apps written in flutter will be supported by Chimera SDK, don't hesitate to start to use this super code push SDK.
 
-7. ## Dev Setup
+## Dev Setup
 
-   Now let’s start the journey：
+Now let’s start the journey：
 
-   🚩 First of all, you may need to be an excellent Flutter programmer or a flutter programming enthusiast, like me :-), mainly needs to be familiar with Flutter programming, and has a heart that likes to study and learn.
+🚩 First of all, you may need to be an excellent Flutter programmer or a flutter programming enthusiast, like me :-), mainly needs to be familiar with Flutter programming, and has a heart that likes to study and learn.
 
-   Set up Flutter ENV：[here](https://flutter.dev/docs/get-started/install).
+Set up Flutter ENV：[here](https://flutter.dev/docs/get-started/install).
 
-   > You need a good IDE, Android Studio or VSCODE are recommended.
+> You need a good IDE, Android Studio or VSCODE are recommended.
 
-   
-   
+
+
 #### Remember to install http-server, because subsequent work requires http-server:
 
 ```
