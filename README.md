@@ -91,7 +91,7 @@ The important thing: The compiler needs to be connected to the Internet while it
 
 ### Use CodePush SDK
 
-i. First run `mkdir test` to create a `test` folder. As shown below:
+1. First run `mkdir test` to create a `test` folder. As shown below:
   
    ![iShot2021-03-07 10.15.19](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicIMiRr57Y1DcNJSk.png)
    
@@ -113,7 +113,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
       └── test
    ```
    
-   ii.Open the `hello` project with IDE:
+2. Open the `hello` project with IDE:
    
    ![iShot2021-03-07 10.26.37](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicoDh4nqjgSPmrpz7.png)
    
@@ -121,7 +121,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
    
    ![image-20210307103440696](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicE4PXYHjkwgfhvlT.png)
    
-   3. **Very important step** Download our compiler, [link](https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile):
+3. **Very important step** Download our compiler, [link](https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile):
    
    `https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile`
    
@@ -154,7 +154,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
         #ftpConfig: 192.168.80.141|root|123456  ignore this optional setting
    ```
    
-   4. Then run `./rust_compile` again in the terminal to execute our compilation process.
+4. Then run `./rust_compile` again in the terminal to execute our compilation process.
       In about 2-5 minutes, you can get the following screen results. The compiled product `hello.bin` is in the project <u>**`hello/assets/`**</u> directory, and there are more <u>**`wtbase`**</u> Library directory.
    
       ![image-20210307110402262](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicrC1pSM8Udb2JPsA.png)
@@ -175,7 +175,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
          └── wtbase
       ```
    
-      5. **The next step is very important! ** Configure `wtbase/pubspec.yaml` in `dependencies` to modify the boot path of flutter_code_push as follows:
+5. **The next step is very important! ** Configure `wtbase/pubspec.yaml` in `dependencies` to modify the boot path of flutter_code_push as follows:
    
          ```
             flutter_code_push:
@@ -196,7 +196,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
    
          ![image-20210307113615328](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicA2RCGdQWJl7yBPc.png)
    
-         6. Then modify `hello/pubspec.yaml` and add the following in `dependencies`:
+6. Then modify `hello/pubspec.yaml` and add the following in `dependencies`:
    
             ```
                 wtbase:
@@ -222,8 +222,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
             ##### Up to this point, the preliminary SDK configuration work has been completed. Below we explain how to use and implement hot updates in our source code.
    
             
-   
-         7. Now create the file `MyApp.dart` in the `hello/lib` directory, the Source code is as follows:
+7. Now create the file `MyApp.dart` in the `hello/lib` directory, the Source code is as follows:
    
             ```dart
                import 'package:flutter/material.dart';
@@ -401,7 +400,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
                >
                > If you need to support extranet requests, please contact [<u>**`flupus@gmail.com`**</u>](mailto:@flupus@gmail.com).
    
-         8. **Another crucial step**: 
+8. **Another crucial step**: 
    
             Open the terminal and enter the `hello/assets` directory:
    
@@ -429,7 +428,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
    
             
    
-         9. The next thing is to run your APP from the IDE by clicking on the green "bug".
+9. The next thing is to run your APP from the IDE by clicking on the green "bug".
    
             ![image-20210307142840043](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307142840043.png)
    
@@ -461,7 +460,7 @@ i. First run `mkdir test` to create a `test` folder. As shown below:
                I/flutter ( 6898): vmClassName: _MyHomePageState className: WTState1
             ```
    
-         10. The next thing is to let you do it yourself. For example, let's modify the code in `MyApp.dart` and try it. Try modifying the icon of `floatingActionButton`:
+10. The next thing is to let you do it yourself. For example, let's modify the code in `MyApp.dart` and try it. Try modifying the icon of `floatingActionButton`:
    
              ```dart
                 floatingActionButton: FloatingActionButton(
