@@ -42,7 +42,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
   }
 
   dynamic executeWithTargetValue(dynamic targetValue, Environment env) {
-    var isDebugMethodName = methodName == 'CommonTag';
+    var isDebugMethodName = methodName == 'debug_initialize';
     if(isDebugMethodName)
       int x = 10;
     // print("MethodInvocation methodName: $methodName");
@@ -87,7 +87,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
         WTTypeArgumentList typeArgumentList,
         String operator,
       ]) {
-    if(methodName == 'FlutterSecureStorage')
+    if(methodName == 'debugSetString')
       int x=10;
 
     var targetValue = target;
@@ -122,7 +122,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       }
       else if (targetValue is WTClassMemory) {
         WTClassMemory classMemory = targetValue;
-        func = classMemory.staticEnv.get(methodName);
+        func = classMemory.getValue(methodName);
       }
       else if (targetValue is WTVMBaseType) {
         WTVMBaseType type = targetValue;
@@ -183,7 +183,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       while (true) {
         if (value is WTSimpleFormalParameter) {
           WTSimpleFormalParameter o = value;
-          env.set(o.attrName, assignValue);
+          env.set(o.attrName, assignValue, isDirect: true);
           break;
         }
         else if (value is WTDefaultFormalParameter) {
@@ -233,8 +233,8 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTFunctionBodyDeclaration bodyDeclaration = funcValue;
       var parameters = bodyDeclaration.functionExpression.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return bodyDeclaration.execute(selfEnv);
     }
     else if (funcValue is WTClassMemory) {
@@ -261,16 +261,16 @@ class WTMethodInvocation extends WTBaseDeclaration {
       Environment selfEnv = Environment.newInstance();
       WTMethodDeclaration methodDeclaration = funcValue;
       var parameters = methodDeclaration.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return methodDeclaration.execute(selfEnv);
     }
     else if (funcValue is WTFunctionDeclarationStatement) {
       Environment selfEnv = Environment.newInstance();
       WTFunctionDeclarationStatement functionDeclaration = funcValue;
       var parameters = functionDeclaration.parameters;
-      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       selfEnv.outer = env;
+      setEnvValueByParameters(selfEnv, parameters, positionalArguments, namedArguments);
       return functionDeclaration.executeBody(selfEnv);
     }
     else if (funcValue is WTFunctionPointer) {

@@ -36,17 +36,20 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
     selfEnv.outer = env;
     setPositionAndNamedArgumentsValue(selfEnv, positionalArguments, namedArguments);
 
-    if(isExecuteSuper == true) {
-      int size = initializer?.length ?? 0;
-      for (var i = 0; i < size; ++i) {
-        var o = initializer[i];
+    int size = initializer?.length ?? 0;
+    for (var i = 0; i < size; ++i) {
+      var o = initializer[i];
+      if(o is WTSuperConstructorInvocation) {
+        if(isExecuteSuper == true)
+          o.execute(selfEnv);
+      }else {
         o.execute(selfEnv);
       }
+    }
 
-      /// 默认执行super
-      if(size == 0 && factoryKeyword == null) {
-        WTSuperConstructorInvocation.executeSuper(env, null);
-      }
+    /// 默认执行super
+    if(isExecuteSuper == true && size == 0 && factoryKeyword == null) {
+      WTSuperConstructorInvocation.executeSuper(env, null);
     }
 
     var outValue = executeList(selfEnv, body);

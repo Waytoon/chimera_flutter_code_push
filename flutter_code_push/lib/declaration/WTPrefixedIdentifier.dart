@@ -20,8 +20,6 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-
-
     var targetValue = prefix.execute(env);
     if(targetValue == null)
       debugPrint("targetValue is null!");
@@ -34,7 +32,7 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
         identifierName = s.identifierName;
       }
 
-      if(identifier == 'context' && identifierName == 'Global') {
+      if(identifier == 'rpx' && identifierName == 'HYSizeFit') {
         int x=10;
         targetValue = prefix.execute(env);
       }

@@ -58,9 +58,8 @@ class Environment {
           return superEnv;
         
         WTClassMemory staticMemory = thisPointer?.staticMemory;
-        bool staticContains = staticMemory?.staticEnv.store.containsKey(attr) == true;
-        Environment staticEnv = staticContains ? staticMemory.staticEnv : null;
-        if(staticEnv != null)
+        bool staticContains = staticMemory?.containsKey(attr) == true;
+        if(staticContains == true)
           return thisPointer.selfEnv;
       }
 
@@ -138,6 +137,11 @@ class Environment {
 
   /// whether isDirect stored directly
   void set(String attr, dynamic object, {bool isDirect = false, bool isOverride = true}) {
+    if(attr == '_debugTextColor') {
+      int x=1;
+    }
+      
+    
     if(attr == "debugTags" && object != null && object is List) {
       List list = object;
       if(list.length == 1 && list[0] is Set) {
