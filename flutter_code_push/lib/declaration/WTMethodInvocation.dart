@@ -42,7 +42,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
   }
 
   dynamic executeWithTargetValue(dynamic targetValue, Environment env) {
-    var isDebugMethodName = methodName == 'CommonTag';
+    var isDebugMethodName = methodName == 'debug_initialize';
     if(isDebugMethodName)
       int x = 10;
     // print("MethodInvocation methodName: $methodName");
@@ -87,7 +87,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
         WTTypeArgumentList typeArgumentList,
         String operator,
       ]) {
-    if(methodName == 'FlutterSecureStorage')
+    if(methodName == 'debugSetString')
       int x=10;
 
     var targetValue = target;
@@ -122,7 +122,7 @@ class WTMethodInvocation extends WTBaseDeclaration {
       }
       else if (targetValue is WTClassMemory) {
         WTClassMemory classMemory = targetValue;
-        func = classMemory.staticEnv.get(methodName);
+        func = classMemory.getValue(methodName);
       }
       else if (targetValue is WTVMBaseType) {
         WTVMBaseType type = targetValue;

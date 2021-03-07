@@ -50,7 +50,7 @@ class WTVariableDeclaration extends WTBaseDeclaration {
       String variableName = item.variableName;
       if(variableName == 'userProvider')
         int x=1;
-      env.set(variableName, null, isDirect: true);
+      env.set(variableName, null, isDirect: true, isOverride: false);
     }
   }
 

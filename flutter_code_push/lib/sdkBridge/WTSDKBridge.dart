@@ -12,7 +12,7 @@ class WTSDKBridge {
         case "toString":
           break;
         default:
-          debugError("未知的属性 $value $attr");
+          debugError("Unknown attribute $value $attr");
       }
     }
 

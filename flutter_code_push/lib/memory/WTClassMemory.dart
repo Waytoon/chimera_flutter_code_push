@@ -16,16 +16,19 @@ import 'package:flutter_code_push/sdkBridge/WTSDKBridge.dart';
 
 class WTClassMemory {
   /// 存储静态变量
-  Environment staticEnv = Environment.newInstance();
+  Environment _staticEnv = Environment.newInstance();
   WTClassDeclaration declaration;
   WTVMBaseType superBaseType;
 
   bool _hasExecuteStaticValue = false;
 
-  WTClassMemory(this.declaration);
+  WTClassMemory(this.declaration) {
+    if(declaration.className == 'HYSizeFit')
+      int x=1;
+  }
 
   void initEnv(Environment rootEnv) {
-    staticEnv = Environment.newInstance();
+    _staticEnv = Environment.newInstance();
     var superClass = declaration.extendsClause?.superClass;
     if (superClass != null) {
       var value = rootEnv.get(superClass.typeName);
@@ -87,12 +90,19 @@ class WTClassMemory {
       declaration.withClassMemoryList = withClassMemoryList;
     }
 
-    staticEnv.outer = rootEnv;
+    _staticEnv.outer = rootEnv;
     startRegisterStaticEnv(false);
   }
 
   void startRegisterStaticEnv([bool isExecuteValue = true]) {
-    registerStaticEnv(staticEnv, this.declaration, true, this, isExecuteValue);
+    if(_hasExecuteStaticValue == true && isExecuteValue == true) {
+      return;
+    }
+    
+    if(isExecuteValue)
+      _hasExecuteStaticValue = true;
+
+    registerStaticEnv(_staticEnv, this.declaration, true, this, isExecuteValue);
   }
 
   static void registerStaticEnv(
@@ -161,7 +171,7 @@ class WTClassMemory {
       Map<Symbol, dynamic> namedArguments,
       WTConstructorDeclaration constructor,
       bool isExecuteSuper) {
-    pointer.initializer(declaration, this, staticEnv);
+    pointer.initializer(declaration, this, _staticEnv);
 
     if (declaration.className == 'AnimatedCountdown') int x = 10;
 
@@ -178,12 +188,14 @@ class WTClassMemory {
       [WTConstructorDeclaration constructor,
       WTTypeArgumentList typeArgumentList,
       bool hasNativeTypeInitialized = false]) {
-    if (declaration.className == 'CommonTag')
+    if (declaration.className == 'UniIdBar')
       int x = 10;
-
+    
+    startRegisterStaticEnv(true);
+    
     WTConstructorDeclaration defaultConstructor = declaration.constructor;
     if(constructor == null && defaultConstructor?.factoryKeyword != null) {
-      var instance = defaultConstructor.executeConstructor(staticEnv,
+      var instance = defaultConstructor.executeConstructor(_staticEnv,
           false,
           positionalArguments: positionalArguments,
           namedArguments: namedArguments,);
@@ -217,7 +229,7 @@ class WTClassMemory {
     bool condition = hasNativeTypeInitialized == false && (hasBindClass == true || (hasNativeTypeInitialized == false && tempSuperBaseType != null));
     if (condition) {
       if(hasBindClass) {
-        return WTBindClassRegister.instanceBindClass(staticEnv, declaration, _instanceClassPointer, positionalArguments, namedArguments, constructor);
+        return WTBindClassRegister.instanceBindClass(_staticEnv, declaration, _instanceClassPointer, positionalArguments, namedArguments, constructor);
       }
       else {
         return tempSuperBaseType.getNewInstance(positionalArguments: [
@@ -251,16 +263,13 @@ class WTClassMemory {
   }
 
   dynamic _staticGetOrSet(String attribute, [bool isGet = true, assignValue]) {
-    if(_hasExecuteStaticValue == false) {
-      startRegisterStaticEnv(true);
-      _hasExecuteStaticValue = true;
-    }
+    startRegisterStaticEnv(true);
 
     if(isGet) {
-      return staticEnv.get(attribute);
+      return _staticEnv.get(attribute);
     }
     else {
-      return staticEnv.set(attribute, assignValue);
+      return _staticEnv.set(attribute, assignValue);
     }
   }
 
@@ -269,7 +278,7 @@ class WTClassMemory {
       if (declaration.isGetOrSetMethod(attrName)) {
         WTMethodDeclaration m =
             declaration.getClassMethod(attrName, MethodPropertyKeyword.get);
-        return m?.execute(staticEnv);
+        return m?.execute(_staticEnv);
       }
     } else {
       return _staticGetOrSet(attrName);
@@ -281,7 +290,7 @@ class WTClassMemory {
       if (declaration.isGetOrSetMethod(attrName)) {
         WTMethodDeclaration m =
             declaration.getClassMethod(attrName, MethodPropertyKeyword.set);
-        return WTMethodInvocation.executeMethod(staticEnv, m, [value]);
+        return WTMethodInvocation.executeMethod(_staticEnv, m, [value]);
       }
     } else {
       return _staticGetOrSet(attrName, false, value);
@@ -289,7 +298,7 @@ class WTClassMemory {
   }
 
   bool containsKey(String attrName) {
-    return staticEnv.containsKey(attrName);
+    return _staticEnv.containsKey(attrName);
   }
 
   Type getType() {
