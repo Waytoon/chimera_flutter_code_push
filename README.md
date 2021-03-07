@@ -480,7 +480,7 @@ The important thing: The compiler needs to be connected to the Internet while it
                       ),
              ```
    
-             Save the changes you made, then go back to the terminal, enter your compiler directory, and run `./rust_compile`:
+Save the changes you made, then go back to the terminal, enter your compiler directory, and run `./rust_compile`:
    
              ![image-20210307143903868](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143903868.png)
    
