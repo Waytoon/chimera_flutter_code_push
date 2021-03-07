@@ -38,7 +38,7 @@ Chimera可以将捆绑包中的UI / Logic / ..（所有您想要的）更改分�
 
 现在开始：
 
-🚩 首先你可能需要先成为一个出色的Flutter程序员或者是一面flutter编程爱好者，像我一样:-)，zh主要是需要熟悉Flutter编程，还有一颗喜欢钻研和学习的心。
+🚩 首先你可能需要先成为一个出色的Flutter程序员或者是一面flutter编程爱好者，像我一样:-)，主要是需要熟悉Flutter编程，还有一颗喜欢钻研和学习的心。
 
 设置Flutter代码环境：[here](https://flutter.dev/docs/get-started/install).
 

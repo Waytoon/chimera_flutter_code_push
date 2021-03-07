@@ -34,275 +34,541 @@ To get started using Chimera CodePush, refer to this documentation, and read the
 
 > All apps written in flutter will be supported by Chimera SDK, don't hesitate to start to use this super code push SDK.
 
-## Dev Setup
+7. ## Dev Setup
 
-Getting Started
+   Now let’s start the journey：
 
-🚩 Becoming a cool flutter programmer and be familiar with flutter programming.
+   🚩 First of all, you may need to be an excellent Flutter programmer or a flutter programming enthusiast, like me :-), mainly needs to be familiar with Flutter programming, and has a heart that likes to study and learn.
 
-Setup Flutter code environment following [here](https://flutter.dev/docs/get-started/install).
+   Set up Flutter ENV：[here](https://flutter.dev/docs/get-started/install).
 
-> You might need a good IDE, prefer Android Studio or VSCODE.
+   > You need a good IDE, Android Studio or VSCODE are recommended.
 
-Note: Before you git clone this repo, you'd better to install 'Git Large File Storage'(https://git-lfs.github.com/).
-It could help you handle and sync large file to avoid any data miss-streaming.
-
-Install lsf:
-
-```
-brew install git-lfs
+   
+   
+#### Remember to install http-server, because subsequent work requires http-server:
 
 ```
-
-Once Download our compiler from here which will be the main contributor/part for Chimera CodePush.
-
-```
-# It is a Zip file includes tool and config file
-# More information will be shared in next section
-Download link:
-https://github.com/Waytoon/chimera_flutter_code_push/tree/main/compile_tool
-
+   brew install http-server
 ```
 
-> For user in China, you can refer to below instruction link to speed up download GitHub files.
->
-> [Speedy access github](http://t.cn/A6t9IR2H)
->
-> Compiler currently does not support below environmnets:
->
-> 1. Windows
-> 2. Macbook Pro M1
->
-> Important: compiler need to run with internet connected.
+The big killer is here, our compiler! This compiler is the main tool to serve Chimera CodePush.
 
-🏁 Please check the runtime environment on your computer. Chimera is based on Flutter latest stable version . And the latest stable flutter version will continue to be supported in the future.
+```
+   # Compilation tool download link
+   
+   https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile
+   
+```
+
+> For Chinese users, you can refer to the following instructions link to speed up the download speed of GitHub files.
+   >
+   > [Speedy access github](http://t.cn/A6t9IR2H)
+   >
+   > The current SDK does not support the following environments:
+   >
+   > 1. Windows
+
+The important thing: The compiler needs to be connected to the Internet while it is running. Full support for Mac, including M1.
+
+🏁 Please check the runtime environment on your computer. Chimera is based on the latest stable version of Flutter. And the SDK will continue to support the latest stable Flutter version in the future.
 
 > [https://flutter.dev/docs/development/tools/sdk/releases?tab=macos(opens new window)](https://flutter.dev/docs/development/tools/sdk/releases?tab=macos)
+   >
+   > The flutter version we use (stable version)
+   >
+   > ```
+   >  ~/Desktop/tool  flutter --version                      
+   > Flutter 1.22.6 • channel stable • https://github.com/flutter/flutter.git
+   > Framework • revision 9b2d32b605 (6 weeks ago) • 2021-01-22 14:36:39 -0800
+   > Engine • revision 2f0af37152
+   > Tools • Dart 2.10.5
+   > ```
+   >
+   > If you are using flutter 2 now, please switch to `flutter 1.22.6 stale`
+   >
+   > Switching method : Please run `flutter downgrade` in the terminal
 
-### Using CodePush SDK
+### Use CodePush SDK
 
-1. Create a startup flutter app, now we use 'hello_world' as an example:
+1. First run `mkdir test` to create a `test` folder. As shown below:
+  
+   ![iShot2021-03-07 10.15.19](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicIMiRr57Y1DcNJSk.png)
+   
+   `cd test` enter the test directory and create a `hello` project: `flutter create hello`.
+   
+   ![iShot2021-03-07 10.16.14](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicr6Hbv2yGgY5DIVo.png)
+   
+   `hello` directory structure is as follows:
+   
+   ```
+      .hello folder
+      ├── README.md
+      ├── android
+      ├── hello.iml
+      ├── ios
+      ├── lib
+      ├── pubspec.lock
+      ├── pubspec.yaml
+      └── test
+   ```
+   
+   2.Open the `hello` project with IDE:
+   
+   ![iShot2021-03-07 10.26.37](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicoDh4nqjgSPmrpz7.png)
+   
+   **Be careful here! ! ** Use the IDE to debug the `hello` project, whether using the simulator or the real phone, below we use the simulator as an example demonstration.
+   
+   ![image-20210307103440696](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicE4PXYHjkwgfhvlT.png)
+   
+   3. **Very important step** Download our compiler, [link](https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile):
+   
+   `https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/rust_compile`
+   
+   > Please pay attention to check and pay attention to the release of the release file in the release section. In the recent period, we will update the compiler every night.
+   
+   Download to a designated directory, give a name at will, let's use `tool`:
+   
+   ![iShot2021-03-07 10.57.58](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicvdiqlUksA5mj3Z9.png)
+   
+   Then open the terminal, enter the directory of the compiler, and run the command `chmod 777 rust_compile` to make the compiler have permission to run.
+   
+   Next run `./rust_compile` in the terminal:
+   
+   ![image-20210307110040282](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPic7nuZQmxvqd3ciHP.png)
+   
+   > The first time you run the compiler, the configuration file `config.yaml` will be generated.
+   
+   3. After running, you will be prompted to configure `config.yaml`, as shown in the figure above.
+   
+      Open `config.yaml` and configure it as following:
+   
+   ```yaml
+        # Project path
+        projectPath: /Users/ryanliu/Desktop/test/hello #Modify the directory of hello
+        # Flutter SDK
+        flutterSdkPath: /Users/ryanliu/development/flutter #Modify the SDK directory of the current flutter environment
+        # Compile cache path
+        buildCachePath: /Users/ryanliu/Desktop/temp/dart_compile_cache #Set up a directory to save dart_compile_cache
+        # FTP
+        #ftpConfig: 192.168.80.141|root|123456  ignore this optional setting
+   ```
+   
+   4. Then run `./rust_compile` again in the terminal to execute our compilation process.
+      In about 2-5 minutes, you can get the following screen results. The compiled product `hello.bin` is in the project <u>**`hello/assets/`**</u> directory, and there are more <u>**`wtbase`**</u> Library directory.
+   
+      ![image-20210307110402262](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicrC1pSM8Udb2JPsA.png)
+   
+      We can see that the directory of the `hello` folder has been changed, notice that there are two new folders `assets` and `wtbase` in the directory:
+   
+      ```
+         ├── README.md
+         ├── android
+         ├── assets
+         ├── build
+         ├── hello.iml
+         ├── ios
+         ├── lib
+         ├── pubspec.lock
+         ├── pubspec.yaml
+         ├── test
+         └── wtbase
+      ```
+   
+      5. **The next step is very important! ** Configure `wtbase/pubspec.yaml` in `dependencies` to modify the boot path of flutter_code_push as follows:
+   
+         ```
+            flutter_code_push:
+                git:
+                  url: https://github.com/Waytoon/chimera_flutter_code_push.git
+                  path: flutter_code_push
+         ```
+   
+         Original configuration:
+   
+         ![image-20210307113315222](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicYSGZO3tecvN7CV6.png)
+   
+         After modification:
+   
+         ![image-20210307113436135](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicZHQtr5qJSRyuXvP.png)
+   
+         Remember to click `pub get` above, or type `flutter pub get` in the terminal.
+   
+         ![image-20210307113615328](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicA2RCGdQWJl7yBPc.png)
+   
+         6. Then modify `hello/pubspec.yaml` and add the following in `dependencies`:
+   
+            ```
+                wtbase:
+                   path: ./wtbase
+            ```
+   
+            And cut and copy other dependent libraries under `dependencies` to `dependencies` under `wtbase/pubspec.yaml’, the final effect is as follows:
+   
+            `hello/pubspec.yaml`:
+   
+            ![image-20210307151156273](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307151156273.png)
+   
+            `hello/wtbase/pubspec.yaml`:
+   
+            ![image-20210307151326749](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307151326749.png)
+   
+            Remember to run `flutter pub get`, or click the `Pub get` button.
+   
+            ### Note: Please run `Pub get` of the `wtbase` directory first, and then run `Pub get` of the `hello` project. The purpose of this is to ensure that the version numbers of the dependent libraries of the project remain consistent.
+   
+            
+   
+            ##### Up to this point, the preliminary SDK configuration work has been completed. Below we explain how to use and implement hot updates in our source code.
+   
+            
+   
+         7. Now create the file `MyApp.dart` in the `hello/lib` directory, the Source code is as follows:
+   
+            ```dart
+               import 'package:flutter/material.dart';
+               import 'package:dio/dio.dart';
+               
+               void initApp() {
+                 runApp(MyApp());
+               }
+               
+               class MyApp extends StatelessWidget {
+                 // This widget is the root of your application.
+                 @override
+                 Widget build(BuildContext context) {
+                   return MaterialApp(
+                     title: 'Flutter Demo',
+                     theme: ThemeData(
+                       // This is the theme of your application.
+                       //
+                       // Try running your application with "flutter run". You'll see the
+                       // application has a blue toolbar. Then, without quitting the app, try
+                       // changing the primarySwatch below to Colors.green and then invoke
+                       // "hot reload" (press "r" in the console where you ran "flutter run",
+                       // or simply save your changes to "hot reload" in a Flutter IDE).
+                       // Notice that the counter didn't reset back to zero; the application
+                       // is not restarted.
+                       primarySwatch: Colors.blue,
+                       // This makes the visual density adapt to the platform that you run
+                       // the app on. For desktop platforms, the controls will be smaller and
+                       // closer together (more dense) than on mobile platforms.
+                       visualDensity: VisualDensity.adaptivePlatformDensity,
+                     ),
+                     home: MyHomePage(title: 'Flutter Demo Home Page'),
+                   );
+                 }
+               }
+               
+               class MyHomePage extends StatefulWidget {
+                 MyHomePage({Key key, this.title}) : super(key: key);
+               
+                 // This widget is the home page of your application. It is stateful, meaning
+                 // that it has a State object (defined below) that contains fields that affect
+                 // how it looks.
+               
+                 // This class is the configuration for the state. It holds the values (in this
+                 // case the title) provided by the parent (in this case the App widget) and
+                 // used by the build method of the State. Fields in a Widget subclass are
+                 // always marked "final".
+               
+                 final String title;
+               
+                 @override
+                 _MyHomePageState createState() => _MyHomePageState();
+               }
+               
+               class _MyHomePageState extends State<MyHomePage> {
+                 int _counter = 0;
+                 String _response;
+               
+                 void _incrementCounter() {
+                   setState(() {
+                     // This call to setState tells the Flutter framework that something has
+                     // changed in this State, which causes it to rerun the build method below
+                     // so that the display can reflect the updated values. If we changed
+                     // _counter without calling setState(), then the build method would not be
+                     // called again, and so nothing would appear to happen.
+                     _counter++;
+                   });
+                 }
+               
+                 void _getHttp() async {
+                   try {
+                     Response response = await Dio().get("http://www.google.com");
+                     setState(() {
+                       String temp = '$response';
+                       for (var i = 0; i < 10; ++i) {
+                         temp = '$i' + temp;
+                       }
+                       _response = temp.substring(0, 100);
+                     });
+                   } catch (e) {
+                     print(e);
+                   }
+                 }
+               
+               
+                 @override
+                 void initState() {
+                   _getHttp();
+                   super.initState();
+                 }
+               
+                 @override
+                 Widget build(BuildContext context) {
+                   // This method is rerun every time setState is called, for instance as done
+                   // by the _incrementCounter method above.
+                   //
+                   // The Flutter framework has been optimized to make rerunning build methods
+                   // fast, so that you can just rebuild anything that needs updating rather
+                   // than having to individually change instances of widgets.
+                   return Scaffold(
+                     appBar: AppBar(
+                       // Here we take the value from the MyHomePage object that was created by
+                       // the App.build method, and use it to set our appbar title.
+                       title: Text(widget.title),
+                     ),
+                     body: Center(
+                       // Center is a layout widget. It takes a single child and positions it
+                       // in the middle of the parent.
+                       child: Column(
+                         // Column is also a layout widget. It takes a list of children and
+                         // arranges them vertically. By default, it sizes itself to fit its
+                         // children horizontally, and tries to be as tall as its parent.
+                         //
+                         // Invoke "debug painting" (press "p" in the console, choose the
+                         // "Toggle Debug Paint" action from the Flutter Inspector in Android
+                         // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+                         // to see the wireframe for each widget.
+                         //
+                         // Column has various properties to control how it sizes itself and
+                         // how it positions its children. Here we use mainAxisAlignment to
+                         // center the children vertically; the main axis here is the vertical
+                         // axis because Columns are vertical (the cross axis would be
+                         // horizontal).
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: <Widget>[
+                           Text(
+                             'You have pushed the button this many times:',
+                           ),
+                           Text(
+                             '$_counter',
+                             style: Theme.of(context).textTheme.headline4,
+                           ),
+                           Text(
+                          'Server Response:\n$_response'
+                           )
+                      ],
+                       ),
+                  ),
+                     floatingActionButton: FloatingActionButton(
+                       onPressed: _incrementCounter,
+                       tooltip: 'Increment',
+                       child: Icon(Icons.add),
+                     ), // This trailing comma makes auto-formatting nicer for build methods.
+                   );
+                 }
+               }
+            ```
+   
+            After adding this file, remember to run `flutter pub get` to ensure that the dependencies are imported correctly.
+   
+            Then we modify the `main.dart` file as follows:
+   
+            ```dart
+               import 'package:hello/MyApp.dart';
+               import 'package:wtbase/wtbase.dart';
+               import 'package:flutter/material.dart';
+               
+               void main() async {
+                 WidgetsFlutterBinding.ensureInitialized();
+               
+                 bool isNative = false;
+                 if (isNative) {
+                   initApp();
+                 } else {
+                   String downloadUrl = "http://yourlocalhost/hello.bin";
+                   readCode = WTAnalysisReadCode();
+                   await readCode.loadFile(downloadUrl);
+                   readCode.executeMethod(
+                       'package:hello/MyApp.dart', 'initApp');
+                 }
+               }
+            ```
+   
+            > Please note that `downloadUrl` now only supports intranet testing. `downloadUrl` needs to start with `http://192.168`.
+               >
+               > If you need to support extranet requests, please contact [<u>**`flupus@gmail.com`**</u>](mailto:@flupus@gmail.com).
+   
+         8. **Another crucial step**: 
+   
+            Open the terminal and enter the `hello/assets` directory:
+   
+            ![image-20210307141550767](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307141550767.png)
+   
+            Then type in the terminal: `http-server -c -1`
+   
+            The results are as follows:
+   
+            ![image-20210307142308107](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307142308107.png)
+   
+            Copy the link below `http-server`, mine is `http://192.168.80.115:8080`, used to modify `main.dart`
+   
+            ```dart
+               String downloadUrl = "http://yourlocalhost/hello.bin";
+            ```
+   
+            Changed to:
+   
+            ```dart
+               String downloadUrl = "http://192.168.80.115:8080/hello.bin";
+            ```
+   
+            So far, the entire integration process has come to an end.
+   
+            
+   
+         9. The next thing is to run your APP from the IDE by clicking on the green "bug".
+   
+            ![image-20210307142840043](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307142840043.png)
+   
+            No surprises, IDE compilation will not cause any problems. The display on the simulator is like this.
+   
+            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144439925.png" alt="image-20210307144439925" style="zoom:50%;" />
+   
+            
+   
+            IDE's `debug console log` is as follows:
+   
+            ```dart
+               Launching lib/main.dart on Android SDK built for x86 in debug mode...
+               Running Gradle task 'assembleDebug'...
+               ✓ Built build/app/outputs/flutter-apk/app-debug.apk.
+               Installing build/app/outputs/flutter-apk/app.apk...
+               Waiting for Android SDK built for x86 to report its views...
+               Debug service listening on ws://127.0.0.1:65046/r1MGSW-wdg4=/ws
+               Syncing files to device Android SDK built for x86...
+               W/m.example.hell( 6898): Accessing hidden method Lsun/misc/Unsafe;->getUnsafe()Lsun/misc/Unsafe; (greylist,core-platform-api, linking, allowed)
+               W/m.example.hell( 6898): Accessing hidden method Lsun/misc/Unsafe;->objectFieldOffset(Ljava/lang/reflect/Field;)J (greylist,core-platform-api, linking, allowed)
+               W/m.example.hell( 6898): Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+               W/m.example.hell( 6898): Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+               D/EGL_emulation( 6898): eglMakeCurrent: 0xd7a8e900: ver 3 0 (tinfo 0xdaf0f820)
+               D/eglCodecCommon( 6898): setVertexArrayObject: set vao to 0 (0) 1 0
+               I/flutter ( 6898): download file!
+               I/flutter ( 6898): vmClassName: MyApp className: WTStatelessWidget1
+               I/flutter ( 6898): vmClassName: MyHomePage className: WTStatefulWidget1
+               I/flutter ( 6898): vmClassName: _MyHomePageState className: WTState1
+            ```
+   
+         10. The next thing is to let you do it yourself. For example, let's modify the code in `MyApp.dart` and try it. Try modifying the icon of `floatingActionButton`:
+   
+             ```dart
+                floatingActionButton: FloatingActionButton(
+                        onPressed: _incrementCounter,
+                        tooltip: 'Increment',
+                        child: Icon(Icons.add),
+                      ),
+             ```
+   
+             Modify `Icons.add` to `Icons.home`. It looks like this after completion:
+   
+             ```dart
+                floatingActionButton: FloatingActionButton(
+                        onPressed: _incrementCounter,
+                        tooltip: 'Increment',
+                        child: Icon(Icons.home),
+                      ),
+             ```
+   
+             Save the changes you made, then go back to the terminal, enter your compiler directory, and run `./rust_compile`:
+   
+             ![image-20210307143903868](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143903868.png)
+   
+             After running this command, wait for a while, the final effect is as follows:
+   
+             ![image-20210307144050787](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144050787.png)
+   
+             **Please pay attention here**, we don't need the IDE to do anything at this point, just close the currently running app in the simulator, reopen it, and you will find that it becomes the following:
+   
+             <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" style="zoom:50%;" />
+   
+             Once again, we have not used any functions of the IDE in this step of the operation so far. We just compiled the new `hello.bin` file with our own compiler, and then loaded the `bin` file remotely thru the simulator.
+   
+             
+   
+             ###This is an APP that can be fully updated.
+   
+             ### So far, you have developed an App with hot update function, isn't it amazing? ! You can try to modify some code at will, and remember to compile again after changing your code (repeat step 10).
+   
+             #### <font color="#00dd00">**If you like, please give us a star ✨!**</font>
+   
+             
+   
+      ##Attention:
+   
+      ### First: For android app release:
+   
+> For Android App development, it is important to give the App network and storage permissions in advance. Modify `hello/app/src/main/AndroidManifest.xml`
+   >
+   > ![image-20210307135636779](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicr9KTvlkUNHjoEc4.png)
+
+​         
+
+### 		 Second: For iOS app release:
+
+> For iOS App development: Need to add "arm64 & x86_64" in the "Architectures" setting. Otherwise, some errors will be reported when you compile.
+   >
+   > #### The change steps are as follows:
+   >
+   > The initial default is this:
+   >
+   > ![image-20210307140112482](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPickLszR3b8veMWt2T.png)
+   >
+   > Modification process: first click `other`,
+   >
+   > ![image-20210307140300631](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPic5V9B8kRhQreAuFp.png)
+   >
+   > The following window will appear:
+   >
+   > ![image-20210307140445851](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicjxOG5L2IP7Z48zb.png)
+   >
+   > Then click `+` and the following appears:
+   >
+   > ![image-20210307140532395](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPiclzRSIy6KUbgDP1O.png)
+   >
+   > Input `arm64` in the text box. Click `+` again to add `x86_64`; two items will be added.
+   >
+   > ![image-20210307140746620](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicigXGkwO8s6BqYmt.png)
+   >
+   > Finally select `$(ARCHS_STANDARD)`, click `-` in the figure above, and delete `$(ARCHS_STANDARD)`.
+   >
+   > Final result：
+   >
+   > ![image-20210307140930332](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicDHN5JChkQVA3i6G.png)
+   >
+   > Note that if XCODE reports compilation errors related to the `.a` file of `x86_64` when compiling iOS, please delete the `x86_64` of `Architectures` and run XCODE to run again. Deleting `x86_64` will no longer support the iOS simulator.
+   >
+   > Reminder, if you want to deploy the APP to the real iPhone without connecting the iPhone data cable to the computer, please profile your APP to the phone. The XCODE shortcut is
+   >
+   > #### `⌘ + i`。
+
+#### For the release of Android apk, problems that may be encountered:
+
+When releasing `android apk`, if you use `flutter build apk`, the following error will be reported:
+
+```shell
+   This application cannot tree shake icons fonts. It has non-constant instances of IconData at the following locations:
+     - file:///Users/ryanliu/Desktop/test/hello/wtbase/lib/generate/mapping/WTVMIconData.dart:31:12
+```
+
+Please use the following command to release the `apk`:
 
 ```
-flutter create hello
+   flutter build apk --no-tree-shake-icons
 ```
 
-> Remember to add the internet access for the Android app portion.
->
-> In iOS app project "Architectures" setting, "arm64 & x86_64" should be not settled as target.
-
-2. Copy 'wtbase' folder into your app directory, it looks like below:
-
-```
-└── hello
-    ├── README.md
-    ├── android
-    ├── assets
-    ├── ios
-    ├── lib
-    ├── pubspec.lock
-    ├── pubspec.yaml
-    ├── test
-    └── wtbase
-```
-
-3. Create a new dart file named 'MyApp.dart' and add the below code to it.
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-
-void initApp() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _response;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  void _getHttp() async {
-    try {
-      Response response = await Dio().get("http://www.google.com");
-      setState(() {
-        String temp = '$response';
-        for (var i = 0; i < 10; ++i) {
-          temp = '$i' + temp;
-        }
-        _response = temp.substring(0, 100);
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-
-  @override
-  void initState() {
-    _getHttp();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(
-              'Server Response:\n$_response'
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-```
-
-4. Modify "main.dart" to be, remember to change "yourlocalhost" to be your local http-server. Now only support "192.168._._"and "127.0.0.\*".
-   How to create a http-server, refer to https://www.npmjs.com/package/http-server. And set your http-server root as 'assets' directory.
-
-```
-import 'package:hello/MyApp.dart';
-import 'package:wtbase/wtbase.dart';
-import 'package:flutter/material.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  bool isNative = false;
-  if (isNative) {
-    initApp();
-  } else {
-    String downloadUrl = "http://yourlocalhost/hello.bin";
-    readCode = WTAnalysisReadCode();
-    await readCode.loadFile(downloadUrl);
-    readCode.executeMethod(
-        'package:hello/MyApp.dart', 'initApp');
-  }
-}
-```
-
-5. Setup the configuration of the compiler, modify the "config.yaml" file like below:
-
-```
-environment:
-  # Project directory
-  projectPath: /xxx/local_chimera_flutter_code_push/example_project/hello
-  # Flutter SDK directory
-  flutterSdkPath: /xxx/flutter_sdk
-  # Build cache directory
-  buildCachePath: /xxx/flutter_library_build_temp
-  # FTP path(Optional)
-  ftpConfig: 192.168.*.*|root|123456
-```
-
-> All above directories are **Absolute path**
-
-6. Compile your 'hello' app in the 'compile_tool' folder, just run below command:
-
-```
-./rust_compile
-```
-
-7. Now you have a code push function itegrated app. Run it and test it with adding any code you want.
+You won't encounter the error above again.
 
 #### <font color="#00dd00">**Enjoy it!**</font>
 
