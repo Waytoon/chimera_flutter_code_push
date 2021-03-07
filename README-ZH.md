@@ -438,7 +438,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
          
             不出任何意外，IDE的编译不会出现任何问题。模拟器上的显示是这样的。
          
-            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144439925.png" alt="image-20210307144439925" style="zoom:50%;" />
+            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307144439925.png" alt="image-20210307144439925" width="300" />
          
             
          
@@ -494,7 +494,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
          
             **这里亲请注意了**，我们到此不需要IDE来做什么了，只需要在模拟器里关掉当前运行的app，重新打开它，你就会发现它变成了下面的样子：
          
-            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" style="zoom:50%;" />
+            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" width="300" />
          
             再次强调一下到此为止我们上面的这一步操作没有使用IDE的任何功能，我们只是用我们自己的编译器编译了新的`hello.bin`文件，然后通过模拟器远程加载了这个`bin`文件。
          
@@ -532,15 +532,15 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
 >
 > 会出现以下窗口：
 >
-> ![image-20210307140445851](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicjxOG5L2IP7Z48zb.png)
+> <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicjxOG5L2IP7Z48zb.png" alt="image-20210307140445851" width="500" />
 >
 > 然后点`+` 出现以下：
 >
-> ![image-20210307140532395](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPiclzRSIy6KUbgDP1O.png)
+> <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPiclzRSIy6KUbgDP1O.png" alt="image-20210307140532395" width="500" />
 >
 > 在文本框里输出`arm64`。 再次点`+`,添加`x86_64`；会有两项被添加。
 >
-> ![image-20210307140746620](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicigXGkwO8s6BqYmt.png)
+> <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicigXGkwO8s6BqYmt.png" alt="image-20210307140746620" width="500" />
 >
 > 最后选中`$(ARCHS_STANDARD)`,点击上图中的`-`，删除`$(ARCHS_STANDARD)`。
 >
@@ -600,4 +600,4 @@ flutter build apk --no-tree-shake-icons
 
 我们在此热烈欢迎来自五湖四海的兄弟姐妹加入我们，我们需要社区里大家的支持和帮忙，我们不想贴什么捐助码子了，就贴个微信群吧，我们的力量很有限，我们需要您的参与和贡献！ 真心说声感谢，对所有支持我们的朋友！
 
-<img src="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/Media/group.png?raw=true" alt="group.png" style="zoom:30%;" />
+<img src="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/Media/group.png?raw=true" alt="group.png" width="400" />
