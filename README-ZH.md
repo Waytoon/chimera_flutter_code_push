@@ -606,4 +606,4 @@ flutter build apk --no-tree-shake-icons
 
 群主二维码：
 
-<img src="/Users/ryanliu/Library/Application%20Support/typora-user-images/image-20210308234755047.png" alt="image-20210308234755047" width="400" />
+<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210308234755047.png" alt="image-20210308234755047" width="400" />
