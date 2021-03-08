@@ -628,4 +628,4 @@ Any friend who are interested in Chimera code push can join our WeChat group by 
 
 <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicuPicimage-20210308102258676.png" alt="image-20210308102258676" width="400" />
 
-<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210308102444237.png" alt="image-20210308102444237" width="400" />
+<img src="/Users/ryanliu/Library/Application%20Support/typora-user-images/image-20210308234755047.png" alt="image-20210308234755047" width="400" />
