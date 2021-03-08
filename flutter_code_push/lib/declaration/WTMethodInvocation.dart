@@ -42,6 +42,19 @@ class WTMethodInvocation extends WTBaseDeclaration {
   }
 
   dynamic executeWithTargetValue(dynamic targetValue, Environment env) {
+    return WTMethodInvocation.staticExecuteWithTargetValue(targetValue,
+        methodName,
+        argumentList,
+        typeArgumentList,
+        operator, env);
+  }
+
+  static dynamic staticExecuteWithTargetValue(dynamic targetValue,
+      String methodName,
+      List<WTBaseDeclaration> argumentList,
+      WTTypeArgumentList typeArgumentList,
+      String operator,
+      Environment env) {
     var isDebugMethodName = methodName == 'debug_initialize';
     if(isDebugMethodName)
       int x = 10;
@@ -108,7 +121,6 @@ class WTMethodInvocation extends WTBaseDeclaration {
         targetValue = env.get(target);
       }
 
-
       if(targetValue == null && operator == '?.')
         return null;
 
@@ -131,6 +143,9 @@ class WTMethodInvocation extends WTBaseDeclaration {
       else if (targetValue is Environment) {
         Environment tempEnv = targetValue;
         func =  tempEnv.get(methodName);
+      }
+      else if(methodName == null) {
+        func = targetValue;
       }
       else {
         func = sdkBridge.getValue(targetValue, methodName);
