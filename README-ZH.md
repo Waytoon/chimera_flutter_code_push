@@ -600,4 +600,10 @@ flutter build apk --no-tree-shake-icons
 
 我们在此热烈欢迎来自五湖四海的兄弟姐妹加入我们，我们需要社区里大家的支持和帮忙，我们不想贴什么捐助码子了，就贴个微信群吧，我们的力量很有限，我们需要您的参与和贡献！ 真心说声感谢，对所有支持我们的朋友！
 
-<img src="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/Media/group.png?raw=true" alt="group.png" width="400" />
+微信群二维码：
+
+<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicuPicimage-20210308102258676.png" alt="image-20210308102258676" width="400" />
+
+群主二维码：
+
+<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210308102444237.png" alt="image-20210308102444237" width="400" />
