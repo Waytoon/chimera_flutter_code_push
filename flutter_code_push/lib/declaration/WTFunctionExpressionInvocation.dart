@@ -10,7 +10,7 @@ class WTFunctionExpressionInvocation extends WTBaseDeclaration {
   WTBaseDeclaration function;
   List<WTBaseDeclaration> argumentsList;
 
-  WTTypeArgumentList typeArgumentList;
+  WTBaseDeclaration typeArgumentList;
   // WTBaseDeclaration typeArgumentTypes;
   //
   // WTBaseDeclaration staticInvokeType;
