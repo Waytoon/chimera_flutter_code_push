@@ -626,4 +626,6 @@ Submit issues through Issue catogary, if you want to contribute code, please sen
 
 Any friend who are interested in Chimera code push can join our WeChat group by scanning the QR code as below:
 
-<img src="https://github.com/Waytoon/chimera_flutter_code_push/blob/main/Media/group.png?raw=true" alt="group.png" width="300" />
+<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicuPicimage-20210308102258676.png" alt="image-20210308102258676" width="400" />
+
+<img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210308102444237.png" alt="image-20210308102444237" width="400" />
