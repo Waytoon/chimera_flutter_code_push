@@ -1,0 +1,24 @@
+name: Gitee repos mirror periodic job
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Mirror the Github organization repos to Gitee.
+      uses: Yikun/hub-mirror-action@master
+      with:
+        src: github/Waytoon
+        dst: gitee/457636876
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token:  ${{ secrets.GITEE_TOKEN }}
+        #account_type: org
+        timeout: 600
+        debug: true
+        force_update: true
+        static_list: "chimera_flutter_code_push"
+        #white_list: "chimera_flutter_code_push"
