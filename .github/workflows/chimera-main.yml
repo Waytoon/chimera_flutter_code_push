@@ -20,4 +20,5 @@ jobs:
         timeout: 600
         debug: true
         force_update: true
-        white_list: "chimera_flutter_code_push"
+        static_list: "chimera_flutter_code_push"
+        #white_list: "chimera_flutter_code_push"
