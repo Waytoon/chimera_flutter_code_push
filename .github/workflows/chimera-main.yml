@@ -16,7 +16,7 @@ jobs:
         dst: gitee/457636876
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token:  ${{ secrets.GITEE_TOKEN }}
-        account_type: org
+        #account_type: org
         timeout: 600
         debug: true
         force_update: true
