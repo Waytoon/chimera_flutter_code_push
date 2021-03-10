@@ -187,7 +187,7 @@ The important thing: The compiler needs to be connected to the Internet while it
 Original configuration:
           
 ![image-20210307113315222](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicYSGZO3tecvN7CV6.png)
-          Code: 
+          Code used: 
 
 ```
   flutter_code_push:
