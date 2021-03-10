@@ -198,7 +198,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
 
          Code: 
 
-         ```
+         ```dart
   flutter_code_push:
              git:
       url: https://github.com/Waytoon/chimera_flutter_code_push.git
