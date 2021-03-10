@@ -431,7 +431,7 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
    String downloadUrl = "http://192.168.80.115:8080/hello.bin";
    ```
 
-   So far, the entire access process has come to an end.
+   So far, the entire access process has come to an end..
 
    
 
