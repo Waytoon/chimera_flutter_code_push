@@ -196,6 +196,17 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
 
          ![image-20210307113436135](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicZHQtr5qJSRyuXvP.png)
 
+         Code: 
+
+         ```
+  flutter_code_push:
+             git:
+      url: https://github.com/Waytoon/chimera_flutter_code_push.git
+               path: flutter_code_push
+         ```
+         
+         
+
          记得点一下上面的`pub get`，或者在terminal里输入`flutter pub get`.
 
          ![image-20210307113615328](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicA2RCGdQWJl7yBPc.png)
@@ -203,18 +214,18 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
          6. 然后修改`hello/pubspec.yaml`，在`dependencies`添加如下：
 
             ```
-             wtbase:
+    wtbase:
                 path: ./wtbase
             ```
-
+         
             并将`dependencies`下的其他依赖库剪切复制到`wtbase/pubspec.yaml’的`dependencies`下，最终效果如下：
-
+         
             `hello/pubspec.yaml`:
-
+         
             ![image-20210307151156273](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307151156273.png)
-
+         
             `hello/wtbase/pubspec.yaml`:
-
+         
             ![image-20210307151326749](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307151326749.png)
          
             记得运行`flutter pub get`,或者点击`Pub get`按钮。
@@ -494,7 +505,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
          
             **这里亲请注意了**，我们到此不需要IDE来做什么了，只需要在模拟器里关掉当前运行的app，重新打开它，你就会发现它变成了下面的样子：
          
-            <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" width="300" />
+      <img src="https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicimage-20210307143122217.png" alt="image-20210307143122217" width="300" />
          
             再次强调一下到此为止我们上面的这一步操作没有使用IDE的任何功能，我们只是用我们自己的编译器编译了新的`hello.bin`文件，然后通过模拟器远程加载了这个`bin`文件。
          
@@ -505,7 +516,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
             ### 到此为止，你已经开发了一个带有热更新功能的App了，是不是很神奇？！ 你现在可以随意去改一些代码试试，改过你的代码后记得要再次编译哦（重复第10步）。
          
             #### <font color="#00dd00">**喜欢的话就给我们点个星星吧✨!**</font>
-   
+         
             
       
       ##注意事项：

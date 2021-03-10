@@ -187,7 +187,17 @@ The important thing: The compiler needs to be connected to the Internet while it
 Original configuration:
           
 ![image-20210307113315222](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicYSGZO3tecvN7CV6.png)
-          
+          Code: 
+
+```
+  flutter_code_push:
+    git:
+      url: https://github.com/Waytoon/chimera_flutter_code_push.git
+      path: flutter_code_push
+```
+
+
+
 After modification:
           
 ![image-20210307113436135](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicZHQtr5qJSRyuXvP.png)
