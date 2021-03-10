@@ -196,7 +196,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
 
          ![image-20210307113436135](https://raw.githubusercontent.com/Waytoon/Chimera_media/main/uPicZHQtr5qJSRyuXvP.png)
 
-         Code: 
+         Code used: 
 
          ```dart
   flutter_code_push:
