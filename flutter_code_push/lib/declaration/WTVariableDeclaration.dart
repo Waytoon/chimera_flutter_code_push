@@ -28,6 +28,11 @@ class WTVariableDeclaration extends WTBaseDeclaration {
   List<WTVariableDeclarationItem> variableList;
   List<WTBaseDeclaration> initializerList;
 
+  String get firstVariableName {
+    var first = variableList[0];
+    return first.variableName;
+  }
+
   @override
   dynamic execute(Environment env, {bool isAssign = true}) {
     if(isAssign == false) {

@@ -137,7 +137,7 @@ class Environment {
 
   /// whether isDirect stored directly
   void set(String attr, dynamic object, {bool isDirect = false, bool isOverride = true}) {
-    if(attr == '_debugTextColor') {
+    if(attr == '_animateHome') {
       int x=1;
     }
       

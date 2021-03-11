@@ -39,14 +39,16 @@ get isDebug {
   return _isDebug;
 }
 
-void debugPrint(String value) {
+Function globalDebugPrint = print;
+Function globalErrorPrint = print;
+void debugPrint(String value, {bool isError = false}) {
   if(isDebug) {
-    print(value);
+    isError ? globalErrorPrint(value): globalDebugPrint(value);
   }
 }
 
 void debugError(String value, {bool isIgnored = false}) {
-  debugPrint(value);
+  debugPrint(value, isError: true);
   if(isIgnored == false)
     throw value;
 }
