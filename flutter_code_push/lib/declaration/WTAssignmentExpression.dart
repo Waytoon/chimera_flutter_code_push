@@ -22,15 +22,25 @@ class WTAssignmentExpression extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
+    return executeWithTargetValue(env);
+  }
+
+  void executeWithTargetValue(Environment env, [leftValue]) {
+    WTAssignmentExpression expression = this;
+    var value = expression.value;
+    var left = expression.left;
+    var operator = expression.operator;
+
     dynamic rightValue = value.execute(env);
-    bool isNeedLeftValue = operator != "=";
-    dynamic leftValue;
+    bool isNeedLeftValue = leftValue == null && operator != "=";
 
     if (left is WTIndexExpression) {
       WTIndexExpression t = left;
-      dynamic leftValue = t.target.execute(env);
-      dynamic leftKey = t.indexDeclaration.execute(env);
-      if (isNeedLeftValue) leftValue = leftValue[leftKey];
+      if(isNeedLeftValue) {
+        leftValue = t.target.execute(env);
+        dynamic leftKey = t.indexDeclaration.execute(env);
+        leftValue = leftValue[leftKey];
+      }
     } else if (left is WTSimpleIdentifierImpl) {
       /// TODO: 解决作用域的问题
       WTSimpleIdentifierImpl t = left;
@@ -50,38 +60,34 @@ class WTAssignmentExpression extends WTBaseDeclaration {
       } else if (targetValue is WTUnitMemory) {
         WTUnitMemory unitMemory = targetValue;
         if (isNeedLeftValue) leftValue = unitMemory.getValue(p.identifier);
-      } else {
-        debugError("Unsupported assignment $p = $rightValue");
       }
     } else if (left is WTPropertyAccess) {
       WTPropertyAccess p = left;
-      var targetValue = p.target.execute(env);
-      if (targetValue is WTClassPointer) {
-        WTClassPointer pointer = targetValue;
+      if(isNeedLeftValue) leftValue = p.target.execute(env);
+      if (leftValue is WTClassPointer) {
+        WTClassPointer pointer = leftValue;
         if (isNeedLeftValue) leftValue = pointer.getValue(p.propertyName);
       }
-      else {
-        debugError("Unsupported PropertyAccess assignment $p = $rightValue");
-      }
     }
+
 
     if(value is WTAwaitExpression) {
       Future future = rightValue;
       future.then((t) {
         rightValue = t;
-        executeAssign(env, left, _getAssignValue(leftValue, rightValue, operator));
+        executeAssign(env, leftValue, left, _getAssignValue(leftValue, rightValue, operator));
       });
     }else {
-      executeAssign(env, left, _getAssignValue(leftValue, rightValue, operator));
+      executeAssign(env, leftValue, left, _getAssignValue(leftValue, rightValue, operator));
     }
     return rightValue;
   }
 
   static void executeAssign(
-      Environment env, WTBaseDeclaration left, dynamic assignValue) {
+      Environment env, leftValue, WTBaseDeclaration left, dynamic assignValue) {
     if (left is WTIndexExpression) {
       WTIndexExpression t = left;
-      dynamic leftValue = t.target.execute(env);
+      leftValue ??= t.target.execute(env);
       dynamic leftKey = t.indexDeclaration.execute(env);
       leftValue[leftKey] = assignValue;
     } else if (left is WTSimpleIdentifierImpl) {
@@ -91,26 +97,31 @@ class WTAssignmentExpression extends WTBaseDeclaration {
       env.set(attrName, assignValue);
     } else if (left is WTPrefixedIdentifier) {
       WTPrefixedIdentifier p = left;
-      var targetValue = p.prefix.execute(env);
-      if (targetValue is WTClassPointer) {
+      leftValue ??= p.prefix.execute(env);
+      if (leftValue is WTClassPointer) {
         WTClassPointer classPointer = p.prefix.execute(env);
         classPointer.setValue(p.identifier, assignValue);
-      } else if (targetValue is WTClassMemory) {
-        WTClassMemory classMemory = targetValue;
+      } else if (leftValue is WTClassMemory) {
+        WTClassMemory classMemory = leftValue;
         classMemory.setValue(p.identifier, assignValue);
-      } else if (targetValue is WTVMBaseType) {
-        WTVMBaseType baseType = targetValue;
+      } else if (leftValue is WTVMBaseType) {
+        WTVMBaseType baseType = leftValue;
         baseType.setValue(p.identifier, assignValue);
-      } else if(targetValue is WTUnitMemory) {
-        WTUnitMemory unitMemory = targetValue;
+      } else if(leftValue is WTUnitMemory) {
+        WTUnitMemory unitMemory = leftValue;
         unitMemory.setValue(p.identifier, assignValue);
+      }else {
+        sdkBridge.setValue(leftValue, p.identifier, assignValue);
       }
     } else if (left is WTPropertyAccess) {
       WTPropertyAccess p = left;
-      var targetValue = p.target.execute(env);
-      if (targetValue is WTClassPointer) {
-        WTClassPointer pointer = targetValue;
+      leftValue ??= p.target.execute(env);
+      if (leftValue is WTClassPointer) {
+        WTClassPointer pointer = leftValue;
         return pointer.setValue(p.propertyName, assignValue);
+      }
+      else {
+        sdkBridge.setValue(leftValue, p.propertyName, assignValue);
       }
     }
   }

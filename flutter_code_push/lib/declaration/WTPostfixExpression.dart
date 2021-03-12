@@ -14,12 +14,12 @@ class WTPostfixExpression extends WTBaseDeclaration {
 
     switch (operator) {
       case "++":
-        WTAssignmentExpression.executeAssign(env, leftOperand, outValue + 1);
+        WTAssignmentExpression.executeAssign(env, null, leftOperand, outValue + 1);
         return outValue;
         break;
 
       case "--":
-        WTAssignmentExpression.executeAssign(env, leftOperand, outValue - 1);
+        WTAssignmentExpression.executeAssign(env, null, leftOperand, outValue - 1);
         return outValue;
         break;
     }

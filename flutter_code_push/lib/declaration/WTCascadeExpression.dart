@@ -1,4 +1,5 @@
 import 'package:flutter_code_push/Environment.dart';
+import 'package:flutter_code_push/declaration/WTAssignmentExpression.dart';
 import 'package:flutter_code_push/declaration/WTBaseDeclaration.dart';
 import 'package:flutter_code_push/declaration/WTMethodInvocation.dart';
 import 'package:flutter_code_push/external/WTByteArray.dart';
@@ -14,8 +15,17 @@ class WTCascadeExpression extends WTBaseDeclaration {
     for (var cascade in cascadeSections) {
       if(cascade is WTMethodInvocation) {
         WTMethodInvocation m = cascade;
-        m.executeWithTargetValue(targetValue, env);
+        m.executeWithTargetValue(env, targetValue,);
       }
+      else if(cascade is WTAssignmentExpression) {
+        WTAssignmentExpression a = cascade;
+        a.executeWithTargetValue(env, targetValue);
+      }
+      else {
+        WTBaseDeclaration declaration = cascade;
+        declaration.execute(env);
+      }
+
     }
     return targetValue;
   }

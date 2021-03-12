@@ -38,10 +38,10 @@ class WTMethodInvocation extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return executeWithTargetValue(target, env);
+    return executeWithTargetValue(env, target);
   }
 
-  dynamic executeWithTargetValue(dynamic targetValue, Environment env) {
+  dynamic executeWithTargetValue(Environment env, dynamic targetValue,) {
     return WTMethodInvocation.staticExecuteWithTargetValue(targetValue,
         methodName,
         argumentList,

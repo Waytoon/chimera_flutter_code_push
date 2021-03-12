@@ -32,13 +32,13 @@ class WTPrefixExpression extends WTBaseDeclaration {
 
       case "++":
         ++value;
-        WTAssignmentExpression.executeAssign(env, rightOperand, value);
+        WTAssignmentExpression.executeAssign(env, null, rightOperand, value);
         return value;
         break;
 
       case "--":
         --value;
-        WTAssignmentExpression.executeAssign(env, rightOperand, value);
+        WTAssignmentExpression.executeAssign(env, null, rightOperand, value);
         return value;
         break;
     }
