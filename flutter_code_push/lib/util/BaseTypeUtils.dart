@@ -17,4 +17,25 @@ class BaseTypeUtils {
 
     return null;
   }
+
+  Future<T> toFuture<T>(dynamic value) {
+    if(value == null)
+      return value;
+    
+    if(value is Future<T>)
+      return value;
+
+    if(value is! Future) {
+      Future<T> outFuture = Future.value(value);
+      return outFuture;
+    }
+
+    if(value is! Future<T>) {
+      Future valueFuture = value;
+      Future<T> outFuture = valueFuture.then((value) => value as T);
+      return outFuture;
+    }
+
+    return value;
+  }
 }
