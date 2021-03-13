@@ -86,7 +86,7 @@ packages:
   flutter_code_push:
     dependency: transitive
     description:
-      path: "../../flutter_code_push"
+      path: "../../../../flupush/flutter_code_push"
       relative: true
     source: path
     version: "0.0.1"
