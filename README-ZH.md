@@ -413,7 +413,7 @@ https://github.com/Waytoon/chimera_flutter_code_push/releases/download/v1.0.0/ru
             ```
             > 请注意`downloadUrl`现在仅支持内网测试。`downloadUrl`需要以`http://192.168`开头。
             >
-            > 如需支持外网请求，请联系[<u>**`flupus@gmail.com`**</u>](mailto:@flupus@gmail.com)。
+            > 如需支持外网请求，请联系[<u>**`flupush@gmail.com`**</u>](mailto:@flupush@gmail.com)。
          
          8. **另一个至关重要的步骤**： 
          

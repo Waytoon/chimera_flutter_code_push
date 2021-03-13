@@ -1,4 +1,4 @@
- import 'package:hello/MyApp.dart';
+import 'package:hello/MyApp.dart';
 import 'package:wtbase/wtbase.dart';
 import 'package:flutter/material.dart';
 

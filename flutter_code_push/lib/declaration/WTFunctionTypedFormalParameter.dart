@@ -8,7 +8,7 @@ import 'package:flutter_code_push/external/WTByteArray.dart';
 class WTFunctionTypedFormalParameter extends WTBaseDeclaration {
   String identifier;
 
-  WTTypeName returnType;
+  WTBaseDeclaration returnType;
   WTFormalParameterList parameter;
 
   @override

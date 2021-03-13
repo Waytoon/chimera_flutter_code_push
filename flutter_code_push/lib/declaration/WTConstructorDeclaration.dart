@@ -1,6 +1,7 @@
 import 'package:flutter_code_push/Environment.dart';
 import 'package:flutter_code_push/constant/WTVMConstant.dart';
 import 'package:flutter_code_push/declaration/WTBaseDeclaration.dart';
+import 'package:flutter_code_push/declaration/WTConstructorName.dart';
 import 'package:flutter_code_push/declaration/WTFieldFormalParameter.dart';
 import 'package:flutter_code_push/declaration/WTSimpleFormalParameter.dart';
 import 'package:flutter_code_push/declaration/WTDefaultFormalParameter.dart';
@@ -25,6 +26,8 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
 
   /// 实现factory构造函数
   WTClassMemory classMemory;
+
+  WTBaseDeclaration redirectedConstructor;
 
   @override
   dynamic execute(Environment env) {
@@ -136,5 +139,6 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
     factoryKeyword = byteArray.readString();
     externalKeyword = byteArray.readString();
     body = readList(byteArray);
+    redirectedConstructor = serializedInstance(byteArray);
   }
 }

@@ -405,7 +405,7 @@ Remember to run `flutter pub get`, or click the `Pub get` button.
 
    > Please note that `downloadUrl` now only supports intranet testing. `downloadUrl` needs to start with `http://192.168`.
    >
-   > If you need to support extranet requests, please contact [<u>**`flupus@gmail.com`**</u>](mailto:@flupus@gmail.com).
+   > If you need to support extranet requests, please contact [<u>**`flupush@gmail.com`**</u>](mailto:@flupush@gmail.com).
 
    **Another crucial step**:
 
