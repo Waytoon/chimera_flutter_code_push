@@ -29,7 +29,7 @@
 .packages
 .pub-cache/
 .pub/
-**/build/
+/build/
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -41,11 +41,6 @@ app.*.symbols
 app.*.map.json
 
 # Android Studio will place build artifacts here
-**/android/app/debug
-**/android/app/profile
-**/android/app/release
-**/.gradle
-**/wtbase
-
-/example_project/hello/wtbase
-/compile_tool/rust_compile
+/android/app/debug
+/android/app/profile
+/android/app/release
