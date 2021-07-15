@@ -1,0 +1,43 @@
+import 'package:flutter_code_push_next/index.dart';
+
+/// 访问类型名称
+class WTTypeName extends WTBaseDeclaration {
+  WTBaseDeclaration? nameDeclaration;
+  WTBaseDeclaration? typeArguments;
+  String? question;
+
+  /// 用于类型推断
+  WTTypeName.instance(this.nameDeclaration, this.typeArguments);
+  WTTypeName();
+
+  String? get typeName {
+    var n = nameDeclaration;
+    if (n is WTPrefixedIdentifier) {
+      String? identifierName;
+      var prefixDeclaration = n.prefix;
+      if (prefixDeclaration is WTSimpleIdentifierImpl)
+        identifierName = prefixDeclaration.identifierName;
+      if (identifierName == null) return null;
+      return identifierName;
+    } else if (n is WTSimpleIdentifierImpl) {
+      return n.identifierName;
+    }
+    return null;
+  }
+
+  @override
+  dynamic execute(Environment env) {}
+
+  @override
+  void read(ByteArray byteArray) {
+    super.read(byteArray);
+    typeArguments = serializedInstance(byteArray);
+    nameDeclaration = serializedInstance(byteArray);
+    question = byteArray.readString();
+  }
+
+  @override
+  String? getTypeName() {
+    return nameDeclaration?.getTypeName();
+  }
+}

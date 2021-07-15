@@ -1,14 +1,12 @@
-Upgrade to the Flutter 2.0 era, this SDK is to help Flutter achieve hot updates.
+升级到Flutter 2.0时代，此SDK为帮助Flutter实现热更新。
 
-Environmental requirements:
+环境要求：
 
 Dart: >= 2.13.4
 
-Flutter：As long as Dart compound requirements
+Flutter：只要Dart复合要求就行
 
-
-
-The environment variable configuration is as follows:
+环境变量配置如下：
 
 export FLUTTER_ROOT=/Volumes/data/flutter_sdk/flutter_sdk
 
@@ -24,8 +22,4 @@ export PUB_CACHE=${FLUTTER_ROOT}/.pub-cache
 
 export PATH=${PUB_CACHE}/bin:${PATH}
 
-
-
-The access process is the same as the old version, it is not clear to wait for the video tutorial to be released or contact us by email.
-
-z888888cn@gmail.com
+接入流程跟旧版本一致，不清楚的等待发布视频教程。

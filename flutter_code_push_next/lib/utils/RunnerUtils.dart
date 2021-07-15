@@ -1,0 +1,113 @@
+import 'package:flutter_code_push_next/index.dart';
+
+class RunnerUtils {
+  static dynamic returnValueConvert(methodDeclaration, dynamic returnValue) {
+    if (methodDeclaration is WTMethodDeclaration) {
+      WTMethodDeclaration method = methodDeclaration;
+
+      var returnType = method.returnType;
+      if (returnType is WTTypeName) {
+        var nameDeclaration = returnType.nameDeclaration;
+        WTTypeArgumentList? typeArguments = returnType
+            .typeArguments as WTTypeArgumentList?;
+        if (nameDeclaration is WTSimpleIdentifierImpl) {
+          if (nameDeclaration.identifierName == 'Future') {
+            if (typeArguments != null) {
+              var arguments = typeArguments.arguments!;
+              int size = arguments.length;
+              for (var i = 0; i < size; ++i) {
+                WTTypeName typeName = arguments[i] as WTTypeName;
+                var nameDeclaration = typeName.nameDeclaration;
+                if (nameDeclaration is WTSimpleIdentifierImpl) {
+                  var identifierName = nameDeclaration.identifierName;
+
+                  if (returnValue is! Future)
+                    return returnValue;
+                  Future v = returnValue;
+                  switch (identifierName) {
+                    case 'Map':
+                      Future<Map> o = toFuture<Map>(v);
+                      return o;
+                      break;
+
+                    case 'List':
+                      Future<List> o = toFuture<List>(v);
+                      return o;
+                      break;
+
+                    case 'bool':
+                      Future<bool> o = toFuture<bool>(v);
+                      return o;
+                      break;
+
+                    case 'int':
+                      Future<int> o = toFuture<int>(v);
+                      return o;
+                      break;
+
+                    case 'double':
+                      Future<double> o = toFuture<double>(v);
+                      return o;
+                      break;
+                  }
+                }
+              }
+            }
+            else if (returnValue == null) {
+              return Future.value(null);
+            }
+          }
+        }
+      }
+    }
+    return returnValue;
+  }
+
+  static Future<T> toFuture<T>(dynamic value) {
+    if (value == null) return value;
+
+    if (value is Future<T>) return value;
+
+    if (value is! Future) {
+      Future<T> outFuture = Future.value(value);
+      return outFuture;
+    }
+
+    if (value is! Future<T>) {
+      Future valueFuture = value;
+      Future<T> outFuture = valueFuture.then((value) => value as T);
+      return outFuture;
+    }
+
+    return value;
+  }
+
+  /// Calculate the execution time, return seconds
+  static Future<int> calcExecuteTime({required Function function,
+    String? desc,
+    bool isForcedLog = true,
+    bool isOnlyDebugLog = false}) async {
+
+    bool isLog = true;
+    if (desc == null || (isOnlyDebugLog && isDebug == false))
+      isLog = false;
+
+    OutLogUtils.successLog("start $desc!~", isOutput: isLog);
+
+    Duration? elapsed;
+    if(isLog) {
+      Stopwatch stopwatch = Stopwatch()
+        ..start();
+      await function();
+      elapsed = stopwatch.elapsed;
+      if (elapsed.inSeconds > 0 || isForcedLog)
+        OutLogUtils.debugLog('$desc: $elapsed', isOutput: isLog);
+    }
+    else {
+      await function();
+    }
+
+    OutLogUtils.successLog("$desc complete!~", isOutput: isLog);
+    return elapsed?.inSeconds ?? 0;
+  }
+}
