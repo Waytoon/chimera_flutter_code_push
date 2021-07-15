@@ -116,6 +116,10 @@ class WTAssignmentExpression extends WTBaseDeclaration {
     } else if (left is WTPropertyAccess) {
       WTPropertyAccess p = left;
       leftValue ??= p.target.execute(env);
+      
+      if(leftValue == null && p.operator == "?.")
+        return;
+
       if (leftValue is WTClassPointer) {
         WTClassPointer pointer = leftValue;
         return pointer.setValue(p.propertyName, assignValue);

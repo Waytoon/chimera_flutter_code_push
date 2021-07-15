@@ -17,6 +17,7 @@ class RunnerUtils {
   static dynamic returnValueConvert(methodDeclaration, dynamic returnValue) {
     if(methodDeclaration is WTMethodDeclaration) {
       WTMethodDeclaration method = methodDeclaration;
+
       var returnType = method.returnType;
       if(returnType is WTTypeName) {
         var nameDeclaration = returnType.nameDeclaration;
@@ -36,27 +37,27 @@ class RunnerUtils {
                 Future v = returnValue as Future;
                 switch(identifierName) {
                   case 'Map':
-                    Future<Map> o = v.then((value) => value as Map);
+                    Future<Map> o = toFuture<Map>(v);
                     return o;
                     break;
 
                   case 'List':
-                    Future<List> o = v.then((value) => value as List);
+                    Future<List> o = toFuture<List>(v);
                     return o;
                     break;
 
                   case 'bool':
-                    Future<bool> o = v.then((value) => value as bool);
+                    Future<bool> o = toFuture<bool>(v);
                     return o;
                     break;
 
                   case 'int':
-                    Future<int> o = v.then((value) => value as int);
+                    Future<int> o = toFuture<int>(v);
                     return o;
                     break;
 
                   case 'double':
-                    Future<double> o = v.then((value) => value as double);
+                    Future<double> o = toFuture<double>(v);
                     return o;
                     break;
                 }
@@ -67,5 +68,26 @@ class RunnerUtils {
       }
     }
     return returnValue;
+  }
+
+  static Future<T> toFuture<T>(dynamic value) {
+    if(value == null)
+      return value;
+
+    if(value is Future<T>)
+      return value;
+
+    if(value is! Future) {
+      Future<T> outFuture = Future.value(value);
+      return outFuture;
+    }
+
+    if(value is! Future<T>) {
+      Future valueFuture = value;
+      Future<T> outFuture = valueFuture.then((value) => value as T);
+      return outFuture;
+    }
+
+    return value;
   }
 }

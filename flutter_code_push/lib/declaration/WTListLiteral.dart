@@ -1,9 +1,11 @@
 import 'package:flutter_code_push/Environment.dart';
+import 'package:flutter_code_push/constant/WTVMConstant.dart';
 import 'package:flutter_code_push/declaration/WTBaseDeclaration.dart';
 import 'package:flutter_code_push/declaration/WTForElement.dart';
 import 'package:flutter_code_push/declaration/WTIfElement.dart';
 import 'package:flutter_code_push/declaration/WTSpreadElement.dart';
 import 'package:flutter_code_push/external/WTByteArray.dart';
+import 'package:flutter_code_push/sdkBridge/WTSDKBridge.dart';
 
 /// List Literal
 class WTListLiteral extends WTBaseDeclaration {
@@ -14,6 +16,9 @@ class WTListLiteral extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
+    Environment selfEnv = Environment.newInstance();
+    selfEnv.outer = env;
+
     List value = [];
     int size = elements?.length ?? 0;
     isAllValueString = size > 0;
@@ -27,7 +32,11 @@ class WTListLiteral extends WTBaseDeclaration {
         isNotAddNoneValue = temp.isNullable;
       }
 
-      dynamic executeValue = declaration.execute(env);
+      dynamic executeValue = declaration.execute(selfEnv);
+
+      var isDirectAddListEnv = selfEnv.get(WTVMConstant.isDirectAddList, isDirect: true);
+      selfEnv.del(WTVMConstant.isDirectAddList);
+
       if(isAddList) {
         if(executeValue != null) {
           for (var v in executeValue) {
@@ -37,7 +46,17 @@ class WTListLiteral extends WTBaseDeclaration {
       }else {
         if(executeValue == null && isNotAddNoneValue == true)
           continue;
-        _addList(value, executeValue);
+
+        if(isDirectAddListEnv == true) {
+          if(executeValue is! List) {
+            debugError("Add wrong data");
+          }
+          for (var v in executeValue) {
+            _addList(value, v);
+          }
+        }else {
+          _addList(value, executeValue);
+        }
       }
     }
 

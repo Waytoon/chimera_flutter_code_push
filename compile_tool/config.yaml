@@ -1,6 +1,6 @@
 environment:
   # Project path
-  projectPath: /Volumes/data/example_project/hello
+  projectPath: /Volumes/data/flutter_project/public_flupush/chimera_flutter_code_push/example_project/hello
   # Flutter SDK
   flutterSdkPath: /Volumes/data/flutter_sdk
   # Compile cache path

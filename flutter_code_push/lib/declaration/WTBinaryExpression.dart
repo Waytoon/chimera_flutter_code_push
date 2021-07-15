@@ -72,9 +72,15 @@ class WTBinaryExpression extends WTBaseDeclaration {
         break;
 
       case '&&':
-        // if(leftValue == null || rightValue == null)
-        //   int x=10;
-        returnValue =  leftValue && rightValue;
+        returnValue = false;
+        
+        var tempLeft = leftValue;
+        if(tempLeft) {
+          var tempRight = rightValue;
+          if(tempRight) {
+            returnValue = true;
+          }
+        }
         break;
 
       default:

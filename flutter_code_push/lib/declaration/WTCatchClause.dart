@@ -10,7 +10,19 @@ class WTCatchClause extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
+    return body.execute(env);
+  }
 
+  dynamic executeAndExcepationAndStackTrace(Environment env, exception, stackTrace) {
+    if(exceptionParameter != null && exception != null) {
+      env.set(exceptionParameter, exception, isDirect: true);
+    }
+
+    if(stackTraceParameter != null && stackTrace != null) {
+      env.set(stackTraceParameter, stackTrace, isDirect: true);
+    }
+
+    return execute(env);
   }
 
   @override

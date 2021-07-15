@@ -14,7 +14,7 @@ class WTIndexExpression extends WTBaseDeclaration {
     dynamic value = target.execute(env);
     dynamic index = indexDeclaration.execute(env);
     if (value == null)
-      throw "IndexExpression target is null";
+      debugError("IndexExpression target is null");
 
     try {
       var outValue = value[index];

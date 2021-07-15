@@ -11,6 +11,8 @@ class WTForElement extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
+    env.set(WTVMConstant.isDirectAddList, true, isDirect: true);
+
     List outList = [];
     
     forElementCall(value) {

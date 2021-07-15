@@ -1,5 +1,7 @@
 import 'package:flutter_code_push/Environment.dart';
+import 'package:flutter_code_push/appIndex.dart';
 import 'package:flutter_code_push/declaration/WTBaseDeclaration.dart';
+import 'package:flutter_code_push/declaration/WTMethodInvocation.dart';
 import 'package:flutter_code_push/external/WTByteArray.dart';
 
 /// 访问条件表达式 ? : 三元表达式
