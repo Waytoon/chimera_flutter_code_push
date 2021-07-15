@@ -47,5 +47,7 @@ app.*.map.json
 **/.gradle
 **/wtbase
 
+**/*.bin
+
 /example_project/hello/wtbase
 /compile_tool/rust_compile
