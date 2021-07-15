@@ -1,6 +1,6 @@
-Upgrade to the Flutter 2.0 era, this SDK is to help Flutter achieve hot updates.
+## Upgrade to the Flutter 2.0 era, this SDK is to help Flutter achieve hot updates.
 
-Environmental requirements:
+### Environmental requirements:
 
 Dart: >= 2.13.4
 
@@ -8,7 +8,9 @@ Flutter：As long as Dart compound requirements
 
 
 
-The environment variable configuration is as follows:
+### The environment variable configuration is as follows:
+
+```shell
 
 export FLUTTER_ROOT=/Volumes/data/flutter_sdk/flutter_sdk
 
@@ -23,6 +25,8 @@ export PATH=${FLUTTER_ROOT}/bin/cache/dart-sdk/bin:${PATH}
 export PUB_CACHE=${FLUTTER_ROOT}/.pub-cache
 
 export PATH=${PUB_CACHE}/bin:${PATH}
+
+```
 
 
 

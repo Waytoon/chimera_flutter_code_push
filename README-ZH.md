@@ -1,13 +1,14 @@
-升级到Flutter 2.0时代，此SDK为帮助Flutter实现热更新。
+## 升级到Flutter 2.0时代，此SDK为帮助Flutter实现热更新。
 
-环境要求：
+### 环境要求：
 
 Dart: >= 2.13.4
 
 Flutter：只要Dart复合要求就行
 
-环境变量配置如下：
+### 环境变量配置如下：
 
+```shell
 export FLUTTER_ROOT=/Volumes/data/flutter_sdk/flutter_sdk
 
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
@@ -21,5 +22,8 @@ export PATH=${FLUTTER_ROOT}/bin/cache/dart-sdk/bin:${PATH}
 export PUB_CACHE=${FLUTTER_ROOT}/.pub-cache
 
 export PATH=${PUB_CACHE}/bin:${PATH}
+
+```
+
 
 接入流程跟旧版本一致，不清楚的等待发布视频教程。
