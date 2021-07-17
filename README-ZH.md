@@ -1,5 +1,8 @@
 ## 升级到Flutter 2.0时代，此SDK为帮助Flutter实现热更新。
 
+视频接入教程：
+https://www.bilibili.com/video/BV1HU4y1n73t
+
 ### 环境要求：
 
 Dart: >= 2.13.4
