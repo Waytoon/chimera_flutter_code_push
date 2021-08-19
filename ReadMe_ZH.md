@@ -37,7 +37,7 @@
 
 ## 交流群
 
-<img src="./imgs/qq.png" alt="wx" width="50%" height="50%" />
+<img src="./imgs/qq.png" alt="wx" width="30%" height="30%" />
 群名称：ChimeraFlutter热更新交流群
 QQ群：512747889
 点击链接加入群聊【ChimeraFlutter热更新交流】：[https://jq.qq.com/?_wv=1027&k=j6Am8jAP](https://jq.qq.com/?_wv=1027&k=j6Am8jAP)
