@@ -38,11 +38,11 @@
 ## 交流群
 
 <img src="./imgs/qq.png" alt="wx" width="30%" height="30%" />
-群名称：ChimeraFlutter热更新交流群
-QQ群：512747889
-点击链接加入群聊【ChimeraFlutter热更新交流】：[https://jq.qq.com/?_wv=1027&k=j6Am8jAP](https://jq.qq.com/?_wv=1027&k=j6Am8jAP)
-
-微信群由于微信限制，只能通过邀请加入。
+群名称：ChimeraFlutter热更新交流群<br>
+QQ群：512747889<br>
+点击链接加入群聊【ChimeraFlutter热更新交流】：<br>[https://jq.qq.com/?_wv=1027&k=j6Am8jAP](https://jq.qq.com/?_wv=1027&k=j6Am8jAP)
+<br>
+微信群由于微信限制，只能通过邀请加入。<br>
 <img src="./imgs/wx_group.png" alt="wx" width="30%" height="30%" />
 
 ## 赞助
