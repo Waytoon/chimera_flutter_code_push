@@ -44,8 +44,8 @@ If you are also interested in sponsoring us, welcome to add WeChat~
 ## invite me to drink coffee
 
 <div  align="center">    
-  <img src="./imgs/wx_pay.jpg" style="zoom:20%;" alt="WXPAY" align=center />
-  <img src="./imgs/zfb_pay.jpg" style="zoom:20%;" alt="ALIPAY" align=center />
+  <img src="./imgs/wx_pay.jpg" width="20%" height="20%" alt="WXPAY" align=center />
+  <img src="./imgs/zfb_pay.jpg" width="20%" height="20%" alt="ALIPAY" align=center />
 </div>  
 
 
