@@ -37,13 +37,13 @@
 
 ## 交流群
 
-<img src="https://chimera-code.com/imgs/qq.png" alt="wx" style="zoom:50%;" />
+<img src="./imgs/qq.png" alt="wx" width="50%" height="50%" />
 群名称：ChimeraFlutter热更新交流群
 QQ群：512747889
 点击链接加入群聊【ChimeraFlutter热更新交流】：[https://jq.qq.com/?_wv=1027&k=j6Am8jAP](https://jq.qq.com/?_wv=1027&k=j6Am8jAP)
 
 微信群由于微信限制，只能通过邀请加入。
-<img src="https://chimera-code.com/imgs/wx_group.png" alt="wx" style="zoom:30%;" />
+<img src="./imgs/wx_group.png" alt="wx" width="30%" height="30%" />
 
 ## 赞助
 
@@ -52,8 +52,8 @@ QQ群：512747889
 ## 请我喝咖啡
 
 <div  align="center">    
-  <img src="https://chimera-code.com/imgs/wx_pay.jpg" style="zoom:20%;" alt="WXPAY" align=center />
-  <img src="https://chimera-code.com/imgs/zfb_pay.jpg" style="zoom:20%;" alt="ALIPAY" align=center />
+  <img src="./imgs/wx_pay.jpg" width="20%" height="20%" alt="WXPAY" align=center />
+  <img src="./imgs/zfb_pay.jpg" width="20%" height="20%" alt="ALIPAY" align=center />
 </div>  
 
 
