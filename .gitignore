@@ -49,5 +49,4 @@ app.*.map.json
 
 **/*.bin
 
-/example_project/hello/wtbase
 /compile_tool/rust_compile
