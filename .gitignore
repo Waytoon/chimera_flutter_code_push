@@ -45,7 +45,8 @@ app.*.map.json
 **/android/app/profile
 **/android/app/release
 **/.gradle
-**/wtbase
+**/wtbase/ios
+**/wtbase/android
 
 **/*.bin
 
