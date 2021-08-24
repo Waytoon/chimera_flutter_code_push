@@ -25,9 +25,13 @@
 
 ​		教程我们只出了一个视频教程，当然光一个视频教程还不够，请大家耐心等待我们出Flutter Gallery接入教程。
 
-​		新手教程HelloWord接入示例：
+1. 初步了解 SDK
 
-​		https://www.bilibili.com/video/BV1HU4y1n73t
+    https://b23.tv/B2MShU
+
+2. Flutter Gallery 接入 SDK 超详细教程
+
+   https://b23.tv/PU8Jc9
 
 ## 参与贡献
 

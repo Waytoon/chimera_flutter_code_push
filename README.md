@@ -24,9 +24,13 @@
 
 ​		For tutorials, we only released video tutorials. Of course, video tutorials are not enough. Please be patient and wait for us to release more tutorials.
 
-​		HelloWord access example of the beginner's tutorial:
+1. Get to know the SDK
 
-​		https://www.bilibili.com/video/BV1HU4y1n73t
+    https://b23.tv/B2MShU
+
+2. Flutter Gallery access to SDK super detailed tutorial
+
+   https://b23.tv/PU8Jc9
 
 ## Participate in contribution
 
