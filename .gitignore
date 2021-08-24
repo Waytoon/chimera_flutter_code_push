@@ -51,3 +51,5 @@ app.*.map.json
 **/*.bin
 
 /compile_tool/rust_compile
+
+**/lib/codeviewer/code_segments.dart
