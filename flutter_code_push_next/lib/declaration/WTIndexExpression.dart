@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问索引表达式
 class WTIndexExpression extends WTBaseDeclaration {
@@ -9,21 +9,17 @@ class WTIndexExpression extends WTBaseDeclaration {
   dynamic execute(Environment env) {
     dynamic value = target?.execute(env);
     dynamic index = indexDeclaration.execute(env);
-    if (value == null) debugError("IndexExpression target is null");
+    if (value == null)
+      debugRuntimesError("IndexExpression target is null",
+          null,
+          null,
+          filePath, line);
 
     try {
       var outValue = value[index];
-
-      if (outValue is Set) {
-        if (target is WTSimpleIdentifierImpl) {
-          WTSimpleIdentifierImpl v = target as WTSimpleIdentifierImpl;
-          if (v.identifierName == 'tags') int x = 10;
-        }
-      }
-
       return outValue;
     } catch (e, s) {
-      debugError("execute IndexExpression Error: $e\n$s");
+      debugRuntimesError("execute IndexExpression Error", e, s, filePath, line);
     }
   }
 
@@ -32,5 +28,10 @@ class WTIndexExpression extends WTBaseDeclaration {
     super.read(byteArray);
     target = serializedInstance(byteArray);
     indexDeclaration = serializedInstance(byteArray)!;
+  }
+  
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

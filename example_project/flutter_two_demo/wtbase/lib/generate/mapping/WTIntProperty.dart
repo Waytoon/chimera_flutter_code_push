@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTIntProperty extends WTVMBaseType<IntProperty> with BaseTypeUtils {
+class WTIntProperty extends WTVMBaseType<IntProperty> {
   static WTIntProperty? _instance;
   factory WTIntProperty() => _instance ??= WTIntProperty._internal();
 

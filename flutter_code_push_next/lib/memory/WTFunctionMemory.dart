@@ -1,8 +1,7 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 class WTFunctionMemory {
-  static Environment? debugEnv;
-
+  
   Environment? outerEnv;
   List<WTBaseDeclaration>? parameters;
   WTBaseDeclaration? body;
@@ -75,9 +74,6 @@ class WTFunctionMemory {
 
   static Function? getFunctionMemoryObject(List<WTBaseDeclaration>? parameters,
       WTBaseDeclaration? body, Environment? outerEnv) {
-    if (debugEnv == null) {
-      debugEnv = outerEnv;
-    }
     WTFunctionMemory memory = WTFunctionMemory(parameters, body, outerEnv);
     return memory._getFunctionMemoryObject();
   }
@@ -676,6 +672,12 @@ class ClassFunctionMemoryPointer {
   }
 
   dynamic execute(List? positionalArguments) {
+    if(body is WTBlockFunctionBody) {
+      var b = body as WTBlockFunctionBody;
+      if(b.statements == null)
+        return;
+    }
+    
     _initOuterEnv();
 
     Map<Symbol, dynamic>? namedArguments;

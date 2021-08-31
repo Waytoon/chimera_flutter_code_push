@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问声明
 class WTForStatement extends WTBaseDeclaration {
@@ -6,7 +6,11 @@ class WTForStatement extends WTBaseDeclaration {
   late WTBaseDeclaration? loopBody;
 
   static dynamic executeLoop(WTBaseDeclaration? condition,
-      WTBaseDeclaration? body, Environment env, bool isFirstExecuteBody,
+      WTBaseDeclaration? body, 
+      Environment env, 
+      bool isFirstExecuteBody,
+      String? filePath,
+      int? line,
       {Function? forElementCall}) {
     WTForPartsWithDeclarations? parts =
         (condition is WTForPartsWithDeclarations) ? condition : null;
@@ -15,11 +19,23 @@ class WTForStatement extends WTBaseDeclaration {
 
     if (eachParts != null) {
       var iterableValue = eachParts.iterable.execute(env);
+      /// TODO
       for (var v in iterableValue) {
         env.set(eachParts.loopVariable.identifierName, v, isDirect: true);
 
         var outValue = body!.execute(env);
-
+        if (forElementCall != null) {
+          if(body is WTSpreadElement) {
+            int size = outValue.length;
+            for (int i = 0; i < size; i++) {
+              var value = outValue[i];
+              forElementCall(value);
+            }            
+          }else {
+            forElementCall(outValue);  
+          }
+        }
+        
         bool? isBreak = env.get(WTVMConstant.breakKeyword);
         if (isBreak == true) {
           env.del(WTVMConstant.breakKeyword);
@@ -43,11 +59,11 @@ class WTForStatement extends WTBaseDeclaration {
       }
 
       if (isFirstExecuteBody == true) {
-        executeBody(body!, env, parts!.initializerDeclaration);
+        executeBody(body!, env, parts?.initializerDeclaration);
       }
 
       while (condition!.execute(env) == true) {
-        var outValue = executeBody(body!, env, parts!.initializerDeclaration);
+        var outValue = executeBody(body!, env, parts?.initializerDeclaration);
 
         if (forElementCall != null) forElementCall(outValue);
 
@@ -79,7 +95,7 @@ class WTForStatement extends WTBaseDeclaration {
   }
 
   static dynamic executeBody(WTBaseDeclaration body, Environment environment,
-      WTBaseDeclaration initializerDeclaration) {
+      WTBaseDeclaration? initializerDeclaration) {
     Environment? cloneEnv;
     Environment oldEnv = environment;
     if (initializerDeclaration is WTVariableDeclarationList) {
@@ -125,7 +141,9 @@ class WTForStatement extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return executeLoop(loopParts, loopBody, env, false);
+    return executeLoop(loopParts, 
+        loopBody, env, false, 
+        filePath, line);
   }
 
   @override
@@ -133,5 +151,10 @@ class WTForStatement extends WTBaseDeclaration {
     super.read(byteArray);
     loopParts = serializedInstance(byteArray);
     loopBody = serializedInstance(byteArray);
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

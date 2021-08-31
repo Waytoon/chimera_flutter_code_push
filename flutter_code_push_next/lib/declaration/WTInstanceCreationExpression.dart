@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问实例创建表达式
 class WTInstanceCreationExpression extends WTBaseDeclaration {
@@ -29,7 +29,7 @@ class WTInstanceCreationExpression extends WTBaseDeclaration {
           env,
           positionalArguments,
           namedArguments,
-          executeTypeArguments as WTTypeArgumentList?, null, s.codeFilePath, s.line);
+          executeTypeArguments as WTTypeArgumentList?, null, filePath, line);
     } else if (name is WTPrefixedIdentifier) {
       p = name;
     }
@@ -41,7 +41,7 @@ class WTInstanceCreationExpression extends WTBaseDeclaration {
           env,
           positionalArguments,
           namedArguments,
-          executeTypeArguments as WTTypeArgumentList?, null, p.codeFilePath, p.line);
+          executeTypeArguments as WTTypeArgumentList?, null, filePath, line);
     }
   }
 
@@ -52,5 +52,10 @@ class WTInstanceCreationExpression extends WTBaseDeclaration {
     constructorName = serializedInstance(byteArray) as WTConstructorName;
     typeArguments = serializedInstance(byteArray) as WTTypeArgumentList?;
     keyword = byteArray.readString();
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

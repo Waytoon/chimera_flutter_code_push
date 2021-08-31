@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:ansicolor/ansicolor.dart';
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 class OutLogUtils {
   static AnsiPen _greenPen = AnsiPen()..green(bold: true);
@@ -30,7 +30,7 @@ class OutLogUtils {
 
 void debugPrint(String value, {bool isError = false}) {
   if (isDebug) {
-    isError ? print(value) : print(value);
+    isError ? OutLogUtils.errorLog(value) : print(value);
   }
 }
 
@@ -48,7 +48,7 @@ void debugRuntimesError(String desc, error, stackTrace, filePath, line) {
   // OutLogUtils.errorLog('filePath: $filePath');
   // OutLogUtils.errorLog('line: $line');
   var value = "$desc\n"
-  "$error\n"
+  "${error != null ? "$error\n" : ""}"
   "filePath: $filePath\n"
   "line: $line\n";
   throw value;

@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// List Literal
 class WTListLiteral extends WTBaseDeclaration {

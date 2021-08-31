@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问前缀标识符
 class WTPrefixedIdentifier extends WTBaseDeclaration {
@@ -11,27 +11,18 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
   @override
   dynamic execute(Environment env) {
     var targetValue = prefix.execute(env);
-    if (targetValue == null) debugPrint("targetValue is null!");
-
-    if (isDebug && targetValue == null) {
-      var identifierName;
-
-      if (prefix is WTSimpleIdentifierImpl) {
-        WTSimpleIdentifierImpl s = prefix as WTSimpleIdentifierImpl;
-        identifierName = s.identifierName;
-      }
-
-      if (identifier == 'rpx' && identifierName == 'HYSizeFit') {
-        int x = 10;
-        targetValue = prefix.execute(env);
-      }
-    }
-
+    if (targetValue == null)
+      debugRuntimesError("targetValue is null!", null, null, filePath, line);
+    
     if (targetValue is WTEnumMemory) {
       WTEnumMemory enumMemory = targetValue;
-      return enumMemory.getValue(identifier);
+      if(enumMemory.isEnumValue) {
+        return enumMemory.getExtensionValue(identifier);
+      }else {
+        return enumMemory.getValue(identifier);
+      }
     } else if (targetValue is WTClassPointer) {
-      WTClassPointer classPointer = prefix.execute(env);
+      WTClassPointer classPointer = targetValue;
       return classPointer.getValue(identifier);
     } else if (targetValue is WTClassMemory) {
       WTClassMemory classMemory = targetValue;
@@ -41,16 +32,12 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
       return unitMemory.getValue(identifier);
     } else if (targetValue is WTVMBaseType) {
       WTVMBaseType baseType = targetValue;
-      return baseType.getValue(identifier);
+      return baseType.getValue(identifier, filePath, line);
     } else if (targetValue is Environment) {
       Environment tempEnv = targetValue;
       return tempEnv.get(identifier);
     } else {
-      if (sdkBridge == null) {
-        return executeUnknownTargetValue(targetValue, env);
-      } else {
-        return sdkBridge.getValue(targetValue, identifier);
-      }
+      return sdkBridge.getValue(targetValue, identifier, filePath, line);
     }
   }
 
@@ -78,6 +65,4 @@ class WTPrefixedIdentifier extends WTBaseDeclaration {
   bool isWriteLine() {
     return true;
   }
-
-
 }

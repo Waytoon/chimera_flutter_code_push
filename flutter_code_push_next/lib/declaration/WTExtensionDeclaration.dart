@@ -1,9 +1,9 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Extension Declaration
 class WTExtensionDeclaration extends WTBaseDeclaration {
-  late String? name;
-  late WTTypeName? extendedType;
+  String? name;
+  WTTypeName? extendedType;
 
   // WTMethodDeclaration WTFieldDeclarationVM
   List<WTBaseDeclaration>? members;
@@ -18,4 +18,11 @@ class WTExtensionDeclaration extends WTBaseDeclaration {
     extendedType = serializedInstance(byteArray);
     members = readList(byteArray);
   }
+
+  @override
+  bool isWriteLine() {
+    return true;
+  }
+
+
 }

@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问赋值表达式
 class WTAssignmentExpression extends WTBaseDeclaration {
@@ -62,17 +62,25 @@ class WTAssignmentExpression extends WTBaseDeclaration {
       future.then((t) {
         rightValue = t;
         executeAssign(env, leftValue, left,
-            _getAssignValue(leftValue, rightValue, operator!));
+            _getAssignValue(leftValue, rightValue, operator!, filePath, line),
+            filePath,
+            line
+        );
       });
     } else {
       executeAssign(env, leftValue, left,
-          _getAssignValue(leftValue, rightValue, operator!));
+          _getAssignValue(leftValue, rightValue, operator!, filePath, line),
+          filePath,
+          line);
     }
     return rightValue;
   }
 
-  static void executeAssign(
-      Environment env, leftValue, WTBaseDeclaration left, dynamic assignValue) {
+  static void executeAssign(Environment env, leftValue,
+      WTBaseDeclaration left,
+      dynamic assignValue,
+      String? filePath,
+      int? line) {
     if (left is WTIndexExpression) {
       WTIndexExpression t = left;
       leftValue ??= t.target?.execute(env);
@@ -99,7 +107,8 @@ class WTAssignmentExpression extends WTBaseDeclaration {
         WTUnitMemory unitMemory = leftValue;
         unitMemory.setValue(p.identifier, assignValue);
       } else {
-        sdkBridge.setValue(leftValue, p.identifier, assignValue);
+        sdkBridge.setValue(
+            leftValue, p.identifier, assignValue, filePath, line);
       }
     } else if (left is WTPropertyAccess) {
       WTPropertyAccess p = left;
@@ -111,13 +120,16 @@ class WTAssignmentExpression extends WTBaseDeclaration {
         WTClassPointer pointer = leftValue;
         return pointer.setValue(p.propertyName, assignValue);
       } else {
-        sdkBridge.setValue(leftValue, p.propertyName, assignValue);
+        sdkBridge.setValue(
+            leftValue, p.propertyName, assignValue, filePath, line);
       }
     }
   }
 
-  static dynamic _getAssignValue(
-      dynamic leftValue, dynamic rightValue, String operator) {
+  static dynamic _getAssignValue(dynamic leftValue, dynamic rightValue,
+      String operator,
+      String? filePath,
+      int? line) {
     switch (operator) {
       case "=":
         return rightValue;
@@ -131,6 +143,10 @@ class WTAssignmentExpression extends WTBaseDeclaration {
         return leftValue /= rightValue;
       case "%=":
         return leftValue %= rightValue;
+      case "??=":
+        return leftValue ??= rightValue;
+      default:
+        debugRuntimesError("Unimplemented assignment operator: $operator", null, null, filePath, line);
     }
   }
 
@@ -141,4 +157,11 @@ class WTAssignmentExpression extends WTBaseDeclaration {
     value = serializedInstance(byteArray)!;
     operator = byteArray.readString()!;
   }
+
+  @override
+  bool isWriteLine() {
+    return true;
+  }
+
+
 }

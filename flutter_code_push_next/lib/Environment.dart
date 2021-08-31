@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Everything is an object, and some objects retain the left value (parent),
 /// and use the assignment object,
@@ -7,10 +7,16 @@ import 'package:flutter_code_push_next/index.dart';
 class Environment {
   static Function newInstance = () => Environment();
 
-  Map<String, dynamic> store = {};
+  late Map<String, dynamic> store;
   Environment? outer;
 
-  Environment();
+  Environment({Map<String, dynamic>? store}) {
+    if(store == null) {
+      this.store = {};
+    }else {
+      this.store = store;
+    }
+  }
 
   int defaultCount = 0;
 
@@ -43,8 +49,11 @@ class Environment {
         if (superPointer is Environment) {
           superEnv = superValue;
         }
-        superEnv = superEnv?._obtainCurrentEnv(attr, isDirect: isDirect);
-        if (superEnv != null) return superEnv;
+        var v = superEnv?._obtainCurrentEnv(attr, isDirect: isDirect);
+        if(v is Environment) {
+          superEnv = v;
+          if (superEnv != null) return superEnv;
+        }
 
         WTClassMemory? staticMemory = thisPointer?.staticMemory;
         bool staticContains = staticMemory?.containsKey(attr) == true;
@@ -78,20 +87,17 @@ class Environment {
   }
 
   dynamic get(String? attr, {bool isDirect = false}) {
-    if (attr == "yanzhengma") int x = 10;
-
-    if (attr == "Global") int x = 10;
-
     if (attr == null) throw "The obtain attribute value is null";
 
     var tempValue = _obtainCurrentEnv(attr, isDirect: isDirect);
     if (tempValue is Environment) {
-      var curEnv = tempValue;
-      var value = curEnv != null ? curEnv.store[attr] : null;
+      var curEnv = tempValue as Environment;
+      var curStore = curEnv.store;
+      var value = curStore[attr];
       if (value == null && isDirect == false) {
-        if (curEnv != null &&
-            curEnv.store.containsKey(WTVMConstant.thisKeyword)) {
-          WTClassPointer pointer = curEnv.get(WTVMConstant.thisKeyword);
+        var thisKeyword = WTVMConstant.thisKeyword;
+        if (curStore.containsKey(thisKeyword)) {
+          WTClassPointer pointer = curEnv.get(thisKeyword);
           var isGetOrSetMethod = pointer.declaration.isGetOrSetMethod(attr);
           if (isGetOrSetMethod) {
             return pointer.getValue(attr);
@@ -99,13 +105,24 @@ class Environment {
             return pointer.getValue(attr);
           }
         }
+
+        var unitKeyword = WTVMConstant.unitKeyword;
+        if (curStore.containsKey(unitKeyword)) {
+          WTUnitDeclaration unit = curEnv.get(unitKeyword);
+          var isGetOrSetMethod = unit.isGetOrSetMethod(attr);
+          if (isGetOrSetMethod) {
+            return unit.getValue(attr);
+          }
+        }
       }
 
       /// Check whether it is a native get method
       if (value is WTVMBaseType) {
         if (value.getAttributeMap?.containsKey(attr) == true) {
-          var f = value.getAttributeMap![attr]!;
-          return f();
+          var filePath;
+          var line;
+          var v = value.getValue(attr, filePath, line);
+          return v;
         }
       }
       return value;
@@ -121,18 +138,10 @@ class Environment {
   /// whether isDirect stored directly
   void set(String? attr, dynamic object,
       {bool isDirect = false, bool isOverride = true}) {
-    if (attr == '_systemTimer') {
-      int x = 1;
-    }
-
-    if (attr == "debugTags" && object != null && object is List) {
-      List list = object;
-      if (list.length == 1 && list[0] is Set) {
-        int x = 1;
-      }
-    }
-
     if (attr == null || attr == "") debugError("Variable name cannot be null");
+
+    if(attr == 'kAppRoutingTable')
+      int x=1;
 
     if (outer == null || isDirect) {
       if (isOverride == true || store.containsKey(attr) == false)
@@ -144,12 +153,23 @@ class Environment {
 
       if (tempValue is Environment) {
         var curEnv = tempValue;
-
-        if (curEnv.store.containsKey(WTVMConstant.thisKeyword)) {
-          WTClassPointer pointer = curEnv.get(WTVMConstant.thisKeyword);
+        var curStore = curEnv.store;
+        var thisKeyword = WTVMConstant.thisKeyword;
+        if (curStore.containsKey(thisKeyword)) {
+          WTClassPointer pointer = curEnv.get(thisKeyword);
           var isGetOrSetMethod = pointer.declaration.isGetOrSetMethod(attr);
           if (isGetOrSetMethod) {
             pointer.setValue(attr, object);
+            return;
+          }
+        }
+
+        var unitKeyword = WTVMConstant.unitKeyword;
+        if (curStore.containsKey(unitKeyword)) {
+          WTUnitDeclaration unit = curEnv.get(unitKeyword);
+          var isGetOrSetMethod = unit.isGetOrSetMethod(attr);
+          if (isGetOrSetMethod) {
+            unit.setValue(attr, object);
             return;
           }
         }
@@ -166,10 +186,12 @@ class Environment {
         } else {
           curEnv.store[attr] = object;
         }
-      } else if (tempValue is WTUnitMemory) {
+      } 
+      else if (tempValue is WTUnitMemory) {
         WTUnitMemory unitMemory = tempValue;
         unitMemory.setValue(attr, object);
-      } else if (tempValue is WTClassPointer) {
+      } 
+      else if (tempValue is WTClassPointer) {
         WTClassPointer pointer = tempValue;
         return pointer.setValue(attr, object);
       }
@@ -182,5 +204,19 @@ class Environment {
 
   bool containsKey(String? attr) {
     return store.containsKey(attr);
+  }
+  
+  Environment cloneEnv() {
+    Environment newEnv = new Environment();
+    newEnv.outer = outer;
+    var keys = store.keys.toList();
+    int size = keys.length;
+    for (var i = 0; i < size; ++i) {
+      var key = keys[i];
+      var value = store[key];
+      if(key == WTVMConstant.importUnitList || key.endsWith('__') == false)
+        newEnv.store[key] = value;
+    }
+    return newEnv;
   }
 }

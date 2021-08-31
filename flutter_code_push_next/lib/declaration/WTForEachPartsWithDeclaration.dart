@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 请访问每个带有声明的零件
 class WTForEachPartsWithDeclaration extends WTBaseDeclaration {

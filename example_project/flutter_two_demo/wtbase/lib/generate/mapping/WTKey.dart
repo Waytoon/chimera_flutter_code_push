@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTKey extends WTVMBaseType<Key> with BaseTypeUtils {
+class WTKey extends WTVMBaseType<Key> {
   static WTKey? _instance;
   factory WTKey() => _instance ??= WTKey._internal();
 

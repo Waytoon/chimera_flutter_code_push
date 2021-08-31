@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 typedef InstancePointerMethod = void Function(
     WTClassPointer? pointer,
@@ -15,6 +15,6 @@ class WTInstancePointer {
       Map<Symbol, dynamic>? namedArguments,
       WTConstructorDeclaration? constructor) {
     instanceMethod(
-        classPointer, positionalArguments, namedArguments, constructor, false);
+        classPointer, positionalArguments, namedArguments, constructor, true);
   }
 }

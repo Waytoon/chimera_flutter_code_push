@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTdouble extends WTVMBaseType<double> with BaseTypeUtils {
+class WTdouble extends WTVMBaseType<double> {
   static WTdouble? _instance;
   factory WTdouble() => _instance ??= WTdouble._internal();
 
@@ -44,17 +44,24 @@ class WTdouble extends WTVMBaseType<double> with BaseTypeUtils {
     return double.maxFinite;
   }
 
-  double parse(
+  static double parse(
     String source, [
-    onError,
+    dynamic onError,
   ]) {
     return double.parse(
       source,
-      onError,
+      onError != null
+          ? (
+              String source,
+            ) =>
+              toFunction(onError)!(
+                source,
+              )
+          : null,
     );
   }
 
-  double? tryParse(
+  static double? tryParse(
     String source,
   ) {
     return double.tryParse(

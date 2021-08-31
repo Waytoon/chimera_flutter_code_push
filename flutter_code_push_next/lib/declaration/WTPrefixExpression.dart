@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Access prefix expression
 class WTPrefixExpression extends WTBaseDeclaration {
@@ -25,13 +25,13 @@ class WTPrefixExpression extends WTBaseDeclaration {
 
       case "++":
         ++value;
-        WTAssignmentExpression.executeAssign(env, null, rightOperand, value);
+        WTAssignmentExpression.executeAssign(env, null, rightOperand, value, filePath, line);
         return value;
         break;
 
       case "--":
         --value;
-        WTAssignmentExpression.executeAssign(env, null, rightOperand, value);
+        WTAssignmentExpression.executeAssign(env, null, rightOperand, value, filePath, line);
         return value;
         break;
     }
@@ -43,4 +43,11 @@ class WTPrefixExpression extends WTBaseDeclaration {
     operator = byteArray.readString()!;
     rightOperand = serializedInstance(byteArray)!;
   }
+
+  @override
+  bool isWriteLine() {
+    return true;
+  }
+
+
 }

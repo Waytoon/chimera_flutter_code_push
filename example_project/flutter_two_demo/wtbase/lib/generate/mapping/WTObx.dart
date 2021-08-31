@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTObx extends WTVMBaseType<Obx> with BaseTypeUtils {
+class WTObx extends WTVMBaseType<Obx> {
   static WTObx? _instance;
   factory WTObx() => _instance ??= WTObx._internal();
 
@@ -24,7 +24,7 @@ class WTObx extends WTVMBaseType<Obx> with BaseTypeUtils {
     dynamic builder,
   ) {
     return Obx(
-      () => toFunction(builder)!(),
+      builder is WidgetCallback ? builder : () => toFunction(builder)!(),
     );
   }
 }

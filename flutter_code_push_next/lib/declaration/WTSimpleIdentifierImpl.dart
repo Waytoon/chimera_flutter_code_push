@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Simple Identifier Impl
 class WTSimpleIdentifierImpl extends WTBaseDeclaration {
@@ -10,12 +10,6 @@ class WTSimpleIdentifierImpl extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    if(identifierName == 'widget') {
-      // while(true) {
-      //   var value = env.get(identifierName);
-      // }
-      int x=1;
-    }
     var value = env.get(identifierName);
     return value;
   }

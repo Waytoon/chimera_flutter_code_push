@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问顶级变量声明
 class WTTopLevelVariableDeclaration extends WTBaseDeclaration {
@@ -8,7 +8,7 @@ class WTTopLevelVariableDeclaration extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env, {bool isAssign = true}) {
-    variables.execute(env);
+    variables.execute(env, isAssign: isAssign);
   }
 
   @override

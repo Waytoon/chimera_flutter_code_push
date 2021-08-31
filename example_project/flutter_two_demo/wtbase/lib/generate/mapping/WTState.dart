@@ -1,9 +1,9 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTState extends WTVMBaseType<State> with BaseTypeUtils {
+class WTState extends WTVMBaseType<State> {
   static WTState? _instance;
   factory WTState() => _instance ??= WTState._internal();
 
@@ -20,7 +20,7 @@ class WTState extends WTVMBaseType<State> with BaseTypeUtils {
 }
 
 class BaseState<T extends StatefulWidget> extends State<T>
-    with WTClassPointer, WTInstancePointer, BaseTypeUtils {
+    with WTClassPointer, WTInstancePointer {
   @override
   void instance(
       InstancePointerMethod instanceMethod,
@@ -32,68 +32,41 @@ class BaseState<T extends StatefulWidget> extends State<T>
         namedArguments, constructor);
 
     attributesMap = {
-      "initState": m_initState,
-      "didUpdateWidget": m_didUpdateWidget,
-      "reassemble": m_reassemble,
       "setState": m_setState,
-      "deactivate": m_deactivate,
-      "dispose": m_dispose,
       "build": m_build,
-      "didChangeDependencies": m_didChangeDependencies,
       "debugFillProperties": m_debugFillProperties,
+      "toStringShort": m_toStringShort,
+      "toString": m_toString,
+      "toDiagnosticsNode": m_toDiagnosticsNode,
     };
 
     setAttributeMap = null;
 
     getAttributeMap = {
-      "widget": get_widget,
-      "context": get_context,
-      "mounted": get_mounted,
+      "widget": _widget,
+      "context": _context,
+      "mounted": _mounted,
     };
   }
 
-  T get_widget() {
+  T _widget() {
     return widget;
   }
 
-  BuildContext get_context() {
+  BuildContext _context() {
     return context;
   }
 
-  bool get_mounted() {
+  bool _mounted() {
     return mounted;
-  }
-
-  void m_initState() {
-    return initState();
-  }
-
-  void m_didUpdateWidget(
-    T oldWidget,
-  ) {
-    return didUpdateWidget(
-      oldWidget,
-    );
-  }
-
-  void m_reassemble() {
-    return reassemble();
   }
 
   void m_setState(
     dynamic fn,
   ) {
     return setState(
-      () => toFunction(fn)!(),
+      fn is VoidCallback ? fn : () => toFunction(fn)!(),
     );
-  }
-
-  void m_deactivate() {
-    return deactivate();
-  }
-
-  void m_dispose() {
-    return dispose();
   }
 
   Widget m_build(
@@ -104,10 +77,6 @@ class BaseState<T extends StatefulWidget> extends State<T>
     );
   }
 
-  void m_didChangeDependencies() {
-    return didChangeDependencies();
-  }
-
   void m_debugFillProperties(
     DiagnosticPropertiesBuilder properties,
   ) {
@@ -116,11 +85,42 @@ class BaseState<T extends StatefulWidget> extends State<T>
     );
   }
 
+  String m_toStringShort() {
+    return toStringShort();
+  }
+
+  String m_toString({
+    DiagnosticLevel minLevel = DiagnosticLevel.info,
+  }) {
+    return toString(
+      minLevel: minLevel,
+    );
+  }
+
+  DiagnosticsNode m_toDiagnosticsNode({
+    String? name,
+    DiagnosticsTreeStyle? style,
+  }) {
+    return toDiagnosticsNode(
+      name: name,
+      style: style,
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
-    var v = executeMethod('build', [
+  Widget build(
+    BuildContext context,
+  ) {
+    Map<Symbol, dynamic>? namedArguments;
+    List positionalArguments = [
       context,
-    ]);
-    return v;
+    ];
+    String methodName = 'build';
+    if (isIncludeMethod(methodName) == false) {
+      throw "Unsupported!";
+    } else {
+      var v = executeMethod(methodName, positionalArguments, namedArguments);
+      return v;
+    }
   }
 }

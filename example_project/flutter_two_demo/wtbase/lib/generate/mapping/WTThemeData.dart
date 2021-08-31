@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTThemeData extends WTVMBaseType<ThemeData> with BaseTypeUtils {
+class WTThemeData extends WTVMBaseType<ThemeData> {
   static WTThemeData? _instance;
   factory WTThemeData() => _instance ??= WTThemeData._internal();
 
@@ -253,7 +253,7 @@ class WTThemeData extends WTVMBaseType<ThemeData> with BaseTypeUtils {
     required FloatingActionButtonThemeData floatingActionButtonTheme,
     required NavigationRailThemeData navigationRailTheme,
     required Typography typography,
-    required NoDefaultCupertinoThemeData cupertinoOverrideTheme,
+    required NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
     required SnackBarThemeData snackBarTheme,
     required BottomSheetThemeData bottomSheetTheme,
     required PopupMenuThemeData popupMenuTheme,
@@ -376,7 +376,7 @@ class WTThemeData extends WTVMBaseType<ThemeData> with BaseTypeUtils {
     return ThemeData.fallback();
   }
 
-  ThemeData localize(
+  static ThemeData localize(
     ThemeData baseTheme,
     TextTheme localTextGeometry,
   ) {
@@ -386,7 +386,7 @@ class WTThemeData extends WTVMBaseType<ThemeData> with BaseTypeUtils {
     );
   }
 
-  Brightness estimateBrightnessForColor(
+  static Brightness estimateBrightnessForColor(
     Color color,
   ) {
     return ThemeData.estimateBrightnessForColor(
@@ -394,7 +394,7 @@ class WTThemeData extends WTVMBaseType<ThemeData> with BaseTypeUtils {
     );
   }
 
-  ThemeData lerp(
+  static ThemeData lerp(
     ThemeData a,
     ThemeData b,
     double t,

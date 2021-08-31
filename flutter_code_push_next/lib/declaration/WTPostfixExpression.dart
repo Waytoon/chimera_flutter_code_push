@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Access Postfix expression unary expression s?.name i++
 class WTPostfixExpression extends WTBaseDeclaration {
@@ -12,13 +12,13 @@ class WTPostfixExpression extends WTBaseDeclaration {
     switch (operator) {
       case "++":
         WTAssignmentExpression.executeAssign(
-            env, null, leftOperand, outValue + 1);
+            env, null, leftOperand, outValue + 1, filePath, line);
         return outValue;
         break;
 
       case "--":
         WTAssignmentExpression.executeAssign(
-            env, null, leftOperand, outValue - 1);
+            env, null, leftOperand, outValue - 1, filePath, line);
         return outValue;
         break;
 
@@ -36,5 +36,10 @@ class WTPostfixExpression extends WTBaseDeclaration {
     super.read(byteArray);
     operator = byteArray.readString()!;
     leftOperand = serializedInstance(byteArray)!;
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

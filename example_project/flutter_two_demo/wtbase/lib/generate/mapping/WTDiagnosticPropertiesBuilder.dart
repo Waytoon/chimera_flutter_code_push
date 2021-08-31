@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_code_push_next/index.dart';
 
 class WTDiagnosticPropertiesBuilder
-    extends WTVMBaseType<DiagnosticPropertiesBuilder> with BaseTypeUtils {
+    extends WTVMBaseType<DiagnosticPropertiesBuilder> {
   static WTDiagnosticPropertiesBuilder? _instance;
   factory WTDiagnosticPropertiesBuilder() =>
       _instance ??= WTDiagnosticPropertiesBuilder._internal();

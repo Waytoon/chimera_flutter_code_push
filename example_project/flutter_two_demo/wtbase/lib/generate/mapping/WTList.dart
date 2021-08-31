@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTList extends WTVMBaseType<List> with BaseTypeUtils {
+class WTList extends WTVMBaseType<List> {
   static WTList? _instance;
   factory WTList() => _instance ??= WTList._internal();
 
@@ -74,12 +74,17 @@ class WTList extends WTVMBaseType<List> with BaseTypeUtils {
 
   List<E> generate<E>(
     int length,
-    generator, {
+    dynamic generator, {
     bool growable = true,
   }) {
     return List<E>.generate(
       length,
-      generator,
+      (
+        int index,
+      ) =>
+          toFunction(generator)!(
+        index,
+      ),
       growable: growable,
     );
   }
@@ -92,7 +97,7 @@ class WTList extends WTVMBaseType<List> with BaseTypeUtils {
     );
   }
 
-  List<T> castFrom<S, T>(
+  static List<T> castFrom<S, T>(
     List source,
   ) {
     return List.castFrom<S, T>(
@@ -100,7 +105,7 @@ class WTList extends WTVMBaseType<List> with BaseTypeUtils {
     );
   }
 
-  void copyRange<T>(
+  static void copyRange<T>(
     List target,
     int at,
     List source, [
@@ -116,7 +121,7 @@ class WTList extends WTVMBaseType<List> with BaseTypeUtils {
     );
   }
 
-  void writeIterable<T>(
+  static void writeIterable<T>(
     List target,
     int at,
     Iterable source,

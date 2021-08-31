@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTWidget extends WTVMBaseType<Widget> with BaseTypeUtils {
+class WTWidget extends WTVMBaseType<Widget> {
   static WTWidget? _instance;
   factory WTWidget() => _instance ??= WTWidget._internal();
 
@@ -19,7 +19,7 @@ class WTWidget extends WTVMBaseType<Widget> with BaseTypeUtils {
     getAttributeMap = null;
   }
 
-  bool canUpdate(
+  static bool canUpdate(
     Widget oldWidget,
     Widget newWidget,
   ) {

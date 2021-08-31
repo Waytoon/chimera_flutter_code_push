@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问块功能体
 class WTBlockFunctionBody extends WTBaseDeclaration {
@@ -6,9 +6,11 @@ class WTBlockFunctionBody extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
+    if(statements == null)
+      return;
     var selfEnv = Environment.newInstance();
     selfEnv.outer = env;
-    var returnValue = executeList(selfEnv, statements!);
+    var returnValue = executeList(selfEnv, statements);
     return returnValue;
   }
 

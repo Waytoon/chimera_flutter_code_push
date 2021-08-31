@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问类型参数列表
 class WTTypeArgumentList extends WTBaseDeclaration {
@@ -6,12 +6,8 @@ class WTTypeArgumentList extends WTBaseDeclaration {
   String? rightBracket;
   List<WTBaseDeclaration>? arguments;
 
-  String? _toStringValue;
-
   String? get toStringValue {
-    if(_toStringValue == null)
-      _toStringValue = formatArguments(arguments!);
-    return this._toStringValue;
+    return formatArguments(arguments!);
   }
 
   String? _runtimeType;
@@ -48,21 +44,31 @@ class WTTypeArgumentList extends WTBaseDeclaration {
     return toStringValue!;
   }
 
-  String getRuntimeType() {
+  String getRuntimeType([Environment? env]) {
     if (_runtimeType == null) {
-      _runtimeType = '';
+      var runtimeType;
       var arguments = this.arguments!;
       int size = arguments.length;
+      bool isIncludeGenericType = false;
       for (int i = 0; i < size; i++) {
         var arg = arguments[i];
-        var typeName = arg.getTypeName()!;
-        var bindClass = WTBindClassRegister.getBindClass(typeName);
-
-        _runtimeType = bindClass;
-        if(i + 1 < size) {
-          _runtimeType = _runtimeType! + ',';
+        var typeName = arg.getTypeName();
+        if(env != null && typeName?.length == 1) {
+          isIncludeGenericType = true;
+          var a = env.get(typeName) as RuntimeNode?;
+          typeName = a?.getTypeName();
         }
+        var bindClass = WTBindClassRegister.getBindClass(typeName);
+        var type = bindClass ?? typeName;
+        if(i + 1 < size) {
+          type = type! + ',';
+        }
+        runtimeType ??= '';
+        runtimeType += type;
       }
+      if(isIncludeGenericType)
+        return runtimeType;
+      this._runtimeType = runtimeType;
     }
     return _runtimeType!;
   }

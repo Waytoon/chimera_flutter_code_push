@@ -1,8 +1,9 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Class
 class WTClassDeclaration extends WTBaseDeclaration {
   late String className;
+
   String? abstractKeyword;
 
   /// All expressions in Class
@@ -32,6 +33,7 @@ class WTClassDeclaration extends WTBaseDeclaration {
   void read(ByteArray byteArray) {
     super.read(byteArray);
     className = byteArray.readString()!;
+    globalKey = byteArray.readString();
     abstractKeyword = byteArray.readString();
     members = readList(byteArray);
     typeParameters = serializedInstance(byteArray) as WTTypeParameterList?;
@@ -80,11 +82,10 @@ class WTClassDeclaration extends WTBaseDeclaration {
 
   WTMethodDeclaration? getClassMethod(String? name,
       [MethodPropertyKeyword? keyword]) {
-    if (name == 'yangzhengmaPage') int x = 1;
     var inner = (List? members) {
-      int size = members!.length;
+      int size = members?.length ?? 0;
       for (var i = 0; i < size; ++i) {
-        var t = members[i];
+        var t = members![i];
         if (t is WTMethodDeclaration) {
           WTMethodDeclaration m = t;
           if (m.methodName == name &&
@@ -105,10 +106,20 @@ class WTClassDeclaration extends WTBaseDeclaration {
 
   /// Is it a set or get function
   bool isGetOrSetMethod(String? attrName, [bool? isCheckSuper]) {
-    var container = getOrSetNames!.contains(attrName);
+    var container = getOrSetNames?.contains(attrName) == true;
     if (container == false && isCheckSuper == true) {
       return superDeclaration?.isGetOrSetMethod(attrName) == true;
     }
     return container;
+  }
+
+  @override
+  String? getExtendsTypeName() {
+    return extendsClause?.superClass?.getTypeName();
+  }
+
+  @override
+  WTClassDeclaration? toClassDcl() {
+    return this;
   }
 }

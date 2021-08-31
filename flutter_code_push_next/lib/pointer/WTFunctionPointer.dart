@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 函数指针
 class WTFunctionPointer {
@@ -7,6 +7,7 @@ class WTFunctionPointer {
 
   late WTMethodDeclaration _methodDeclaration;
   late WTFunctionBodyDeclaration _functionBodyDeclaration;
+  late WTFunctionDeclarationStatement _functionDclStatement;
 
   WTBaseDeclaration? body;
   List<WTBaseDeclaration>? parameters;
@@ -24,6 +25,11 @@ class WTFunctionPointer {
 
       body = _functionBodyDeclaration.body;
       parameters = _functionBodyDeclaration.parameters?.parameters;
+    } else if (declaration is WTFunctionDeclarationStatement) {
+      _functionDclStatement = declaration as WTFunctionDeclarationStatement;
+
+      body = _functionDclStatement.body;
+      parameters = _functionDclStatement.parameters;
     }
   }
 
@@ -35,8 +41,6 @@ class WTFunctionPointer {
   }
 
   Function? getFunctionValue() {
-    if (_functionPointer != null) int x = 1;
-
     if (_functionPointer == null) {
       WTFunctionPointer p = this;
       _functionPointer = WTFunctionMemory.getFunctionMemoryObject(

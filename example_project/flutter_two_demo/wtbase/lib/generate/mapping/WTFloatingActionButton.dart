@@ -8,8 +8,7 @@ class _DefaultHeroTag {
   String toString() => "<default FloatingActionButton tag>";
 }
 
-class WTFloatingActionButton extends WTVMBaseType<FloatingActionButton>
-    with BaseTypeUtils {
+class WTFloatingActionButton extends WTVMBaseType<FloatingActionButton> {
   static WTFloatingActionButton? _instance;
   factory WTFloatingActionButton() =>
       _instance ??= WTFloatingActionButton._internal();
@@ -69,7 +68,9 @@ class WTFloatingActionButton extends WTVMBaseType<FloatingActionButton>
       hoverElevation: hoverElevation,
       highlightElevation: highlightElevation,
       disabledElevation: disabledElevation,
-      onPressed: onPressed != null ? () => toFunction(onPressed)!() : null,
+      onPressed: onPressed is VoidCallback?
+          ? onPressed
+          : () => toFunction(onPressed)!(),
       mouseCursor: mouseCursor,
       mini: mini,
       shape: shape,
@@ -120,7 +121,9 @@ class WTFloatingActionButton extends WTVMBaseType<FloatingActionButton>
       splashColor: splashColor,
       highlightElevation: highlightElevation,
       disabledElevation: disabledElevation,
-      onPressed: onPressed != null ? () => toFunction(onPressed)!() : null,
+      onPressed: onPressed is VoidCallback?
+          ? onPressed
+          : () => toFunction(onPressed)!(),
       mouseCursor: mouseCursor,
       shape: shape,
       isExtended: isExtended,

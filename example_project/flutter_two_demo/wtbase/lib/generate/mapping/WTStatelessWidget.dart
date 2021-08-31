@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTStatelessWidget extends WTVMBaseType<StatelessWidget>
-    with BaseTypeUtils {
+class WTStatelessWidget extends WTVMBaseType<StatelessWidget> {
   static WTStatelessWidget? _instance;
   factory WTStatelessWidget() => _instance ??= WTStatelessWidget._internal();
 
@@ -19,11 +19,13 @@ class WTStatelessWidget extends WTVMBaseType<StatelessWidget>
   }
 }
 
-class BaseStatelessWidget extends StatelessWidget
-    with WTClassPointer, WTInstancePointer, BaseTypeUtils {
+class BaseStatelessWidget<T> extends StatelessWidget
+    with WTClassPointer, WTInstancePointer {
   BaseStatelessWidget({
     Key? key,
-  }) : super(key: key);
+  }) : super(
+          key: key,
+        );
 
   @override
   void instance(
@@ -38,11 +40,16 @@ class BaseStatelessWidget extends StatelessWidget
     attributesMap = {
       "createElement": m_createElement,
       "build": m_build,
+      "toStringShort": m_toStringShort,
+      "debugFillProperties": m_debugFillProperties,
     };
 
     setAttributeMap = null;
 
-    getAttributeMap = null;
+    getAttributeMap = {
+      "key": _key,
+      "hashCode": _hashCode,
+    };
   }
 
   StatelessElement m_createElement() {
@@ -57,11 +64,40 @@ class BaseStatelessWidget extends StatelessWidget
     );
   }
 
+  Key? _key() {
+    return key;
+  }
+
+  String m_toStringShort() {
+    return toStringShort();
+  }
+
+  void m_debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+  ) {
+    return debugFillProperties(
+      properties,
+    );
+  }
+
+  int _hashCode() {
+    return hashCode;
+  }
+
   @override
-  Widget build(BuildContext context) {
-    var v = executeMethod('build', [
+  Widget build(
+    BuildContext context,
+  ) {
+    Map<Symbol, dynamic>? namedArguments;
+    List positionalArguments = [
       context,
-    ]);
-    return v;
+    ];
+    String methodName = 'build';
+    if (isIncludeMethod(methodName) == false) {
+      throw "Unsupported!";
+    } else {
+      var v = executeMethod(methodName, positionalArguments, namedArguments);
+      return v;
+    }
   }
 }

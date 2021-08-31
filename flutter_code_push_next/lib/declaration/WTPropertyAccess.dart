@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 点属性访问
 class WTPropertyAccess extends WTBaseDeclaration {
@@ -8,9 +8,10 @@ class WTPropertyAccess extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    /// TODO: 解决作用域的问题
-    var targetValue = target?.execute(env);
+    if(propertyName == 'locale' && line == 72)
+      int x=1;
 
+    var targetValue = target?.execute(env);
     if (targetValue == null && operator == '?.') return null;
 
     if (targetValue is WTClassPointer) {
@@ -21,7 +22,7 @@ class WTPropertyAccess extends WTBaseDeclaration {
       var value = classMemory.getValue(propertyName);
       return value;
     } else {
-      return sdkBridge.getValue(targetValue, propertyName!);
+      return sdkBridge.getValue(targetValue, propertyName!, filePath, line);
     }
   }
 
@@ -31,5 +32,10 @@ class WTPropertyAccess extends WTBaseDeclaration {
     target = serializedInstance(byteArray);
     propertyName = byteArray.readString();
     operator = byteArray.readString();
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

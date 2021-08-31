@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 class RunnerUtils {
   static dynamic returnValueConvert(methodDeclaration, dynamic returnValue) {
@@ -63,7 +63,7 @@ class RunnerUtils {
     return returnValue;
   }
 
-  static Future<T> toFuture<T>(dynamic value) {
+  static Future<T> toFuture<T>(dynamic value) async {
     if (value == null) return value;
 
     if (value is Future<T>) return value;
@@ -74,9 +74,18 @@ class RunnerUtils {
     }
 
     if (value is! Future<T>) {
-      Future valueFuture = value;
-      Future<T> outFuture = valueFuture.then((value) => value as T);
-      return outFuture;
+      Error? error;
+      try {
+        Future valueFuture = value;
+        Future<T> outFuture = valueFuture.then((value) => value as T)
+            .catchError((e, s) {
+          debugRuntimesError("Future conversion failed", e, s, null, null);
+        });
+        return outFuture;
+      }catch(e, s) {
+        throw "Future conversion failed";
+      }
+      return value as Future<T>;
     }
 
     return value;
@@ -87,7 +96,6 @@ class RunnerUtils {
     String? desc,
     bool isForcedLog = true,
     bool isOnlyDebugLog = false}) async {
-
     bool isLog = true;
     if (desc == null || (isOnlyDebugLog && isDebug == false))
       isLog = false;
@@ -95,13 +103,13 @@ class RunnerUtils {
     OutLogUtils.successLog("start $desc!~", isOutput: isLog);
 
     Duration? elapsed;
-    if(isLog) {
+    if (isLog) {
       Stopwatch stopwatch = Stopwatch()
         ..start();
       await function();
       elapsed = stopwatch.elapsed;
       if (elapsed.inSeconds > 0 || isForcedLog)
-        OutLogUtils.debugLog('$desc: $elapsed', isOutput: isLog);
+        OutLogUtils.log('$desc: $elapsed', isOutput: isLog);
     }
     else {
       await function();

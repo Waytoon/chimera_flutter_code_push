@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTStatefulWidget extends WTVMBaseType<StatefulWidget> with BaseTypeUtils {
+class WTStatefulWidget extends WTVMBaseType<StatefulWidget> {
   static WTStatefulWidget? _instance;
   factory WTStatefulWidget() => _instance ??= WTStatefulWidget._internal();
 
@@ -18,11 +19,13 @@ class WTStatefulWidget extends WTVMBaseType<StatefulWidget> with BaseTypeUtils {
   }
 }
 
-class BaseStatefulWidget extends StatefulWidget
-    with WTClassPointer, WTInstancePointer, BaseTypeUtils {
+class BaseStatefulWidget<T> extends StatefulWidget
+    with WTClassPointer, WTInstancePointer {
   BaseStatefulWidget({
     Key? key,
-  }) : super(key: key);
+  }) : super(
+          key: key,
+        );
 
   @override
   void instance(
@@ -37,11 +40,16 @@ class BaseStatefulWidget extends StatefulWidget
     attributesMap = {
       "createElement": m_createElement,
       "createState": m_createState,
+      "toStringShort": m_toStringShort,
+      "debugFillProperties": m_debugFillProperties,
     };
 
     setAttributeMap = null;
 
-    getAttributeMap = null;
+    getAttributeMap = {
+      "key": _key,
+      "hashCode": _hashCode,
+    };
   }
 
   StatefulElement m_createElement() {
@@ -52,9 +60,36 @@ class BaseStatefulWidget extends StatefulWidget
     return createState();
   }
 
+  Key? _key() {
+    return key;
+  }
+
+  String m_toStringShort() {
+    return toStringShort();
+  }
+
+  void m_debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+  ) {
+    return debugFillProperties(
+      properties,
+    );
+  }
+
+  int _hashCode() {
+    return hashCode;
+  }
+
   @override
   State createState() {
-    var v = executeMethod('createState', []);
-    return v;
+    Map<Symbol, dynamic>? namedArguments;
+    List positionalArguments = [];
+    String methodName = 'createState';
+    if (isIncludeMethod(methodName) == false) {
+      throw "Unsupported!";
+    } else {
+      var v = executeMethod(methodName, positionalArguments, namedArguments);
+      return v;
+    }
   }
 }

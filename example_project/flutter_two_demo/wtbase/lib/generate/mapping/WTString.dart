@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTString extends WTVMBaseType<String> with BaseTypeUtils {
+class WTString extends WTVMBaseType<String> {
   static WTString? _instance;
   factory WTString() => _instance ??= WTString._internal();
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
+class WTMaterialApp extends WTVMBaseType<MaterialApp> {
   static WTMaterialApp? _instance;
   factory WTMaterialApp() => _instance ??= WTMaterialApp._internal();
 
@@ -26,7 +26,7 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
     GlobalKey<NavigatorState>? navigatorKey,
     GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey,
     Widget? home,
-    Map<String, WidgetBuilder> routes = const <String, WidgetBuilder>{},
+    Map routes = const <String, WidgetBuilder>{},
     String? initialRoute,
     dynamic onGenerateRoute,
     dynamic onGenerateInitialRoutes,
@@ -52,8 +52,8 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
     bool checkerboardOffscreenLayers = false,
     bool showSemanticsDebugger = false,
     bool debugShowCheckedModeBanner = true,
-    Map<LogicalKeySet, Intent>? shortcuts,
-    Map<Type, Action<Intent>>? actions,
+    Map? shortcuts,
+    Map? actions,
     String? restorationScopeId,
     ScrollBehavior? scrollBehavior,
   }) {
@@ -62,52 +62,63 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       home: home,
-      routes: routes,
+      routes: routes.cast<String, WidgetBuilder>(),
       initialRoute: initialRoute,
-      onGenerateRoute: onGenerateRoute != null
-          ? (
-              RouteSettings settings,
-            ) =>
-              toFunction(onGenerateRoute)!(
-                settings,
-              )
-          : null,
-      onGenerateInitialRoutes: onGenerateInitialRoutes != null
-          ? (
-              String initialRoute,
-            ) =>
-              toFunction(onGenerateInitialRoutes)!(
-                initialRoute,
-              )
-          : null,
-      onUnknownRoute: onUnknownRoute != null
-          ? (
-              RouteSettings settings,
-            ) =>
-              toFunction(onUnknownRoute)!(
-                settings,
-              )
-          : null,
+      onGenerateRoute: onGenerateRoute is RouteFactory?
+          ? onGenerateRoute
+          : onGenerateRoute != null
+              ? (
+                  RouteSettings settings,
+                ) =>
+                  toFunction(onGenerateRoute)!(
+                    settings,
+                  )
+              : null,
+      onGenerateInitialRoutes:
+          onGenerateInitialRoutes is InitialRouteListFactory?
+              ? onGenerateInitialRoutes
+              : onGenerateInitialRoutes != null
+                  ? (
+                      String initialRoute,
+                    ) =>
+                      toFunction(onGenerateInitialRoutes)!(
+                        initialRoute,
+                      ).cast<Route<dynamic>>()
+                  : null,
+      onUnknownRoute: onUnknownRoute is RouteFactory?
+          ? onUnknownRoute
+          : onUnknownRoute != null
+              ? (
+                  RouteSettings settings,
+                ) =>
+                  toFunction(onUnknownRoute)!(
+                    settings,
+                  )
+              : null,
       navigatorObservers: navigatorObservers.cast<NavigatorObserver>(),
-      builder: builder != null
-          ? (
-              BuildContext context,
-              Widget? child,
-            ) =>
-              toFunction(builder)!(
-                context,
-                child,
-              )
-          : null,
+      builder: builder is TransitionBuilder?
+          ? builder
+          : builder != null
+              ? (
+                  BuildContext context,
+                  Widget? child,
+                ) =>
+                  toFunction(builder)!(
+                    context,
+                    child,
+                  )
+              : null,
       title: title,
-      onGenerateTitle: onGenerateTitle != null
-          ? (
-              BuildContext context,
-            ) =>
-              toFunction(onGenerateTitle)!(
-                context,
-              )
-          : null,
+      onGenerateTitle: onGenerateTitle is GenerateAppTitle?
+          ? onGenerateTitle
+          : onGenerateTitle != null
+              ? (
+                  BuildContext context,
+                ) =>
+                  toFunction(onGenerateTitle)!(
+                    context,
+                  )
+              : null,
       color: color,
       theme: theme,
       darkTheme: darkTheme,
@@ -117,26 +128,32 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       locale: locale,
       localizationsDelegates:
           localizationsDelegates?.cast<LocalizationsDelegate<dynamic>>(),
-      localeListResolutionCallback: localeListResolutionCallback != null
-          ? (
-              List? locales,
-              Iterable supportedLocales,
-            ) =>
-              toFunction(localeListResolutionCallback)!(
-                locales?.cast<Locale>(),
-                supportedLocales.cast<Locale>(),
-              )
-          : null,
-      localeResolutionCallback: localeResolutionCallback != null
-          ? (
-              Locale? locale,
-              Iterable supportedLocales,
-            ) =>
-              toFunction(localeResolutionCallback)!(
-                locale,
-                supportedLocales.cast<Locale>(),
-              )
-          : null,
+      localeListResolutionCallback:
+          localeListResolutionCallback is LocaleListResolutionCallback?
+              ? localeListResolutionCallback
+              : localeListResolutionCallback != null
+                  ? (
+                      List? locales,
+                      Iterable supportedLocales,
+                    ) =>
+                      toFunction(localeListResolutionCallback)!(
+                        locales?.cast<Locale>(),
+                        supportedLocales.cast<Locale>(),
+                      )
+                  : null,
+      localeResolutionCallback:
+          localeResolutionCallback is LocaleResolutionCallback?
+              ? localeResolutionCallback
+              : localeResolutionCallback != null
+                  ? (
+                      Locale? locale,
+                      Iterable supportedLocales,
+                    ) =>
+                      toFunction(localeResolutionCallback)!(
+                        locale,
+                        supportedLocales.cast<Locale>(),
+                      )
+                  : null,
       supportedLocales: supportedLocales.cast<Locale>(),
       debugShowMaterialGrid: debugShowMaterialGrid,
       showPerformanceOverlay: showPerformanceOverlay,
@@ -144,8 +161,8 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       checkerboardOffscreenLayers: checkerboardOffscreenLayers,
       showSemanticsDebugger: showSemanticsDebugger,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      actions: actions,
+      shortcuts: shortcuts?.cast<LogicalKeySet, Intent>(),
+      actions: actions?.cast<Type, Action<Intent>>(),
       restorationScopeId: restorationScopeId,
       scrollBehavior: scrollBehavior,
     );
@@ -178,8 +195,8 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
     bool checkerboardOffscreenLayers = false,
     bool showSemanticsDebugger = false,
     bool debugShowCheckedModeBanner = true,
-    Map<LogicalKeySet, Intent>? shortcuts,
-    Map<Type, Action<Intent>>? actions,
+    Map? shortcuts,
+    Map? actions,
     String? restorationScopeId,
     ScrollBehavior? scrollBehavior,
   }) {
@@ -190,25 +207,29 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       routeInformationParser: routeInformationParser,
       routerDelegate: routerDelegate,
       backButtonDispatcher: backButtonDispatcher,
-      builder: builder != null
-          ? (
-              BuildContext context,
-              Widget? child,
-            ) =>
-              toFunction(builder)!(
-                context,
-                child,
-              )
-          : null,
+      builder: builder is TransitionBuilder?
+          ? builder
+          : builder != null
+              ? (
+                  BuildContext context,
+                  Widget? child,
+                ) =>
+                  toFunction(builder)!(
+                    context,
+                    child,
+                  )
+              : null,
       title: title,
-      onGenerateTitle: onGenerateTitle != null
-          ? (
-              BuildContext context,
-            ) =>
-              toFunction(onGenerateTitle)!(
-                context,
-              )
-          : null,
+      onGenerateTitle: onGenerateTitle is GenerateAppTitle?
+          ? onGenerateTitle
+          : onGenerateTitle != null
+              ? (
+                  BuildContext context,
+                ) =>
+                  toFunction(onGenerateTitle)!(
+                    context,
+                  )
+              : null,
       color: color,
       theme: theme,
       darkTheme: darkTheme,
@@ -218,26 +239,32 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       locale: locale,
       localizationsDelegates:
           localizationsDelegates?.cast<LocalizationsDelegate<dynamic>>(),
-      localeListResolutionCallback: localeListResolutionCallback != null
-          ? (
-              List? locales,
-              Iterable supportedLocales,
-            ) =>
-              toFunction(localeListResolutionCallback)!(
-                locales?.cast<Locale>(),
-                supportedLocales.cast<Locale>(),
-              )
-          : null,
-      localeResolutionCallback: localeResolutionCallback != null
-          ? (
-              Locale? locale,
-              Iterable supportedLocales,
-            ) =>
-              toFunction(localeResolutionCallback)!(
-                locale,
-                supportedLocales.cast<Locale>(),
-              )
-          : null,
+      localeListResolutionCallback:
+          localeListResolutionCallback is LocaleListResolutionCallback?
+              ? localeListResolutionCallback
+              : localeListResolutionCallback != null
+                  ? (
+                      List? locales,
+                      Iterable supportedLocales,
+                    ) =>
+                      toFunction(localeListResolutionCallback)!(
+                        locales?.cast<Locale>(),
+                        supportedLocales.cast<Locale>(),
+                      )
+                  : null,
+      localeResolutionCallback:
+          localeResolutionCallback is LocaleResolutionCallback?
+              ? localeResolutionCallback
+              : localeResolutionCallback != null
+                  ? (
+                      Locale? locale,
+                      Iterable supportedLocales,
+                    ) =>
+                      toFunction(localeResolutionCallback)!(
+                        locale,
+                        supportedLocales.cast<Locale>(),
+                      )
+                  : null,
       supportedLocales: supportedLocales.cast<Locale>(),
       debugShowMaterialGrid: debugShowMaterialGrid,
       showPerformanceOverlay: showPerformanceOverlay,
@@ -245,14 +272,14 @@ class WTMaterialApp extends WTVMBaseType<MaterialApp> with BaseTypeUtils {
       checkerboardOffscreenLayers: checkerboardOffscreenLayers,
       showSemanticsDebugger: showSemanticsDebugger,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      actions: actions,
+      shortcuts: shortcuts?.cast<LogicalKeySet, Intent>(),
+      actions: actions?.cast<Type, Action<Intent>>(),
       restorationScopeId: restorationScopeId,
       scrollBehavior: scrollBehavior,
     );
   }
 
-  HeroController createMaterialHeroController() {
+  static HeroController createMaterialHeroController() {
     return MaterialApp.createMaterialHeroController();
   }
 }

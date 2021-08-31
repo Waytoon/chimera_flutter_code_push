@@ -1,10 +1,10 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTChangeNotifierProvider extends WTVMBaseType<ChangeNotifierProvider>
-    with BaseTypeUtils {
+class WTChangeNotifierProvider extends WTVMBaseType<ChangeNotifierProvider> {
   static WTChangeNotifierProvider? _instance;
   factory WTChangeNotifierProvider() =>
       _instance ??= WTChangeNotifierProvider._internal();
@@ -24,7 +24,8 @@ class WTChangeNotifierProvider extends WTVMBaseType<ChangeNotifierProvider>
     getAttributeMap = null;
   }
 
-  ChangeNotifierProvider<T> m_ChangeNotifierProvider<T extends ChangeNotifier>({
+  ChangeNotifierProvider<T>
+      m_ChangeNotifierProvider<T extends ChangeNotifier?>({
     Key? key,
     required dynamic create,
     bool? lazy,
@@ -33,28 +34,32 @@ class WTChangeNotifierProvider extends WTVMBaseType<ChangeNotifierProvider>
   }) {
     return ChangeNotifierProvider(
       key: key,
-      create: (
-        context,
-      ) =>
-          toFunction(create)!(
-        context,
-      ),
-      lazy: lazy,
-      builder: builder != null
-          ? (
-              BuildContext context,
-              Widget? child,
+      create: create is Create<T>
+          ? create
+          : (
+              context,
             ) =>
-              toFunction(builder)!(
+              toFunction(create)!(
                 context,
-                child,
-              )
-          : null,
+              ),
+      lazy: lazy,
+      builder: builder is TransitionBuilder?
+          ? builder
+          : builder != null
+              ? (
+                  BuildContext context,
+                  Widget? child,
+                ) =>
+                  toFunction(builder)!(
+                    context,
+                    child,
+                  )
+              : null,
       child: child,
     );
   }
 
-  ChangeNotifierProvider<T> value<T extends ChangeNotifier>({
+  ChangeNotifierProvider<T> value<T extends ChangeNotifier?>({
     Key? key,
     required T value,
     dynamic builder,
@@ -63,16 +68,18 @@ class WTChangeNotifierProvider extends WTVMBaseType<ChangeNotifierProvider>
     return ChangeNotifierProvider<T>.value(
       key: key,
       value: value,
-      builder: builder != null
-          ? (
-              BuildContext context,
-              Widget? child,
-            ) =>
-              toFunction(builder)!(
-                context,
-                child,
-              )
-          : null,
+      builder: builder is TransitionBuilder?
+          ? builder
+          : builder != null
+              ? (
+                  BuildContext context,
+                  Widget? child,
+                ) =>
+                  toFunction(builder)!(
+                    context,
+                    child,
+                  )
+              : null,
       child: child,
     );
   }

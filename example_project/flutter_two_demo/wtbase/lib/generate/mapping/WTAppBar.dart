@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTAppBar extends WTVMBaseType<AppBar> with BaseTypeUtils {
+class WTAppBar extends WTVMBaseType<AppBar> {
   static WTAppBar? _instance;
   factory WTAppBar() => _instance ??= WTAppBar._internal();
 

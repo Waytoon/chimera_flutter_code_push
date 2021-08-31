@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Do Statement
 class WTDoStatement extends WTBaseDeclaration {
@@ -7,7 +7,9 @@ class WTDoStatement extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return WTForStatement.executeLoop(condition, loopBody, env, true);
+    return WTForStatement.executeLoop(condition, loopBody, 
+        env, true, 
+        filePath, line);
   }
 
   @override
@@ -15,5 +17,10 @@ class WTDoStatement extends WTBaseDeclaration {
     super.read(byteArray);
     condition = serializedInstance(byteArray);
     loopBody = serializedInstance(byteArray);
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

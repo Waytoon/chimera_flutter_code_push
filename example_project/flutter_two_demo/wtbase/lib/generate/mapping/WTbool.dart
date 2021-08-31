@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTbool extends WTVMBaseType<bool> with BaseTypeUtils {
+class WTbool extends WTVMBaseType<bool> {
   static WTbool? _instance;
   factory WTbool() => _instance ??= WTbool._internal();
 

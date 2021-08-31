@@ -12,9 +12,6 @@ class WTAnalysisReadCode {
   late Environment topEnv;
 
   late String projectName;
-  late String projectLibPath;
-  late int projectLibPathLength;
-
   late Map<String, _CacheImportItem> _cacheImportMap;
 
   String? patchFilePath;
@@ -105,47 +102,55 @@ class WTAnalysisReadCode {
         });
 
     List<WTUnitMemory> unitList = [];
-
-    int size = bytes.readLong();
+    _cacheImportMap = Map();
+    projectName = bytes.readString()!;
     await RunnerUtils.calcExecuteTime(
         desc: "Serialized Instance",
         function: () {
-          for (int i = 0; i < size; i++) {
+          void readUnit(String libraryName) {
             var v = WTBaseDeclaration.staticSerializedInstance(bytes);
             WTUnitDeclaration unit = v as WTUnitDeclaration;
             unit.readDefineList(bytes);
 
             WTUnitMemory unitMemory = WTUnitMemory(unit, topEnv);
             unitList.add(unitMemory);
+
+            _CacheImportItem cacheItem = _CacheImportItem(unitMemory, libraryName);
+            var importUri = cacheItem.importUri;
+            _cacheImportMap[importUri] = cacheItem;
+          }
+
+          var projectName = readCode.projectName;
+          int size = bytes.readLong();
+          for (int i = 0; i < size; i++) {
+            readUnit(projectName);
+          }
+
+          {
+            int otherLibraryJITLength = bytes.readLong();
+            for(int i = 0; i < otherLibraryJITLength; i++) {
+              var libraryName = bytes.readString()!;
+              var fileListLength = bytes.readLong();
+              for(int i = 0; i < fileListLength; i++) {
+                readUnit(libraryName);
+              }
+            }
           }
         });
 
-    projectName = bytes.readString()!;
-    projectLibPath = bytes.readString()!;
-    projectLibPathLength = projectLibPath.length;
 
     _readBindClass(bytes);
 
-    _cacheImportMap = Map();
     await RunnerUtils.calcExecuteTime(
         desc: "register unitMemory",
         function: () {
+          int size = unitList.length;
           for (int i = 0; i < size; i++) {
             WTUnitMemory unitMemory = unitList[i];
-
-            _CacheImportItem cacheItem = _CacheImportItem(unitMemory);
-            Environment selfEnv = cacheItem.unitMemory.selfEnv!;
+            var filePath = unitMemory.unitDeclaration.filePath;
+            Environment selfEnv = unitMemory.selfEnv!;
             var defineList = unitMemory.unitDeclaration.defineList;
             int size = defineList?.length ?? 0;
-
-            if (isDebug) {
-              List<String> debugList = [];
-              for (int i = 0; i < size; i++) {
-                Define define = defineList![i];
-                debugList.add(define.name!);
-              }
-              int x = 1;
-            }
 
             for (int i = 0; i < size; i++) {
               Define define = defineList![i];
@@ -153,13 +158,13 @@ class WTAnalysisReadCode {
             }
 
             unitMemory.registerEnv();
-            _cacheImportMap[cacheItem.importUri] = cacheItem;
           }
         });
 
     await RunnerUtils.calcExecuteTime(
         desc: "register Unit Env",
         function: () {
+          int size = unitList.length;
           _registerUnitEnv(2, size, unitList);
         });
   }
@@ -170,9 +175,6 @@ class WTAnalysisReadCode {
         WTUnitMemory unitMemory = unitList[i];
         WTUnitDeclaration unit = unitMemory.unitDeclaration;
         Environment unitSelfEnv = unitMemory.selfEnv!;
-
-        String debugPath = '/Volumes/data/temp/xh/xhApp/lib/router/login.dart';
-        if (j == 1 && unit.filePath == debugPath) int x = 10;
 
         List<WTBaseDeclaration>? directives = unit.directives;
         if (directives == null) continue;
@@ -191,7 +193,8 @@ class WTAnalysisReadCode {
             var uriCacheItem = _cacheImportMap[uri];
             WTUnitMemory? uriUnitMemory = uriCacheItem?.unitMemory;
 
-            if (uriCacheItem == null) continue;
+            if (uriCacheItem == null)
+              continue;
 
             if (prefix != null) {
               unitSelfEnv.set(prefix, uriUnitMemory, isDirect: true);
@@ -208,8 +211,6 @@ class WTAnalysisReadCode {
             }
           }
         }
-
-        int x = 10;
       }
     }
 
@@ -266,9 +267,9 @@ class _CacheImportItem {
   late WTUnitMemory unitMemory;
   late String importUri;
 
-  _CacheImportItem(this.unitMemory) {
+  _CacheImportItem(this.unitMemory, String libraryName) {
     var filePath = unitMemory.unitDeclaration.filePath;
-    filePath = filePath!.substring(4);
-    importUri = "package:${readCode.projectName}/$filePath";
+    // filePath = filePath!.substring(4);
+    importUri = "package:$libraryName/$filePath";
   }
 }

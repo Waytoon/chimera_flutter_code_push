@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTMainAxisSize extends WTVMBaseType<MainAxisSize> with BaseTypeUtils {
+class WTMainAxisSize extends WTVMBaseType<MainAxisSize> {
   static WTMainAxisSize? _instance;
   factory WTMainAxisSize() => _instance ??= WTMainAxisSize._internal();
 
@@ -18,6 +18,7 @@ class WTMainAxisSize extends WTVMBaseType<MainAxisSize> with BaseTypeUtils {
     getAttributeMap = {
       "min": min,
       "max": max,
+      "values": values,
     };
   }
 
@@ -27,5 +28,9 @@ class WTMainAxisSize extends WTVMBaseType<MainAxisSize> with BaseTypeUtils {
 
   max() {
     return MainAxisSize.max;
+  }
+
+  values() {
+    return MainAxisSize.values;
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTCenter extends WTVMBaseType<Center> with BaseTypeUtils {
+class WTCenter extends WTVMBaseType<Center> {
   static WTCenter? _instance;
   factory WTCenter() => _instance ??= WTCenter._internal();
 

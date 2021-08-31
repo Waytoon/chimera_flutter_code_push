@@ -1,10 +1,11 @@
 import 'package:nested/nested.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTMultiProvider extends WTVMBaseType<MultiProvider> with BaseTypeUtils {
+class WTMultiProvider extends WTVMBaseType<MultiProvider> {
   static WTMultiProvider? _instance;
   factory WTMultiProvider() => _instance ??= WTMultiProvider._internal();
 
@@ -32,16 +33,18 @@ class WTMultiProvider extends WTVMBaseType<MultiProvider> with BaseTypeUtils {
       key: key,
       providers: providers.cast<SingleChildWidget>(),
       child: child,
-      builder: builder != null
-          ? (
-              BuildContext context,
-              Widget? child,
-            ) =>
-              toFunction(builder)!(
-                context,
-                child,
-              )
-          : null,
+      builder: builder is TransitionBuilder?
+          ? builder
+          : builder != null
+              ? (
+                  BuildContext context,
+                  Widget? child,
+                ) =>
+                  toFunction(builder)!(
+                    context,
+                    child,
+                  )
+              : null,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTIcon extends WTVMBaseType<Icon> with BaseTypeUtils {
+class WTIcon extends WTVMBaseType<Icon> {
   static WTIcon? _instance;
   factory WTIcon() => _instance ??= WTIcon._internal();
 

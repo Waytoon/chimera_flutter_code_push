@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问函数表达式
 class WTFunctionExpression extends WTBaseDeclaration {
@@ -9,7 +9,7 @@ class WTFunctionExpression extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return WTFunctionMemory.getFunctionMemoryObject(parameters?.parameters, body, env);
+    return WTFunctionMemory.getFunctionMemoryObject(parameters?.parameters, body, env.cloneEnv());
   }
 
   @override

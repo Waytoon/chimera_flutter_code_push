@@ -1,9 +1,9 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问类型名称
 class WTTypeName extends WTBaseDeclaration {
   WTBaseDeclaration? nameDeclaration;
-  WTBaseDeclaration? typeArguments;
+  WTTypeArgumentList? typeArguments;
   String? question;
 
   /// 用于类型推断
@@ -26,7 +26,9 @@ class WTTypeName extends WTBaseDeclaration {
   }
 
   @override
-  dynamic execute(Environment env) {}
+  dynamic execute(Environment env) {
+    return nameDeclaration?.execute(env);
+  }
 
   @override
   void read(ByteArray byteArray) {
@@ -40,4 +42,5 @@ class WTTypeName extends WTBaseDeclaration {
   String? getTypeName() {
     return nameDeclaration?.getTypeName();
   }
+
 }

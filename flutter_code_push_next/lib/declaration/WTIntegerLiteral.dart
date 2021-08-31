@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 简单的整数面值
 class WTIntegerLiteral extends WTBaseDeclaration {

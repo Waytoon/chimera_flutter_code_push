@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 简单的字符串字面值
 class WTSimpleStringLiteral extends WTBaseDeclaration {

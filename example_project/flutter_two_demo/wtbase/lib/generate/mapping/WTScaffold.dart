@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
+class WTScaffold extends WTVMBaseType<Scaffold> {
   static WTScaffold? _instance;
   factory WTScaffold() => _instance ??= WTScaffold._internal();
 
@@ -60,23 +60,27 @@ class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
       floatingActionButtonAnimator: floatingActionButtonAnimator,
       persistentFooterButtons: persistentFooterButtons?.cast<Widget>(),
       drawer: drawer,
-      onDrawerChanged: onDrawerChanged != null
-          ? (
-              bool isOpened,
-            ) =>
-              toFunction(onDrawerChanged)!(
-                isOpened,
-              )
-          : null,
+      onDrawerChanged: onDrawerChanged is DrawerCallback?
+          ? onDrawerChanged
+          : onDrawerChanged != null
+              ? (
+                  bool isOpened,
+                ) =>
+                  toFunction(onDrawerChanged)!(
+                    isOpened,
+                  )
+              : null,
       endDrawer: endDrawer,
-      onEndDrawerChanged: onEndDrawerChanged != null
-          ? (
-              bool isOpened,
-            ) =>
-              toFunction(onEndDrawerChanged)!(
-                isOpened,
-              )
-          : null,
+      onEndDrawerChanged: onEndDrawerChanged is DrawerCallback?
+          ? onEndDrawerChanged
+          : onEndDrawerChanged != null
+              ? (
+                  bool isOpened,
+                ) =>
+                  toFunction(onEndDrawerChanged)!(
+                    isOpened,
+                  )
+              : null,
       bottomNavigationBar: bottomNavigationBar,
       bottomSheet: bottomSheet,
       backgroundColor: backgroundColor,
@@ -93,7 +97,7 @@ class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
     );
   }
 
-  ScaffoldState of(
+  static ScaffoldState of(
     BuildContext context,
   ) {
     return Scaffold.of(
@@ -101,7 +105,7 @@ class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
     );
   }
 
-  ScaffoldState? maybeOf(
+  static ScaffoldState? maybeOf(
     BuildContext context,
   ) {
     return Scaffold.maybeOf(
@@ -109,7 +113,7 @@ class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
     );
   }
 
-  ValueListenable<ScaffoldGeometry> geometryOf(
+  static ValueListenable<ScaffoldGeometry> geometryOf(
     BuildContext context,
   ) {
     return Scaffold.geometryOf(
@@ -117,7 +121,7 @@ class WTScaffold extends WTVMBaseType<Scaffold> with BaseTypeUtils {
     );
   }
 
-  bool hasDrawer(
+  static bool hasDrawer(
     BuildContext context, {
     bool registerForUpdates = true,
   }) {

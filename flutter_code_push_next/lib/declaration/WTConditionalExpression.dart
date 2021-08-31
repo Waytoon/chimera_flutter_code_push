@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问条件表达式 ? : 三元表达式
 class WTConditionalExpression extends WTBaseDeclaration {
@@ -8,7 +8,11 @@ class WTConditionalExpression extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return condition.execute(env)
+    var v = condition.execute(env);
+    if(v == null)
+      debugRuntimesError('boolean expression must not be null', null, null,
+          filePath, line);
+    return v
         ? then.execute(env)
         : elseExpression.execute(env);
   }
@@ -19,5 +23,10 @@ class WTConditionalExpression extends WTBaseDeclaration {
     condition = serializedInstance(byteArray)!;
     then = serializedInstance(byteArray)!;
     elseExpression = serializedInstance(byteArray)!;
+  }
+
+  @override
+  bool isWriteLine() {
+    return true;
   }
 }

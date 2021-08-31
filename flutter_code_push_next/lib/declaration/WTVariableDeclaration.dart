@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// TODO: 待优化
 class WTVariableDeclarationItem {
@@ -25,6 +25,8 @@ class WTVariableDeclaration extends WTBaseDeclaration {
   late List<WTVariableDeclarationItem> variableList;
   List<WTBaseDeclaration?>? initializerList;
 
+  WTVariableDeclarationList? variableDclList;
+
   String? get firstVariableName {
     var first = variableList[0];
     return first.variableName;
@@ -36,21 +38,25 @@ class WTVariableDeclaration extends WTBaseDeclaration {
       _setNull(env);
     } else {
       _setNull(env);
-      var nextRun = (int index, returnValue) {
-        WTVariableDeclarationItem item = variableList[index];
-        String? variableName = item.variableName;
-        env!.set(variableName, returnValue, isDirect: true);
-      };
-      var asyncTemplate =
-          WTAsyncLoopTemplate(initializerList, nextRun, variableList.length);
-      return asyncTemplate.execute(env);
+
+      if(variableDclList != null) {
+        variableDclList!.execute(env!);
+      }
+      else {
+        var nextRun = (int index, returnValue) {
+          WTVariableDeclarationItem item = variableList[index];
+          String? variableName = item.variableName;
+          env!.set(variableName, returnValue, isDirect: true);
+        };
+        var asyncTemplate = WTAsyncLoopTemplate(initializerList, nextRun, variableList.length);
+        return asyncTemplate.execute(env);
+      }
     }
   }
 
   _setNull(Environment? env) {
     for (WTVariableDeclarationItem item in variableList) {
       String? variableName = item.variableName;
-      if (variableName == 'userProvider') int x = 1;
       env!.set(variableName, null, isDirect: true, isOverride: false);
     }
   }
@@ -68,6 +74,7 @@ class WTVariableDeclaration extends WTBaseDeclaration {
       variableList.add(item);
     }
     variablesTypeDeclaration = serializedInstance(byteArray);
+    // variableDclList = serializedInstance(byteArray);
 
     afterRead();
   }

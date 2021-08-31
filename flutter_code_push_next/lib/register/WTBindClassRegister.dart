@@ -1,66 +1,155 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
-/// 绑定类注册
+class WTBindClassItem<T> {
+  late String className;
+  late Function? instanceFunction;
+
+  Type getType() {
+    return T;
+  }
+
+  bool getIsType(value) {
+    var outValue = value is T;
+    return outValue;
+  }
+
+  bool getIsNotType(value) {
+    var outValue = value is! T;
+    return outValue;
+  }
+
+  T? getAsValue(value) {
+    var outValue = value as T?;
+    return outValue;
+  }
+}
+
+/// Binding class registration
 class WTBindClassRegister {
-  static Map<String, Type> _bindClassTypeMap = Map();
-  static Map<String, Function> _bindInstanceClassMap = Map();
+  static Map<String, WTBindClassItem> _bindMap = Map();
+
+  /// vmClassName, className
   static Map<String, String> _bindClassMap = Map();
 
-  static void register(String className, Type type, Function instanceFunc) {
-    _bindInstanceClassMap[className] = instanceFunc;
-    _bindClassTypeMap[className] = type;
+  static void register<T>(String className, Function? instanceFunction) {
+    var bindItem = WTBindClassItem<T>();
+    bindItem.className = className;
+    bindItem.instanceFunction = instanceFunction;
+    _bindMap[className] = bindItem;
   }
 
   static void bindClass(
     String vmClassName,
     String className,
   ) {
+    if(className == 'WTObject50')
+      className = 'WTObject75';
     _bindClassMap[vmClassName] = className;
     debugPrint("vmClassName: $vmClassName className: $className");
   }
 
+  static bool getIsType(WTClassMemory classMemory, value) {
+    String vmClassName = classMemory.classDcl.globalKey!;
+    var bindClass = getBindClass(vmClassName);
+    if(bindClass != null) {
+      var item = _bindMap[bindClass];
+      return item?.getIsType(value) == true;
+    }
+    return false;
+  }
+
+  static bool getIsNotType(WTClassMemory classMemory, value) {
+    String vmClassName = classMemory.classDcl.globalKey!;
+    var bindClass = getBindClass(vmClassName);
+    if(bindClass != null) {
+      var item = _bindMap[bindClass];
+      return item?.getIsNotType(value) == true;
+    }
+    return false;
+  }
+
+  static dynamic getAsValue(WTClassMemory classMemory, value) {
+    String vmClassName = classMemory.classDcl.globalKey!;
+    var bindClass = getBindClass(vmClassName);
+    if(bindClass != null) {
+      var item = _bindMap[bindClass];
+      return item?.getAsValue(value);
+    }
+    return null;
+  }
+
   static Type? getBindType(String vmClassName) {
     var bindClass = getBindClass(vmClassName);
-    return _bindClassTypeMap[bindClass!];
+    if(bindClass != null) {
+      var item = _bindMap[bindClass];
+      return item?.getType();
+    }
   }
 
-  static String? getBindClass(String vmClassName) {
-    return _bindClassMap[vmClassName];
+  static String? getBindClass(String? vmClassName) {
+    if(vmClassName != null)
+      return _bindClassMap[vmClassName];
   }
 
-  static bool hasBindClass(String vmClassName) {
+  static bool hasBindClass(String vmClassName, {WTTypeArgumentList? typeArgumentList, Environment? env}) {
+    vmClassName = getVMClassName(vmClassName, typeArgumentList, env);
     return _bindClassMap.containsKey(vmClassName);
   }
 
+  static String getVMClassName(String vmClassName, WTTypeArgumentList? typeArgumentList, Environment? env) {
+    if(typeArgumentList != null) {
+      var runtimeType = typeArgumentList.getRuntimeType(env);
+      vmClassName = '${vmClassName}_$runtimeType';
+    }
+    return vmClassName;
+  }
+
   static WTClassPointer? instanceBindClass(
-      Environment? env,
+      Environment? staticEnv,
+      String vmClassName,
       WTClassDeclaration declaration,
       InstancePointerMethod initClassPointerFunc,
       List? positionalArguments,
       Map<Symbol, dynamic>? namedArguments,
-      WTConstructorDeclaration? constructor) {
-    String vmClassName = declaration.className;
-    if (vmClassName == 'HexColor') int x = 10;
-
+      WTTypeArgumentList? typeArgumentList,
+      WTConstructorDeclaration? constructor,
+      String? filePath,
+      int? line) {
     constructor ??= declaration.constructor;
     var tempEnv = Environment.newInstance();
-    tempEnv.outer = env;
-
-    if (constructor == null) int x = 1;
+    tempEnv.outer = staticEnv;
 
     constructor?.setPositionAndNamedArgumentsValue(
         tempEnv, positionalArguments, namedArguments);
 
     var className = _bindClassMap[vmClassName];
-    Function? instanceFunc = _bindInstanceClassMap[className!];
+    var item = className != null ? _bindMap[className] : null;
+    Function? instanceFunc = item?.instanceFunction;
 
     WTSuperConstructorInvocation? superInvocation;
     if (constructor?.initializer != null) {
-      List<WTBaseDeclaration> initializer = constructor!.initializer!;
-      for (var item in initializer) {
-        if (item is WTSuperConstructorInvocation) {
-          superInvocation = item;
-          break;
+      getTopLevelJitDcl(RuntimeNode? declaration) {
+        var extendsTypeName = declaration?.getExtendsTypeName();
+        if(extendsTypeName != null) {
+          var extendsDcl = staticEnv?.get(extendsTypeName) as RuntimeNode?;
+          if(extendsDcl?.isJIT == true) {
+            return getTopLevelJitDcl(extendsDcl);
+          }else {
+            return declaration?.toClassDcl();
+          }
+        }else {
+          return declaration?.toClassDcl();
+        }
+      }
+      var classDcl = getTopLevelJitDcl(declaration) as WTClassDeclaration?;
+      var ctor = classDcl?.constructor;
+      List<WTBaseDeclaration>? initializer = ctor?.initializer;
+      if(initializer != null) {
+        for (var item in initializer) {
+          if (item is WTSuperConstructorInvocation) {
+            superInvocation = item;
+            break;
+          }
         }
       }
     }
@@ -103,12 +192,22 @@ class WTBindClassRegister {
       v = Function.apply(
           instanceFunc!, superPositionalArguments, superNamedArguments as Map<Symbol, dynamic>?);
     } catch (e, s) {
-      debugError("instanceBindClass error:\n$e\n$s");
+      debugRuntimesError("Instance Bind Class error", e, s, filePath, line);
     }
 
     WTClassPointer? c = v as WTClassPointer?;
-    v!.instance(initClassPointerFunc, c, positionalArguments, namedArguments,
+    c?.typeArgumentList = typeArgumentList;
+    v?.instance(initClassPointerFunc, c, positionalArguments, namedArguments,
         constructor);
     return c;
+  }
+
+  static WTEnumMemory instanceEnumMemory(WTEnumDeclaration enumDcl) {
+    var vmClassName = enumDcl.globalKey!;
+    var enumName = _bindClassMap[vmClassName];
+    var item = enumName != null ? _bindMap[enumName] : null;
+    Function? instanceFunc = item?.instanceFunction;
+    var v = instanceFunc!(enumDcl);
+    return v as WTEnumMemory;
   }
 }

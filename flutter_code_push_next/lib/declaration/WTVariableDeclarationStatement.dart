@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问变量声明声明
 class WTVariableDeclarationStatement extends WTBaseDeclaration {

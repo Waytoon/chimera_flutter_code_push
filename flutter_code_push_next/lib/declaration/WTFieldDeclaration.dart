@@ -1,10 +1,10 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Class成员字段声明
 class WTFieldDeclaration extends WTBaseDeclaration {
   late bool isStatic;
   late String? variablesType;
-  late Set<WTBaseDeclaration> fieldsNames;
+  late List<WTBaseDeclaration> fieldsNames;
 
   late bool isConst;
   late bool isFinal;
@@ -23,7 +23,7 @@ class WTFieldDeclaration extends WTBaseDeclaration {
     variablesTypeDeclaration = serializedInstance(byteArray);
 
     var size = byteArray.readInt();
-    fieldsNames = <WTBaseDeclaration>{};
+    fieldsNames = [];
     for (var i = 0; i < size; ++i) {
       var instance = serializedInstance(byteArray)!;
       fieldsNames.add(instance);

@@ -1,9 +1,10 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Access function declaration statement
 class WTFunctionDeclarationStatement extends WTBaseDeclaration {
   late String? methodName;
-  late WTTypeName? returnType;
+  /// WTTypeName, WTGenericFunctionTypeVM
+  late WTBaseDeclaration? returnType;
   List<WTBaseDeclaration>? parameters;
   List<WTBaseDeclaration>? typeParameters;
 
@@ -12,7 +13,8 @@ class WTFunctionDeclarationStatement extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    env.set(methodName!, this, isDirect: true);
+    var value = WTFunctionPointer(env, this);
+    env.set(methodName!, value, isDirect: true);
   }
 
   dynamic executeBody(Environment env) {

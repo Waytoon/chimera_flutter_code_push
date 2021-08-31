@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 enum MethodPropertyKeyword { get, set }
 
@@ -19,9 +19,14 @@ class WTMethodDeclaration extends WTBaseDeclaration {
 
   late List<WTAnnotation>? metadata;
 
+  String? operatorKeyword;
+  String? externalKeyword;
+
   @override
   dynamic execute(Environment env) {
-    return body!.execute(env);
+    Environment selfEnv = Environment.newInstance();
+    selfEnv.outer = env;
+    return body!.execute(selfEnv);
   }
 
   @override
@@ -47,6 +52,8 @@ class WTMethodDeclaration extends WTBaseDeclaration {
     typeParameters = serializedInstance(byteArray);
 
     metadata = readList(byteArray);
+    operatorKeyword = byteArray.readString();
+    externalKeyword = byteArray.readString();
   }
 
   @override

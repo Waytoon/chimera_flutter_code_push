@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTTopVariable1 extends WTVMBaseType<dynamic> with BaseTypeUtils {
+class WTTopVariable1 extends WTVMBaseType<dynamic> {
   static WTTopVariable1? _instance;
   factory WTTopVariable1() => _instance ??= WTTopVariable1._internal();
 

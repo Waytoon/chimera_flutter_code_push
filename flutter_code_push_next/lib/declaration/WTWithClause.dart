@@ -1,9 +1,9 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// With Clause
 class WTWithClause extends WTBaseDeclaration {
   late String withKeyword;
-  late List<String> mixinTypes;
+  late List<WTTypeName> mixinTypes;
 
   @override
   dynamic execute(Environment env) {}
@@ -12,6 +12,6 @@ class WTWithClause extends WTBaseDeclaration {
   void read(ByteArray byteArray) {
     super.read(byteArray);
     withKeyword = byteArray.readString()!;
-    mixinTypes = byteArray.readListString()!;
+    mixinTypes = readList(byteArray)!;
   }
 }

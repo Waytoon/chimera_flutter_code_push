@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTChangeNotifier extends WTVMBaseType<ChangeNotifier> with BaseTypeUtils {
+class WTChangeNotifier extends WTVMBaseType<ChangeNotifier> {
   static WTChangeNotifier? _instance;
   factory WTChangeNotifier() => _instance ??= WTChangeNotifier._internal();
 
@@ -11,21 +10,26 @@ class WTChangeNotifier extends WTVMBaseType<ChangeNotifier> with BaseTypeUtils {
     definePath = 'packages/flutter/lib/src/foundation/change_notifier.dart';
     defineName = 'ChangeNotifier';
 
-    attributesMap = null;
+    attributesMap = {
+      "ChangeNotifier": m_ChangeNotifier,
+    };
 
     setAttributeMap = null;
 
     getAttributeMap = null;
   }
+
+  ChangeNotifier m_ChangeNotifier() {
+    return ChangeNotifier();
+  }
 }
 
-class BaseChangeNotifier
+class BaseChangeNotifier<T>
     with
         ChangeNotifier,
         DiagnosticableTreeMixin,
         WTClassPointer,
-        WTInstancePointer,
-        BaseTypeUtils {
+        WTInstancePointer {
   @override
   void instance(
       InstancePointerMethod instanceMethod,
@@ -39,50 +43,124 @@ class BaseChangeNotifier
     attributesMap = {
       "addListener": m_addListener,
       "removeListener": m_removeListener,
-      "dispose": m_dispose,
       "notifyListeners": m_notifyListeners,
+      "toString": m_toString,
+      "toStringShallow": m_toStringShallow,
+      "toStringDeep": m_toStringDeep,
+      "toStringShort": m_toStringShort,
+      "toDiagnosticsNode": m_toDiagnosticsNode,
+      "debugDescribeChildren": m_debugDescribeChildren,
+      "debugFillProperties": m_debugFillProperties,
     };
 
     setAttributeMap = null;
 
     getAttributeMap = {
-      "hasListeners": get_hasListeners,
+      "hasListeners": _hasListeners,
     };
+
+    var superEnv = Environment(store: {
+      "debugFillProperties": super.debugFillProperties,
+    });
+    selfEnv!.set('super', superEnv, isDirect: true);
   }
 
-  bool get_hasListeners() {
+  _hasListeners() {
     return hasListeners;
   }
 
-  void m_addListener(
+  m_addListener(
     dynamic listener,
   ) {
     return addListener(
-      () => toFunction(listener)!(),
+      listener is VoidCallback ? listener : () => toFunction(listener)!(),
     );
   }
 
-  void m_removeListener(
+  m_removeListener(
     dynamic listener,
   ) {
     return removeListener(
-      () => toFunction(listener)!(),
+      listener is VoidCallback ? listener : () => toFunction(listener)!(),
     );
   }
 
-  void m_dispose() {
-    return dispose();
-  }
-
-  void m_notifyListeners() {
+  m_notifyListeners() {
     return notifyListeners();
   }
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    var v = executeMethod('debugFillProperties', [
+  m_toString({
+    DiagnosticLevel minLevel = DiagnosticLevel.info,
+  }) {
+    return toString(
+      minLevel: minLevel,
+    );
+  }
+
+  m_toStringShallow({
+    String joiner = ", ",
+    DiagnosticLevel minLevel = DiagnosticLevel.debug,
+  }) {
+    return toStringShallow(
+      joiner: joiner,
+      minLevel: minLevel,
+    );
+  }
+
+  m_toStringDeep({
+    String prefixLineOne = "",
+    String? prefixOtherLines,
+    DiagnosticLevel minLevel = DiagnosticLevel.debug,
+  }) {
+    return toStringDeep(
+      prefixLineOne: prefixLineOne,
+      prefixOtherLines: prefixOtherLines,
+      minLevel: minLevel,
+    );
+  }
+
+  m_toStringShort() {
+    return toStringShort();
+  }
+
+  m_toDiagnosticsNode({
+    String? name,
+    DiagnosticsTreeStyle? style,
+  }) {
+    return toDiagnosticsNode(
+      name: name,
+      style: style,
+    );
+  }
+
+  m_debugDescribeChildren() {
+    return debugDescribeChildren();
+  }
+
+  m_debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+  ) {
+    return debugFillProperties(
       properties,
-    ]);
-    return v;
+    );
+  }
+
+  @override
+  void debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+  ) {
+    Map<Symbol, dynamic>? namedArguments;
+    List positionalArguments = [
+      properties,
+    ];
+    String methodName = 'debugFillProperties';
+    if (isIncludeMethod(methodName) == false) {
+      return super.debugFillProperties(
+        properties,
+      );
+    } else {
+      var v = executeMethod(methodName, positionalArguments, namedArguments);
+      return v;
+    }
   }
 }

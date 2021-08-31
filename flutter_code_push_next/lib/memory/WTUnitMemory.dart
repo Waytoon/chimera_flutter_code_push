@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 class WTUnitMemory {
   WTUnitDeclaration unitDeclaration;
@@ -49,7 +49,11 @@ class WTUnitMemory {
   }
 
   dynamic _valueGetOrSet(String? attribute, [bool isGet = true, assignValue]) {
-    if (attribute == 'LOGIN_ROUTER_HASH') int x = 1;
+    /// Handling delayed loading uri
+    /// demo: import 'dart:math' deferred as m;
+    if (attribute == 'loadLibrary') {
+      return () => Future.value(null);
+    }
     _checkAndExecuteTopLevel();
 
     if (isGet) {

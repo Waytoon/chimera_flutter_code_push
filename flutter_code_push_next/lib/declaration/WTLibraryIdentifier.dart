@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 造访图书馆识别码
 class WTLibraryIdentifier extends WTBaseDeclaration {

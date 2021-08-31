@@ -10,7 +10,6 @@ export 'memory/WTEnumMemory.dart';
 
 export 'sdkBridge/WTSDKBridge.dart';
 export 'utils/RunnerUtils.dart';
-export 'utils/ConsoleUtils.dart';
 export 'utils/Utils.dart';
 export 'utils/BaseTypeUtils.dart';
 export 'register/WTBindClassRegister.dart';
@@ -20,7 +19,6 @@ export 'generate/WTVMBaseType.dart';
 export 'functions/WTAsyncLoop.dart';
 export 'external/WTByteArray.dart';
 export 'pointer/WTClassPointer.dart';
-export 'pointer/WTEnumPointer.dart';
 export 'pointer/WTInstancePointer.dart';
 export 'pointer/WTFunctionPointer.dart';
 export 'declaration/WTIfStatement.dart';

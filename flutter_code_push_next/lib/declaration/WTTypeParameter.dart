@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问类型参数
 class WTTypeParameter extends WTBaseDeclaration {
@@ -27,7 +27,7 @@ class WTTypeParameter extends WTBaseDeclaration {
     if (extendsKeyword == null || isWriteExtends == false)
       return name!;
     else
-      return "$name extends ${bound!.typeName}";
+      return "$name extends $bound";
   }
   
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTTheme extends WTVMBaseType<Theme> with BaseTypeUtils {
+class WTTheme extends WTVMBaseType<Theme> {
   static WTTheme? _instance;
   factory WTTheme() => _instance ??= WTTheme._internal();
 
@@ -32,7 +32,7 @@ class WTTheme extends WTVMBaseType<Theme> with BaseTypeUtils {
     );
   }
 
-  ThemeData of(
+  static ThemeData of(
     BuildContext context,
   ) {
     return Theme.of(

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTMainAxisAlignment extends WTVMBaseType<MainAxisAlignment>
-    with BaseTypeUtils {
+class WTMainAxisAlignment extends WTVMBaseType<MainAxisAlignment> {
   static WTMainAxisAlignment? _instance;
   factory WTMainAxisAlignment() =>
       _instance ??= WTMainAxisAlignment._internal();
@@ -23,6 +22,7 @@ class WTMainAxisAlignment extends WTVMBaseType<MainAxisAlignment>
       "spaceBetween": spaceBetween,
       "spaceAround": spaceAround,
       "spaceEvenly": spaceEvenly,
+      "values": values,
     };
   }
 
@@ -48,5 +48,9 @@ class WTMainAxisAlignment extends WTVMBaseType<MainAxisAlignment>
 
   spaceEvenly() {
     return MainAxisAlignment.spaceEvenly;
+  }
+
+  values() {
+    return MainAxisAlignment.values;
   }
 }

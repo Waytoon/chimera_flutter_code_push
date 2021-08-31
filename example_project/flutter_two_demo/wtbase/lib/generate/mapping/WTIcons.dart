@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTIcons extends WTVMBaseType<Icons> with BaseTypeUtils {
+class WTIcons extends WTVMBaseType<Icons> {
   static WTIcons? _instance;
   factory WTIcons() => _instance ??= WTIcons._internal();
 
@@ -7387,7 +7387,7 @@ class WTIcons extends WTVMBaseType<Icons> with BaseTypeUtils {
     };
   }
 
-  adaptive() {
+  static adaptive() {
     return Icons.adaptive;
   }
 

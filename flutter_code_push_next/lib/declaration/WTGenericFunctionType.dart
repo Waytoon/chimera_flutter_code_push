@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问通用函数类型,匿名函数
 class WTGenericFunctionType extends WTBaseDeclaration {

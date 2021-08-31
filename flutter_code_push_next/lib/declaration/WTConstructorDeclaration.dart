@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Class构造函数
 /// 首先构造函数有几个实现方式
@@ -38,14 +38,22 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
       var o = initializer![i];
       if (o is WTSuperConstructorInvocation) {
         if (isExecuteSuper == true) o.execute(selfEnv);
-      } else {
+      }
+      else if(o is WTConstructorFieldInitializer) {
+        WTConstructorFieldInitializer field = o;
+        String fieldName = field.fieldName;
+        WTBaseDeclaration expression = field.expression;
+        var value = expression.execute(selfEnv);
+        env!.set(fieldName, value);
+      }
+      else {
         o.execute(selfEnv);
       }
     }
 
     /// 默认执行super
     if (isExecuteSuper == true && size == 0 && factoryKeyword == null) {
-      WTSuperConstructorInvocation.executeSuper(env!, null, codeFilePath, line);
+      WTSuperConstructorInvocation.executeSuper(env!, null, filePath, line);
     }
 
     var outValue = executeList(selfEnv, body);
@@ -75,7 +83,8 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
           }
           env.set(t.attrName, value, isDirect: true);
         }
-      } else if (parameter is WTSimpleFormalParameter) {
+      } 
+      else if (parameter is WTSimpleFormalParameter) {
         WTSimpleFormalParameter t = parameter;
         if (Symbol(t.attrName!) == key) {
           env.set(t.attrName, value, isDirect: true);
@@ -85,7 +94,8 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
   }
 
   void setPositionAndNamedArgumentsValue(Environment env,
-      List? positionalArguments, Map<Symbol, dynamic>? namedArguments) {
+      List? positionalArguments,
+      Map<Symbol, dynamic>? namedArguments) {
     int size = positionalArguments?.length ?? 0;
     var parameters = this.parameters?.parameters;
     for (var i = 0; i < size; ++i) {
@@ -94,7 +104,7 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
       _setEnvValue(item, env, value);
     }
 
-    List? keys = namedArguments?.keys?.toList();
+    List? keys = namedArguments?.keys.toList();
     int keyLength = keys?.length ?? 0;
     for (int i = 0; i < keyLength; i++) {
       Symbol? key = keys![i];
@@ -110,15 +120,31 @@ class WTConstructorDeclaration extends WTBaseDeclaration {
       var t = parameters![i];
       if (t is WTDefaultFormalParameter) {
         WTDefaultFormalParameter defaultParameter = t;
-        if (defaultParameter.isPositional == false &&
-            defaultParameter.defaultValue != null) {
-          var parameter = defaultParameter.parameter;
+        var defaultValue = defaultParameter.defaultValue;
+        if (defaultValue != null) {
+          var parameter = defaultParameter.parameter!;
           if (parameter is WTFieldFormalParameter) {
             WTFieldFormalParameter field = parameter;
             Symbol key = Symbol("${field.attrName}");
             if (namedArguments!.containsKey(key) == false) {
-              var value = defaultParameter.defaultValue!.execute(env);
+              var value = defaultValue.execute(env);
               _setEnvValue(defaultParameter, env, value, key);
+            }
+          }else {
+            var value = defaultValue.execute(env);
+            _setEnvValue(parameter, env, value);
+          }
+        }
+        else {
+          var parameter = defaultParameter.parameter!;
+          if(parameter is WTSimpleFormalParameter) {
+            WTSimpleFormalParameter p = parameter;
+            WTTypeName? attrType = p.attrType is WTTypeName ? p.attrType as WTTypeName : null;
+            if(attrType?.question != null) {
+              Symbol key = Symbol("${p.attrName}");
+              if (namedArguments!.containsKey(key) == false) {
+                _setEnvValue(defaultParameter, env, null, key);
+              }
             }
           }
         }

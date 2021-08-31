@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Access Map literal
 class WTMapLiteralEntry extends WTBaseDeclaration {
@@ -6,7 +6,9 @@ class WTMapLiteralEntry extends WTBaseDeclaration {
   late WTBaseDeclaration value;
 
   @override
-  dynamic execute(Environment env) {}
+  dynamic execute(Environment env) {
+    return this;
+  }
 
   @override
   void read(ByteArray byteArray) {

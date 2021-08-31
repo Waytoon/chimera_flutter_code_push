@@ -1,10 +1,11 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问导入指令
 class WTImportDirective extends WTBaseDeclaration {
   late String uri;
   String? asKeyword;
   String? prefix;
+  String? deferredKeyword;
   List<WTBaseDeclaration>? combinators;
 
   @override
@@ -15,6 +16,7 @@ class WTImportDirective extends WTBaseDeclaration {
     super.read(byteArray);
     uri = byteArray.readString()!;
     asKeyword = byteArray.readString();
+    deferredKeyword = byteArray.readString();
     prefix = byteArray.readString();
     combinators = readList(byteArray);
   }

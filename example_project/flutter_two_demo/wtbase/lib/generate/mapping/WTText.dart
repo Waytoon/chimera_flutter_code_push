@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTText extends WTVMBaseType<Text> with BaseTypeUtils {
+class WTText extends WTVMBaseType<Text> {
   static WTText? _instance;
   factory WTText() => _instance ??= WTText._internal();
 

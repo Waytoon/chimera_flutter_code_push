@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTDateTime extends WTVMBaseType<DateTime> with BaseTypeUtils {
+class WTDateTime extends WTVMBaseType<DateTime> {
   static WTDateTime? _instance;
   factory WTDateTime() => _instance ??= WTDateTime._internal();
 
@@ -177,7 +177,7 @@ class WTDateTime extends WTVMBaseType<DateTime> with BaseTypeUtils {
     return DateTime.now();
   }
 
-  DateTime parse(
+  static DateTime parse(
     String formattedString,
   ) {
     return DateTime.parse(
@@ -185,7 +185,7 @@ class WTDateTime extends WTVMBaseType<DateTime> with BaseTypeUtils {
     );
   }
 
-  DateTime? tryParse(
+  static DateTime? tryParse(
     String formattedString,
   ) {
     return DateTime.tryParse(

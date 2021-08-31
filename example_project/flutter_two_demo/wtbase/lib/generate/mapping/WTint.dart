@@ -1,6 +1,6 @@
 import 'package:flutter_code_push_next/index.dart';
 
-class WTint extends WTVMBaseType<int> with BaseTypeUtils {
+class WTint extends WTVMBaseType<int> {
   static WTint? _instance;
   factory WTint() => _instance ??= WTint._internal();
 
@@ -29,19 +29,26 @@ class WTint extends WTVMBaseType<int> with BaseTypeUtils {
     );
   }
 
-  int parse(
+  static int parse(
     String source, {
     int? radix,
-    onError,
+    dynamic onError,
   }) {
     return int.parse(
       source,
       radix: radix,
-      onError: onError,
+      onError: onError != null
+          ? (
+              String source,
+            ) =>
+              toFunction(onError)!(
+                source,
+              )
+          : null,
     );
   }
 
-  int? tryParse(
+  static int? tryParse(
     String source, {
     int? radix,
   }) {

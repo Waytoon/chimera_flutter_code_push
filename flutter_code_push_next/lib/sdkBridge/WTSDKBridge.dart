@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 原生类 与 虚拟机环境对接
 class WTSDKBridge {
@@ -6,11 +6,13 @@ class WTSDKBridge {
 
   void init() {}
 
-  dynamic getValue(dynamic value, String attr) {
-    var isExtMethod = isExtensionMethod(attr);
-    if(isExtMethod) {
-      var func = getExtensionMethod(value, attr, null);
-      return func!(value);
+  dynamic getValue(dynamic value, String attr, String? filePath, int? line, {bool isForcedGetValue = false}) {
+    if(isForcedGetValue == false) {
+      var isExtMethod = isExtensionMethod(attr);
+      if(isExtMethod) {
+        var func = getExtensionMethod(value, attr, null, filePath, line);
+        return func!(value);
+      }
     }
 
     WTSDKBridgeItem? item = pointerAttributeMap[attr];
@@ -19,7 +21,7 @@ class WTSDKBridge {
         case "toString":
           break;
         default:
-          debugError("Unknown attribute $value $attr");
+          debugRuntimesError("Unknown attribute $value $attr", null, null, filePath, line);
       }
     }
 
@@ -27,11 +29,11 @@ class WTSDKBridge {
       var outValue = item!.getValue!(value);
       return outValue;
     } catch (e, s) {
-      debugError("Get point attribute error:\n$e\n$s");
+      debugRuntimesError("Get point value:$value, attribute: $attr error", e, s, filePath, line);
     }
   }
 
-  void setValue(dynamic value, String? attr, assignValue) {
+  void setValue(dynamic value, String? attr, assignValue, String? filePath, int? line) {
     WTSDKBridgeItem? item = pointerAttributeMap[attr!];
     if (value == null || item == null) {
       switch (attr) {
@@ -39,7 +41,7 @@ class WTSDKBridge {
           break;
 
         default:
-          debugError("Unknown setValue attribute $value $attr");
+          debugRuntimesError("Unknown setValue attribute $value $attr", null, null, filePath, line);
       }
     }
 
@@ -47,7 +49,7 @@ class WTSDKBridge {
       var outValue = item!.setValue!(value, assignValue);
       return outValue;
     } catch (e, s) {
-      debugError("SetValue attribute error:\n$e\n$s");
+      debugRuntimesError("SetValue attribute error", e, s, filePath, line);
     }
   }
 
@@ -57,39 +59,58 @@ class WTSDKBridge {
 
   bool isExtensionMethod(String attr) {
     WTSDKBridgeItem? item = pointerAttributeMap[attr];
-    return item?.executeFunctionMap != null;
+    return item?.executeExtensionFunctionMap != null;
   }
 
-  Function? getExtensionMethod(dynamic value, String attr, WTTypeArgumentList? typeArgumentList) {
-    WTSDKBridgeItem item = pointerAttributeMap[attr]!;
-    var executeFunctionMap = item.executeFunctionMap;
-    if(executeFunctionMap == null)
+  Function? getExtensionMethod(dynamic value, String attr, WTTypeArgumentList? typeArgumentList, String? filePath, int? line) {
+    WTSDKBridgeItem? item = pointerAttributeMap[attr];
+    if(item == null)
       return null;
+    var executeFunctionMap = item.executeExtensionFunctionMap;
+    var getGenericFunctionMap = item.getGenericFunctionMap;
+    if(executeFunctionMap != null) {
+      Function? extensionMethod;
+      Map<String, Function>? executeGenericFunctionMap;
+      var keys = executeFunctionMap.keys.toList();
+      int size = keys.length;
+      for (var i = 0; i < size; ++i) {
+        var key = keys[i];
+        var item = executeFunctionMap[key];
+        if(key.getIsType(value)) {
+          extensionMethod = item?.executeFunction;
+          executeGenericFunctionMap = item?.executeGenericFunctionMap;
+          break;
+        }
+      }
 
-    Function? extensionMethod;
-    Map<String, Function>? executeGenericFunctionMap;
-    var keys = executeFunctionMap.keys.toList();
-    int size = keys.length;
-    for (var i = 0; i < size; ++i) {
-      var key = keys[i];
-      var item = executeFunctionMap[key];
-      if(key.getIsType(value)) {
-        extensionMethod = item?.executeFunction;
-        executeGenericFunctionMap = item?.executeGenericFunctionMap;
-        break;
+      if(typeArgumentList == null) {
+        return extensionMethod;
+      }else {
+        var runTimeType = typeArgumentList.getRuntimeType();
+        if(executeGenericFunctionMap != null &&
+            executeGenericFunctionMap.containsKey(runTimeType)) {
+          var value = executeGenericFunctionMap[runTimeType];
+          return value;
+        }else {
+          debugRuntimesError("""
+          Point attribute function failed to get Generic binding.
+          """,
+            null, null,
+            filePath, line
+          );
+          return extensionMethod;
+        }
       }
     }
-
-    if(typeArgumentList == null) {
-      return extensionMethod;
-    }else {
-      var keys = executeGenericFunctionMap?.keys?.toList();
-      int size = keys?.length ?? 0;
-      for (var i = 0; i < size; ++i) {
-        var key = keys![i];
-        var value = executeGenericFunctionMap![key]!;
+    else if(typeArgumentList != null && getGenericFunctionMap != null) {
+      var runTimeType = typeArgumentList.getRuntimeType();
+      var bredgeFunction = getGenericFunctionMap[runTimeType];
+      var value = bredgeFunction?.executeFunction;
+      if(value != null)
         return value;
-      }
+    }
+    else {
+      return getValue(value, attr, filePath, line);
     }
   }
 }
@@ -102,17 +123,18 @@ class WTSDKBridgeItem {
   Function? getValue;
   Function? setValue;
 
-  Map<WTVMBaseType, WTSDKBridgeItemFunction>? executeFunctionMap;
+  /// Execute extension method
+  Map<WTVMBaseType, WTSDKBridgeItemFunction>? executeExtensionFunctionMap;
+
+  Map<String, WTSDKBridgeItemFunction>? getGenericFunctionMap;
 
   static Map<String, WTSDKBridgeItem> _cacheMap = {};
   factory WTSDKBridgeItem(attributeName, {
     getValue,
     setValue,
-    executeFunctionMap
+    Map<WTVMBaseType, WTSDKBridgeItemFunction>? executeExtensionFunctionMap,
+    Map<String, WTSDKBridgeItemFunction>? getGenericFunctionMap,
   }) {
-    if(attributeName == 'obs')
-      int x =1;
-
     late WTSDKBridgeItem item;
     if(_cacheMap.containsKey(attributeName)) {
       item = _cacheMap[attributeName]!;
@@ -121,33 +143,42 @@ class WTSDKBridgeItem {
       item = _cacheMap[attributeName] = WTSDKBridgeItem._internal(attributeName,
           getValue: getValue,
           setValue: setValue,
-          executeFunctionMap: executeFunctionMap,);
+          executeExtensionFunctionMap: executeExtensionFunctionMap,
+          getGenericFunctionMap: getGenericFunctionMap,
+      );
       return item;
     }
 
     item.getValue ??= getValue;
     item.setValue ??= setValue;
-    if(executeFunctionMap != null) {
-      item.executeFunctionMap ??= {};
-    }
+    if(executeExtensionFunctionMap != null) {
+      item.executeExtensionFunctionMap ??= {};
 
-    var keys = executeFunctionMap.keys.toList();
-    int size = keys.length;
-    for (var i = 0; i < size; ++i) {
-      var key = keys[i];
-      WTSDKBridgeItemFunction value = executeFunctionMap[key];
-      if(item.executeFunctionMap!.containsKey(key) == false)
-        item.executeFunctionMap![key] = value;
-      var value2 = item.executeFunctionMap![key]!;
-      if(value2 != value) {
-        value2.executeFunction = value.executeFunction;
+      var keys = executeExtensionFunctionMap.keys.toList();
+      int size = keys.length;
+      for (var i = 0; i < size; ++i) {
+        var key = keys[i];
+        WTSDKBridgeItemFunction? value = executeExtensionFunctionMap[key];
+        if(item.executeExtensionFunctionMap!.containsKey(key) == false)
+          item.executeExtensionFunctionMap![key] = value!;
+        var value2 = item.executeExtensionFunctionMap![key]!;
+        if(value2 != value) {
+          value2.executeFunction = value!.executeFunction;
 
-        if(value2.executeGenericFunctionMap != null) {
-          value2.executeGenericFunctionMap ??= {};
-          _copyMap(value.executeGenericFunctionMap!, value2.executeGenericFunctionMap!);
+          if(value2.executeGenericFunctionMap != null) {
+            value2.executeGenericFunctionMap ??= {};
+            _copyMap(value.executeGenericFunctionMap, value2.executeGenericFunctionMap);
+          }
         }
       }
     }
+
+    if(getGenericFunctionMap != null) {
+      item.getGenericFunctionMap ??= {};
+      _copyMap(getGenericFunctionMap, item.getGenericFunctionMap!);
+    }
+
+
 
     return item;
   }
@@ -155,10 +186,13 @@ class WTSDKBridgeItem {
   WTSDKBridgeItem._internal(this.attributeName, {
     this.getValue,
     this.setValue,
-    this.executeFunctionMap,
+    this.executeExtensionFunctionMap,
+    this.getGenericFunctionMap,
   });
 
-  static void _copyMap(Map source, Map target) {
+  static void _copyMap(Map? source, Map? target) {
+    if(source == null || target == null)
+      return;
     var keys = source.keys.toList();
     int size = keys.length;
     for (var i = 0; i < size; ++i) {

@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// super构造函数调用
 class WTSuperConstructorInvocation extends WTBaseDeclaration {
@@ -6,23 +6,31 @@ class WTSuperConstructorInvocation extends WTBaseDeclaration {
 
   @override
   dynamic execute(Environment env) {
-    return executeSuper(env, parameters, codeFilePath, line);
+    return executeSuper(env, parameters, filePath, line);
   }
 
   static dynamic executeSuper(
       Environment env, List<WTBaseDeclaration>? parameters, String? filePath, int? line) {
-    Environment selfEnv = Environment.newInstance();
-    selfEnv.outer = env.outer;
+
     List positionalArguments = [];
     Map<Symbol, dynamic> namedArguments = Map<Symbol, dynamic>();
     WTMethodInvocation.initListParameters(
-        parameters, selfEnv, positionalArguments, namedArguments);
+        parameters, env, positionalArguments, namedArguments);
 
     WTClassPointer pointer = env.get(WTVMConstant.thisKeyword);
     WTClassMemory? superClassMemory = pointer.superClassMemory;
+    Environment? selfEnv;
+    if(superClassMemory != null) {
+      selfEnv = Environment.newInstance();
+      selfEnv!.outer = superClassMemory.staticEnv;
+    }
     var superPointer = pointer.superPointer = superClassMemory != null
-        ? WTMethodInvocation.executeMethod(selfEnv, superClassMemory,
-            positionalArguments, namedArguments, null, true, filePath, line)
+        ? WTMethodInvocation.executeMethod(
+            selfEnv, superClassMemory,
+            positionalArguments, namedArguments,
+            null, true,
+            null,
+            filePath, line)
         : null;
     return superPointer;
   }

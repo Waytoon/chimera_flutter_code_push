@@ -1,7 +1,9 @@
+bool? isForceDebug;
+
 bool? _isDebug;
 get isDebug {
   if(_isDebug == null) {
-    _isDebug = false;
+    _isDebug = isForceDebug == true;
     assert(() {
       _isDebug = true;
       return true;

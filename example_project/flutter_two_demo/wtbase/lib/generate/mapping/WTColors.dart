@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTColors extends WTVMBaseType<Colors> with BaseTypeUtils {
+class WTColors extends WTVMBaseType<Colors> {
   static WTColors? _instance;
   factory WTColors() => _instance ??= WTColors._internal();
 

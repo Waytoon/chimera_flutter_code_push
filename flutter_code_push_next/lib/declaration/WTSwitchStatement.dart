@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问开关声明
 class WTSwitchStatement extends WTBaseDeclaration {
@@ -18,13 +18,18 @@ class WTSwitchStatement extends WTBaseDeclaration {
       if (hasCase == false) {
         var oValue = o.condition.execute(selfEnv);
         if (conditionValue == oValue) {
-          outValue = o.execute(selfEnv);
           hasCase = true;
-
-          if (o.body != null) break;
+          if (o.body != null) {
+            outValue = o.execute(selfEnv);
+            break;
+          }
         }
       } else if (o.body != null) {
         outValue = o.execute(selfEnv);
+      }
+
+      if (selfEnv.get(WTVMConstant.returnKeyword, isDirect: true) == true) {
+        break;
       }
     }
 

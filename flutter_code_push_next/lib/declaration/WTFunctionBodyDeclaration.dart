@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 函数体声明
 class WTFunctionBodyDeclaration extends WTBaseDeclaration {

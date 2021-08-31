@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_code_push_next/index.dart';
 
-class WTColumn extends WTVMBaseType<Column> with BaseTypeUtils {
+class WTColumn extends WTVMBaseType<Column> {
   static WTColumn? _instance;
   factory WTColumn() => _instance ??= WTColumn._internal();
 

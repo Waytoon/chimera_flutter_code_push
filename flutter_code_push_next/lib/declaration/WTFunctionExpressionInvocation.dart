@@ -1,4 +1,4 @@
-import 'package:flutter_code_push_next/index.dart';
+import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// 访问函数表达式调用
 class WTFunctionExpressionInvocation extends WTBaseDeclaration {
@@ -17,7 +17,7 @@ class WTFunctionExpressionInvocation extends WTBaseDeclaration {
     String? methodName;
     String? operator;
     return WTMethodInvocation.staticExecuteWithTargetValue(
-        function, methodName, argumentsList!, typeArgumentList as WTTypeArgumentList?, operator, env, codeFilePath, line);
+        function, methodName, argumentsList!, typeArgumentList as WTTypeArgumentList?, operator, env, filePath, line);
   }
 
   @override
