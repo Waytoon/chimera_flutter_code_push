@@ -180,31 +180,32 @@ class WTClassPointer {
     }
   }
 
-  dynamic executeMethod(dynamic methodName, List positionalArguments,
+  dynamic executeMethod(dynamic method, List positionalArguments,
       [
         Map<Symbol, dynamic>? namedArguments,
         String? filePath,
         int? line,
         bool isIgnoredFunctionNotExist = true,
       ]) {
-    dynamic method = methodName;
-    if (methodName is String) {
-      method = getExecuteMethod(methodName);
+    var methodName;
+    if (method is String) {
+      methodName = method;
+      method = getExecuteMethod(method);
     }
     if (method == null) {
       if (withClassPointerList != null) {
         for (var withClassPointer in withClassPointerList!) {
-          var condition = withClassPointer!.containsKey(methodName);
+          var condition = withClassPointer!.containsKey(method);
           if (condition) {
             return withClassPointer.executeMethod(
-                methodName, positionalArguments, namedArguments,
+                method, positionalArguments, namedArguments,
                 filePath, line,
                 isIgnoredFunctionNotExist);
           }
         }
       }
       if(isIgnoredFunctionNotExist == false)
-        debugRuntimesError("execute $methodName is null", null, null, filePath, line);
+        debugRuntimesError("execute $method is null", null, null, filePath, line);
       return null;
     }
 
