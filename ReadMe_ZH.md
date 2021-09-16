@@ -29,6 +29,10 @@
 
     https://b23.tv/B2MShU
 
+    补充iOS发布教程
+
+    https://b23.tv/wnOHYV
+
 2. Flutter Gallery 接入 SDK 超详细教程
 
    https://b23.tv/PU8Jc9

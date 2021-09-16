@@ -28,6 +28,10 @@
 
     https://b23.tv/B2MShU
 
+    Supplement iOS release tutorial
+
+    https://b23.tv/wnOHYV
+
 2. Flutter Gallery access to SDK super detailed tutorial
 
    https://b23.tv/PU8Jc9
