@@ -6,12 +6,10 @@ class WTBinaryExpression extends WTBaseDeclaration {
   late WTBaseDeclaration rightOperand;
   late String operator;
 
-  Environment? _executeEnv;
-
   @override
-  dynamic execute(Environment env) {
+  dynamic execute(Environment executeEnv) {
     try {
-      var out = _execute(env);
+      var out = _execute(executeEnv);
       return out;
     }catch (e, s) {
       debugRuntimesError("Failed to execute operator $operator",
@@ -19,83 +17,85 @@ class WTBinaryExpression extends WTBaseDeclaration {
     }
   }
 
-  dynamic _execute(Environment env) {
-    _executeEnv = env;
+  dynamic _execute(Environment executeEnv) {
     var returnValue;
-    var tempLeft = leftValue;
+    var tempLeft = leftValue(executeEnv);
     var extensionMethod = sdkBridge.getExtensionMethod(tempLeft, operator, null, filePath, line);
     if(extensionMethod != null) {
-      var o = extensionMethod(tempLeft, rightValue);
+      var o = extensionMethod(tempLeft, rightValue(executeEnv));
       return o;
     }
     
     switch (operator) {
       case '&':
-        returnValue = tempLeft & rightValue;
+        returnValue = tempLeft & rightValue(executeEnv);
         break;
 
       case '+':
-        returnValue = tempLeft + rightValue;
+        var r = rightValue(executeEnv);
+        if(tempLeft == null || r == null)
+          int x=1;
+        returnValue = tempLeft + r;
         break;
 
       case '-':
-        returnValue = tempLeft - rightValue;
+        returnValue = tempLeft - rightValue(executeEnv);
         break;
 
       case '*':
-        returnValue = tempLeft * rightValue;
+        returnValue = tempLeft * rightValue(executeEnv);
         break;
 
       case '/':
-        returnValue = tempLeft / rightValue;
+        returnValue = tempLeft / rightValue(executeEnv);
         break;
 
       case '~/':
-        returnValue = tempLeft ~/ rightValue;
+        returnValue = tempLeft ~/ rightValue(executeEnv);
         break;
 
       case '%':
-        returnValue = tempLeft % rightValue;
+        returnValue = tempLeft % rightValue(executeEnv);
         break;
 
     /// 关系运算符
       case '==':
-        returnValue = tempLeft == rightValue;
+        returnValue = tempLeft == rightValue(executeEnv);
         break;
 
       case '!=':
-        returnValue = tempLeft != rightValue;
+        returnValue = tempLeft != rightValue(executeEnv);
         break;
 
       case '>':
-        returnValue = tempLeft > rightValue;
+        returnValue = tempLeft > rightValue(executeEnv);
         break;
 
       case '<':
-        returnValue = tempLeft < rightValue;
+        returnValue = tempLeft < rightValue(executeEnv);
         break;
 
       case '>=':
-        returnValue = tempLeft >= rightValue;
+        returnValue = tempLeft >= rightValue(executeEnv);
         break;
 
       case '<=':
-        returnValue = tempLeft <= rightValue;
+        returnValue = tempLeft <= rightValue(executeEnv);
         break;
 
       case '??':
-        returnValue = tempLeft ?? rightValue;
+        returnValue = tempLeft ?? rightValue(executeEnv);
         break;
 
       case '||':
-        returnValue = tempLeft || rightValue;
+        returnValue = tempLeft || rightValue(executeEnv);
         break;
 
       case '&&':
         returnValue = false;
 
         if (tempLeft) {
-          var tempRight = rightValue;
+          var tempRight = rightValue(executeEnv);
           if (tempRight) {
             returnValue = true;
           }
@@ -109,19 +109,17 @@ class WTBinaryExpression extends WTBaseDeclaration {
         );
         break;
     }
-
-    _executeEnv = null;
     return returnValue;
   }
 
-  dynamic get leftValue {
-    dynamic leftValue = leftOperand.execute(_executeEnv!);
-    return leftValue;
+  dynamic leftValue(Environment executeEnv) {
+    dynamic result = leftOperand.execute(executeEnv);
+    return result;
   }
 
-  dynamic get rightValue {
-    dynamic rightValue = rightOperand.execute(_executeEnv!);
-    return rightValue;
+  dynamic rightValue(Environment executeEnv) {
+    dynamic result = rightOperand.execute(executeEnv);
+    return result;
   }
 
   @override

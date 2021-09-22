@@ -101,9 +101,9 @@ class ClassFunctionMemoryPointer {
     return;
 
     /// 拷贝需要考虑情形
-    outerEnv = Environment.newInstance();
-    outerEnv!.store = {...tempEnv!.store};
-    outerEnv!.outer = tempEnv!.outer;
+    // outerEnv = Environment.newInstance();
+    // outerEnv!.store = {...tempEnv!.store};
+    // outerEnv!.outer = tempEnv!.outer;
   }
 
   dynamic call0() {

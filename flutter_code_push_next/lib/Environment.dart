@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter_code_push_next/InternalIndex.dart';
 
 /// Everything is an object, and some objects retain the left value (parent),
@@ -7,14 +9,14 @@ import 'package:flutter_code_push_next/InternalIndex.dart';
 class Environment {
   static Function newInstance = () => Environment();
 
-  late Map<String, dynamic> store;
+  late HashMap<String, dynamic> store;
   Environment? outer;
 
   Environment({Map<String, dynamic>? store}) {
     if(store == null) {
-      this.store = {};
+      this.store = HashMap();
     }else {
-      this.store = store;
+      this.store = HashMap.from(store);
     }
   }
 
