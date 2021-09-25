@@ -36,6 +36,21 @@
 
    https://b23.tv/PU8Jc9
 
+## New World
+
+​		Execution performance is increased by 10 times, WebAssembly bytes are generated, and WebAssembly bytecodes are interpreted and executed on the 
+machine to improve virtual performance.
+
+​		There are two options
+
+​		Solution 1: performance can be infinitely close to Dart AOT performance, but whether iOS supports **TBD**.
+​		Solution 2: Performance increase 10 times execution performance, support all platforms.
+
+​		Regarding performance improvement, I don't recommend having to generate WebAssembly bytecode. Determine whether bytecode needs to be generated according to the scenario (for example, there is a large amount of data calculation), or a separate thread (Isolate) can be set to support it.
+
+​		It is recommended to compile a small part of Dart code to generate WebAssembly.
+
+
 ## Participate in contribution
 
 We still have a lot of work to do in improving and constructing supporting facilities. Everyone is welcome to participate in the development.
@@ -48,8 +63,6 @@ z888888cn@gmail.com
 ## Sponsor
 
 If you are also interested in sponsoring us, welcome to add WeChat~
-
-## invite me to drink coffee
 
 <div  align="center">    
   <img src="./imgs/wx_pay.jpg" width="20%" height="20%" alt="WXPAY" align=center />

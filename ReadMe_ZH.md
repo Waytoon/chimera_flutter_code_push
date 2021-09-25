@@ -17,8 +17,6 @@
 
 ​		我们开源的示例工程（Flutter Gallery），Flutter Gallery是Google官方的示例App，里面用到了许多Dart特性，并且我们都已经全部支持了语法。
 
-
-
 ## 接入教程
 
 ​		目前我们只支持Flutter2以上的版本，旧版本因人手不够，索性直接放弃了，相信大家都会升级到Flutter2版本。
@@ -36,6 +34,18 @@
 2. Flutter Gallery 接入 SDK 超详细教程
 
    https://b23.tv/PU8Jc9
+   
+## 新大陆
+   提升10倍执行性能，生成WebAssembly字节，在通过虚拟机解释执行WebAssembly字节码从而来提升性能。   
+   目前有两种方案
+   
+   第一种方案：性能可以无限接近于Dart AOT性能，但是是否支持iOS还有**待确认**。
+   
+   第二种方案：性能提升10倍执行性能，支持所有平台。
+   
+   关于性能提升这块，我不建议大家一定要生成WebAssembly字节码，而是根据场景来判断是否需要生成字节码（比如有大量的数据计算），不过偶尔比较卡的，还可以单独起一个线程（Isolate）来支持。
+   
+   推荐把少部分Dart代码编译生成WebAssembly.
 
 ## 参与贡献
 
@@ -56,8 +66,6 @@ QQ群：512747889<br>
 ## 赞助
 
 如果你也有赞助我们的兴趣，欢迎添加微信哦~
-
-## 请我喝咖啡
 
 <div  align="center">    
   <img src="./imgs/wx_pay.jpg" width="20%" height="20%" alt="WXPAY" align=center />
