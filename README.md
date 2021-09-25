@@ -38,17 +38,18 @@
 
 ## New World
 
-​		Execution performance is increased by 10 times, WebAssembly bytes are generated, and WebAssembly bytecodes are interpreted and executed on the 
+Execution performance is increased by 10 times, WebAssembly bytes are generated, and WebAssembly bytecodes are interpreted and executed on the 
 machine to improve virtual performance.
 
-​		There are two options
+There are two options
 
-​		Solution 1: performance can be infinitely close to Dart AOT performance, but whether iOS supports **TBD**.
-​		Solution 2: Performance increase 10 times execution performance, support all platforms.
+Solution 1: performance can be infinitely close to Dart AOT performance, but whether iOS supports **TBD**.
 
-​		Regarding performance improvement, I don't recommend having to generate WebAssembly bytecode. Determine whether bytecode needs to be generated according to the scenario (for example, there is a large amount of data calculation), or a separate thread (Isolate) can be set to support it.
+Solution 2: Performance increase 10 times execution performance, support all platforms.
 
-​		It is recommended to compile a small part of Dart code to generate WebAssembly.
+Regarding performance improvement, I don't recommend having to generate WebAssembly bytecode. Determine whether bytecode needs to be generated according to the scenario (for example, there is a large amount of data calculation), or a separate thread (Isolate) can be set to support it.
+
+It is recommended to compile a small part of Dart code to generate WebAssembly.
 
 
 ## Participate in contribution
