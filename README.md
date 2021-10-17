@@ -1,6 +1,12 @@
+[中文版](https://github.com/Waytoon/chimera_flutter_code_push/blob/main/ReadMe_ZH.md)
+
 # Chimera Flutter Code Push
 
 ​		Chimera is a Dart compiler developed by ourselves, which generates interpretable and executable bytecode to implement code push (hot update).
+
+## Look for like-minded people to join this project
+
+​		I hope more people will participate in this project. Among many customers, the most difficult thing is to use, so I want to open up the core principles of the compiler code so that everyone can be familiar with this project and solve problems. So if you have time and are interested in developing and helping, you can join us. If the project is profitable, all people participating in the project can get cash rewards. Friends who are helpful to this project, welcome to contact us.
 
 ## Advantages of our products
 
@@ -60,14 +66,4 @@ I need a friend who knows how to develop web. Hope to help develop the official 
 
 ## Email contact
 z888888cn@gmail.com
-
-## Sponsor
-
-If you are also interested in sponsoring us, welcome to add WeChat~
-
-<div  align="center">    
-  <img src="./imgs/wx_pay.jpg" width="20%" height="20%" alt="WXPAY" align=center />
-  <img src="./imgs/zfb_pay.jpg" width="20%" height="20%" alt="ALIPAY" align=center />
-</div>  
-
 
